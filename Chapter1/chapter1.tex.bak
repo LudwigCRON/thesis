@@ -1,0 +1,35 @@
+%!TEX root = ../thesis.tex
+%*******************************************************************************
+%*********************************** First Chapter *****************************
+%*******************************************************************************
+
+\chapter{Introduction}  %Title of the First Chapter
+
+\ifpdf
+    \graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
+\else
+    \graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
+\fi
+
+
+%********************************** %First Section  **************************************
+\section{Motivation}   % section 1.1
+automotive environment at a turning point turning more and more to a connected object.
+
+add graphic of the market share in automotive electronic
+give some info from nxp \url{https://www.nxp.com/docs/en/supporting-information/WBNR_FTF10_AUT_F0747_PDF.pdf}
+
+add some info from melexis study (ask PLA)
+
+The sensor market is arguably the most important. Among all sensors, the trends is driven by the autonomous car, and both lidar and tof camera are ever more developed. The Smartness of our vehicle is given by strong processing unit which could not stand the harsh environment in which most of sensors should sustain. 
+
+Analog-to-Digital Converters are therefore at the interface between the sensors and the processing unit.
+
+--> should sustain the high temperature, mechanical stress, etc. of the sensors world and communicate fast with a small latency to the processing unit.
+--> low power consumption needed. As an exemple, list some publication or information from existing ADC chips such as TI, ADI, LT.
+
+\section{Organization} % section 1.2
+scope limitation, my contribution and organization
+plan of the thesis what is discuss in each section
+
+

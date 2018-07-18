@@ -1,0 +1,24 @@
+%!TEX root = ../thesis.tex
+% ******************************* Thesis Appendix B ****************************
+
+\chapter{Frequency Jitter impact on the delay measurement circuit}
+\label{app:delay_circuit_jitter}
+This appendix has the goal to estimate the error on the delay measurement due to an error on the frequency measurement. We consider the error on frequency due to the jitter.
+
+The estimated error on the delay is linked to the variation in frequency of the calculated DLY\_FREQ frequency in each operating mode (calibration mode and run mode) as follows
+
+\begin{align}
+\varepsilon_{t_{delay}+t_{reset}} &= \frac{1}{N} \left(\frac{1}{F_1}-\frac{1}{F_2} \right) \left(1 - \frac{1}{1+\frac{F_{jitter1}}{F_1}+\frac{F_{jitter2}}{F_2}+\frac{F_{jitter1}}{F_1}\frac{F_{jitter2}}{F_2}} \right) \\
+&- \frac{1}{NF_1 F_2} \frac{\frac{F_{jitter1}}{F_1}+\frac{F_{jitter2}}{F_2}}{1+\frac{F_{jitter1}}{F_1}+\frac{F_{jitter2}}{F_2}+\frac{F_{jitter1}}{F_1}\frac{F_{jitter2}}{F_2}} \nonumber
+\end{align}
+
+where $F_1$ and $F_2$ are respectively the frequency measured due when CALIBN=1 and CALIBN=0, $F_{jitteri}$ is the measured frequency jitter on the frequency $F_i$, and N represents the frequency divider ratio.
+
+If we consider $\frac{F_{jitteri}}{F_i}$ follows a centered normal distribution of variance $\sigma_i^2$, thus the expectation of the error is approximately zero and the variance of the error is given by the following formula:
+\begin{equation}
+Var\left(\varepsilon_{t_{delay}+t_{reset}}\right) = \left(\frac{1}{N^2} \left(\frac{1}{F_1}-\frac{1}{F_2} \right)^2 + \frac{1}{\left(NF_1F_2\right)^2} \right) \left(\sigma_1^2+\sigma_2^2 \right)
+\end{equation}
+
+This is based on the Taylor expansion to the first order of 1/1+x. In consequence, bigger the number N is better is the accuracy of the measure with respect to the frequency jitter. Unfortunately, this comes at a price on the resolution of the frequency meter used and the cumulative noise of the frequency divider which alter the phase.
+
+With a peak-jitter of 140 Hz on DLY\_FREQ for a frequency generated of 6 MHz and 2.9 MHz, the estimated error coming from the jitter is 6.5 ps. Therefore, the error introduced by the jitter of the circuit is considered negligible if the error exceed 100 ps.

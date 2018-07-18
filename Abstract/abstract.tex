@@ -1,0 +1,236 @@
+%!TEX root = ../thesis.tex
+% ************************** Thesis Abstract *****************************
+% 4eme de couverture
+\ifthispageodd{\newpage\thispagestyle{empty}\null\newpage}{}
+\thispagestyle{empty}
+\newgeometry{top=1.5cm, bottom=1.25cm, left=2cm, right=2cm}
+%\fontfamily{rm}\selectfont
+
+\lhead{}
+\rhead{}
+\rfoot{}
+\cfoot{}
+\lfoot{}
+
+\noindent 
+%*****************************************************
+%***** LOGO DE L'ED À CHANGER ÉVENTUELLEMENT *********
+%*****************************************************
+\includegraphics[height=2.45cm]{Figs/EOBE.png}
+\vspace{1cm}
+%*****************************************************
+
+\begin{mdframed}[linecolor=Prune,linewidth=1]
+\vspace{-.25cm}
+\paragraph*{Titre:} 
+Analyse d'une nouvelle topologie fiable de convertisseur analogique-numerique pour \newline l'environement automobile
+% \begin{small}
+\vspace{-.25cm}
+\paragraph*{Mots clés:} 
+
+\vspace{-.5cm}
+\paragraph*{Résumé:} 
+Alors que l'électronique automobile voit une forte expansion de la demande de capteurs intelligents avec une intégration de plus en plus pousse, les interfaces entre les capteurs et les contrôleurs ayant la puissance de calcul se trouvent être rapprochées des capteurs. De ce fait, les contraintes de stress mécanique et thermique deviennent des facteurs importants lors de la conception de convertisseur analogique-numérique ou de convertisseur numérique-analogique.
+
+Dans le cadre de cette thèse, nous nous focalisons sur la conception d'un convertisseur analogique-numérique servant pour la conversion de signaux issue de capteurs de température, pression, courant, mais aussi pour une future application en tant que convertisseur dans une chaîne the conversion de télécommunication. Le challenge de la conception d'un tel ADC réside dans la forte contrainte de rapidité et de résolution sur une plage de températures importantes: de -40 $\degree$C a +175 $\degree$C.
+
+Ayant une contrainte économique d’autant importante, le cout réduit sera issu de la faible surface de silicium de ce composant alliée à une économie d’échelle mondiale que le secteur automobile connaît. Comme expose dans le tableau~\ref{tbl:adc-spec-fr}, la surface n’excédera pas 0.5 $\rm mm^2$. Il est toutefois important de noter que le ratio entre la fréquence d'horloge maximal et la fréquence d'échantillonnage est seulement de 5. Ce ratio lie au sur-échantillonnage est très faible pour réaliser une conversion de 12-bits de résolution.
+
+\begin{center}
+    \centering
+    \captionof{table}{Spécification du convertisseur analogique-numérique}
+    \label{tbl:adc-spec-fr}
+    \rowcolors{2}{gray!15}{white}
+    \begin{tabular}{ll}
+        \toprule
+                                     & Criteres                                                                                                                                                   \\ \midrule
+    Plage de Temperature            & -40 $\degree$ C -- +175 $\degree$ C                                                                                               \\
+    Tension d'alimentation                   & 1.8 V $\pm$ 10 \%                                                                                                                              \\
+    Plage de la tension differentielle d'entree & $\pm$ 1V                                                                                                                                       \\
+    Surface                             & \textless 0.5 \(mm^2\)                                                                                                                                      \\
+    Frequence d'echantillonage       & 20 MSamples/s                                                                                                                                               \\
+    Frequence d'horloge maximum      & 100 MHz
+    Duty-Cycle de l'horloge                & 40 -- 60 \%                                                                                                                                                 \\
+    Latence                          & 500 ns                                                                                                                                                      \\
+    Resolution                       & $\geq$ 12-bits                                                                                                                                     \\
+    DNL                              & \textless LSB/2                                                                                                                                             \\
+    INL                              & \textless LSB/2 best-fit method                                                                                                                             \\
+    Erreur d'Offset                     & \textless 4 LSB                                                                                                                                             \\
+    Erreur de Gain                       & \textless 4 LSB                                                                                                                                             \\
+    Erreur d'appariement entre deux ADC      & \textless 4 LSB                                                                                                                                             \\
+    Energie, $E_s = P/F_s$            & 0.75 nJ/sample      \\ \bottomrule                                                                                                                                       
+    \end{tabular}
+\end{center}
+
+Suite à l’analyse architecturale de convertisseurs traditionnels et de leurs avancées dans le chapitre~\ref{sec:soa}, les avantages et les sources source d’erreurs dans la partie analogique nous permet de sélectionner les architectures pour la haute température. Pour en nommer quelques un , on retrouve dans l’état de l’art des convertisseurs du type \(\Sigma \Delta\), les SAR, et les convertisseurs Pipelined. Ceux-ci se trouvent être moins sensible à la variation de performance de l’amplificateur s'il y a, et permet avec une calibration en un seul point en température de compenser ces imperfections.
+
+La section~\ref{sec:temperature-analogue} discute les challenges que pose la conception analogique en température: que cela soit pour -40 \(\degree\)C jusqu’à +175 \(\degree\)C. Les phénomènes physiques en jeu avec les températures sont analysés afin de déduire les compromis existant auquel nous devrons faire face.  Base sur une méthodologie \(g_m/I_D\), l’aperçu offert par cette analyse est directement exploitable pour la phase de conception analogique.
+
+\begin{center}
+    \centering
+    \input{Chapter2/Figs/Vector/tradeoffs-fr.pgf}
+    \captionof{figure}{Compromis de conception analogique en fonction de la largeur du canal des transistors et de leur niveau d'inversion}
+    \label{fig:tradeoffs-fr}
+\end{center}
+
+La contrainte de faible sur-échantillonnage limite l'utilisation à une architecture du type de pipelines pour atteindre une résolution d'au moins 12-bits. Ayant de nombreux étages, et amplificateurs, tant la consommation que la surface de silicium nécessaire peuvent être optimisées. La contribution de cette thèse réside dans le développement d'une nouvelle architecture reposant sur trois sous-convertisseurs d'une topologie différente. Ainsi, l'architecture globale proposée combine les forces de chaque sous-convertisseur pour réduire le bruit dans la bande de fréquences de conversion, diminuer la surface de silicium, réduire la consommation énergétique, et limiter la chute de résolution avec les variations de procédé de fabrication, de tension d'alimentation, et de température.
+
+Commençant par un convertisseur $\Sigma\Delta$-Incremental, le niveau de bruit se trouve être abaissé par un facteur de 8 au bout de 5 coups d'horloge. Et celui-ci nous permet d'extraire un équivalent de 3-bits sans souffrir des variations du procédé de fabrication si l'on considère une calibration numérique. Suivi par une algorithmique, le résidu de conversion subit 5 transformations consécutives afin d'extraire à nouveau 5-bits avec une contrainte de conception limiter à 9-bits. Ayant une technique permettant un appariement suffisant pour atteindre les 10-bits, la sensibilité de cet étage s'en trouve amoindrir pour correspondre aux dégradations de l'analogique due à la température et variation de dopage. Enfin, un SAR avec redistribution de charge permet d'extraire au maximum 4-bits supplémentaires avec une consommation énergétique réduite.
+
+\begin{center}
+    \centering
+    \begin{minipage}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter4/Figs/architecture-full-principle.ps}
+        a) architecture originelle
+        \vspace{2em}
+    \end{minipage}
+    \begin{minipage}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter4/Figs/architecture-full-principle-final.ps}
+        b) amélioration
+    \end{minipage}
+	\captionof{figure}{Architecture hybride en trois étages et son amélioration pour ajouter un bit supplémentaire en minimisant la surface estime en utilisant les derniers bits d'un convertisseur algorithmique comme premiers bits d'un sar a redistribution de charge}
+	\label{fig:final-prop-adc-architecture}
+\end{center}
+Fort de ceci, et des limitations en température qu'imposent les courants de fuites, des améliorations furent portes à l'architecture proposée. Dans un premier temps, un comparateur fut ajouté au sein de l'algorithmique. Ce dernier permet d'utiliser les derniers bits fournit aux derniers coups d'horloge d'un échantillon, comme les deux premiers bits issus de la conversion du SAR\@. La répartition des bits est donc 3.4.5.5 au lieu de 3-5-3.5. Le bit supplémentaire fut dans un second temps utilisé pour rendre la SAR moins sensible aux mauvaises décisions venant de l'algorithmique, et d'une génération des tensions de référence par suffisamment précise. En plus de cela, en changeant le radix, la sensibilité due aux courants de fuites est aussi diminuée puisqu'une redondance est introduite et que le pas du LSB est plus grand. Enfin, il fit envisager d'améliorer encore la résolution pour un sur-échantillonnage de 6 coups d'horloge au lieu de 5. L'utilisation d'un coup d'horloge supplémentaire permet d'atteindre la résolution de 13.9-bits.
+
+En plus de l'optimisation de l'architecture, le Chapitre~\ref{sec:adc-implementation} présente les considérations prises lors du dimensionnement et lors du layout en vue d'une répétabilité accrue pour une moindre surface.
+
+La fiabilité ne fut pas laisse en reste même si le dernier étage emploie un design pseudo asynchrone afin de relâcher la contrainte de temps sur la prise de décision du comparateur dépendant de la température. Suivant une approche top-down, l'architecture fut d'abord validée par une simulation MATLAB puis Spice Haut niveau. Cette dernière nous a permis d'estimer plus précisément les spécifications des sous-blocs analogiques principaux en utilisant des modèles Verilog-AMS\@. Puis ceux-ci furent remplacées par leur implémentation au niveau transistor, et par une netlist spice après extraction des parasites due au layout. Les performances statiques telles que la précision, le DNL, l'INL, \ldots sont le résultat d'un post-traitement MATLAB des simulations MATLAB et Spice.
+
+Parmi l'ensemble des implémentations possibles décrit dans le début du chapitre~\ref{sec:analog-building-bloc}, les sous-blocs analogiques principaux choisis sont le Strong ARM latch, le Double-Tail latch, et le Gain-Boosted Complementary Folded Cascode. Dans l'état de l'art, les deux latches choisies et leurs dérivés sont les plus choisies. Bien que les équations de conception sont connues, leur sensibilité à la température l'est beaucoup moins. Les deux comparateurs sont donc analyses et comparent afin de choisir le plus approprient pour chaque étage du convertisseur pour une variation de 6$\sigma$ des paramètres du procédé de fabrication. Issu de ce travail un nouveau modèle analytique pour le délai du Double-Tail fut présentée lors de l'ECCTD qui s'est tenu en 2017.
+
+\begin{center}
+    \centering
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Abstract/Figs/sa_designed.eps}
+        a) Strong-Arm latch
+    \end{minipage}
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter7/Figs/layout-slow-sa.png}
+        b) Strong-Arm Layout
+    \end{minipage}
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \resizebox {\textwidth} {!} { 
+            \input{Abstract/Figs/delay.pgf}
+        }
+        c) temps de reponse
+    \end{minipage}
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Abstract/Figs/dtl_designed.eps}
+        d) Double-Tail latch
+    \end{minipage}
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter7/Figs/layout-slow-dtl.png}
+        e) Double-Tail Layout
+    \end{minipage}
+    \begin{minipage}[b]{0.33\textwidth}
+        \centering
+        \resizebox {\textwidth} {!} { 
+            \input{Abstract/Figs/power_avg.pgf}
+        }
+        f) consommation
+    \end{minipage}
+    \captionof{figure}{Comparateurs conçu pour la température}
+\end{center}
+
+Quant à l'amplificateur, si l'on considère un processus en 180 nm, la plupart des publications ont été publiées entre 2001 et 2008. Sur cette période, le Folded-Cascode, les OTA à deux étages, et ceux basées sur du gain-Boosting sa légion avec une préférence pour un Folded Cascode suivit par un étage en source-follower pour améliorer l'excursion de sortie. Pour des raisons de rapidité et de stabilité, le gain-boosting d'un OTA de classe AB fut privilégié. Les choix de conception et les contraintes liées au layout représenté à la \figurename~\ref{fig:ota-fr} sont aussi discutés dans ce chapitre.  En matière de bruit, l'OTA génère un bruit maximum estimé de 198 \(\mu V _{rms} \) correspondant à 82\% du LSB d'un 12-bit sur l'excursion du résidu du premier étage. La consommation en courant n'excédant pas 1.8 ma, la consommation moyenne totale de l'analogique est estimée à 7 mW avec un maximum admis à -40 $\degree$C dans le corner FF de 14 mW.
+
+\begin{center}
+    \centering
+    \includegraphics[width=0.65\textwidth]{Chapter7/Figs/layout_ota_v2-fr.png}
+    \captionof{figure}{Dessin de l'OTA conçu de dimension \(52 \mu m \times 128 \mu m\) avec une double pair differentielle interdigitee et common-centroid}
+    \label{fig:ota-fr}
+\end{center}
+
+Étant donne la polyvalence souhaitée du convertisseur et en vue de sa réutilisation, chaque élément de sa composition est validé expérimentalement. Ainsi, trois puces de testés différents furent conçues et présentes dans le chapitre~\ref{sec:tests-meas}. La première permet de valider le délai, l'offset, le bruit, l’hystérésis des comparateurs. Au cours de sa conception, un circuit de mesure du délai des comparateurs synchrones fut présenté lors de l'ECCTD 2017. Les résultats en température obtenus pour ce circuit s'accordent avec le modèle du délai pour et démontrent de bonne performance en raison de sa taille en comparaison des circuits existant tel que dépeint a la \figurename~\ref{fig:meas_circ_schem-fr}. La seconde valide le fonctionnement pseudo asynchrone et les performances statiques du SAR en température. Suite aux améliorations de l'architecture, la testabilité du dernier étage se complexifie. Les procédures de testés s'en trouvent donc modifiées et sont présentées. Le SAR démontre en température une importante stabilité de la pondération de chaque bit. Ce résultat permet donc de réutilise cet étage pour la calibration des précédents, comme de réduire le temps de test de cet étage. Enfin, la dernière puce permet de valider chaque étage indépendamment et le convertisseur dans sa globalité. Cette dernière n'est pas encore envoyée en fonderie et par conséquent seulement la conception et les principes des tests à effectuer sont discutés.
+
+\begin{center}
+    \centering
+    \begin{minipage}[b]{0.30\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter5/Figs/test_delay_comp_new_simp.ps}
+        a) Schematique
+    \end{minipage}
+    \begin{minipage}[b]{0.38\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{Chapter5/Figs/layout_delay_meas.eps}
+        b) Layout
+    \end{minipage}
+    \begin{minipage}[b]{0.30\linewidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{Abstract/Figs/delay_vs_meas-fr.pgf}
+        }
+        c) Mesures
+    \end{minipage}
+    \captionof{figure}{auto-oscillateur asynchrone pour la mesure différentielle du délai avec une résolution de 60 ps}
+	\label{fig:meas_circ_schem-fr}
+\end{center}
+
+Au final, les résultats préliminaires sont encourageants sur les capacités de l'architecture hybride proposée en vue d'une haute résolution à une vitesse d'échantillonnage modérée. Réalisé dans une technique SOI CMOS 180 nm, la sensibilité vis-à-vis de la température est moindre en comparaison de publication de convertisseur analogique-numérique en haute température subissant une chute de 2-bits sur la même plage de températures~\cite{Ericson2004}. La résolution espérée serait de 11,2 bits et 13,2 bits pour respectivement un sur-échantillonnage de 5 et 6 coups d'horloge. Cela correspond à un facteur de mérite de Walden valant 124 ff/conversion et un facteur de mérite de Schreier valant 159. Ceci place la nouvelle architecture réalisée dans la frange moyenne des convertisseurs analogique-numérique selon le critère de Walden, et le critère de Schreier tel que représente dans la \figurename~\ref{fig:fom-fr}.
+
+\begin{center}
+    \centering
+    \begin{minipage}[b]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{Abstract/Figs/WaldenFoM-a.pdf}
+        a) Walden
+    \end{minipage}
+    \begin{minipage}[b]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{Abstract/Figs/SchreierFoM-a.pdf}
+        b) Schreier
+    \end{minipage}
+    \captionof{figure}{Comparaison du convertisseur (grand point rouge) a ceux publiees dans ISSCC et VLSI}
+	\label{fig:fom-fr}
+\end{center}
+
+Afin d'améliorer cela, l'OTA pourrait être remplacé par une architecture moins gourmande, tel qu'une source de courant piloter par un comparateur en temps continue, ou un ring amplifier. En plus de cela une calibration numérique, permettrait de relâcher la contrainte de timing et de toujours atteindre le nombre de bits effectif.
+
+% \end{small}
+\end{mdframed}
+
+\clearpage
+\begin{mdframed}[linecolor=Prune,linewidth=1]
+\vspace{-.25cm}
+\paragraph*{Title:} A New ADC topology for reliable conversion in the automotive environment
+
+\begin{small}
+\vspace{-.25cm}
+\paragraph*{Keywords:} 
+
+\vspace{-.5cm}
+\paragraph*{Abstract:} 
+%-- paragraph de presentation
+In the automotive industry, the trend being to develop smart sensors and actuators, the on-board electronic is ever more an artful work to combine analog electronic and digital one. While many monitoring and control systems play a crucial role as well for the safety as for the comfort of passengers, small components, like ADCs, are mandatory as a building block or as an essential functionality integrated into smart actuators. To that extent, a low-cost, fast and accurate analog to digital converter operating in those harsh conditions is a good ally for equipment manufacturers. To decrease the cost, the area is of primary concern. Considering re-use of the ADC as an IP-bloc, the area has been limited to less than half a square millimeter for an low-oversampling ratio of 5 to output a 12-bits code at a sample rate of 20 MSamples/s, over a wide temperature range from -40\(\degree \)C to 175\(\degree \)C.
+
+%-- paragraph sur le but
+This work focuses on the design of high-precision, high-speed and energy efficient ADC under the harsh environment the automotive one represents. Our main contribution relies on the development of an new hybrid topology proposal using 3 stages to cope with such constraints based on a top-down approach: A first counting stage inherently linear, an algorithmic stage allowing to increase rapidly the precision, and a SAR stage, ideal in terms of area and consumption, for a low number of bits.
+
+%-- paragraph sur la method
+Based on a 40 years literature review, a new topology proposal has been validated by checking its static metric of non-linearity (DNL, INL) at different level of modelisation. Starting by a MATLAB implementation without analog limitations, we refined step by step the model till we reach a transistor level of the ADC\@. Thence, Verilog-A model allows us to fix the minimum requirements of the key analog building blocs, to wit comparators and OTA\@. The latter has been analysed in order to limit the settling error sensitivity to the temperature. Laid-out, parasitic extracted simulation results of these considering PVT variations, they replaces then previous high-level model to give final performances. Meanwhile, two well-known comparator architectures have been assessed as IP blocs inside a first test chip. To perform the offset extraction, both a conventional and a feedback loop have been inspected. To assess, the delay a new asynchronous curcuit has been proposed. A second chip tests the sensitivity of the SAR to validate both the pseudo-asynchronous digital scheme, and a Double-Tail comparator in real operating conditions.
+
+%-- paragraph sur les resultats
+For comparators, the new differential measurement circuit of the delay demonstrate an accuracy of 60 ps in worst case, over a large temperature range for the smallest chip area known with respect to the technology node size. The temperature variation of the delay being temperature dependant, the choice of a Strong-ARM or a Double-Tail hinge on the noise, power, supply voltage, and kickback specification. For standard power supply voltage, the Strong-ARM latch targets low-power systems application with a high tolerance for differential kickback. To the contrary, a Double-Tail latch allows lower power supply voltage range, with low-differential kickback. Otherwise, the Double-Tail exhibit a higher noise due to the integration in its first stage. Tested from -40$\degree$C to 200$\degree$C, the last stage of the proposed ADC topology does not need calibration up to 180$\degree$C. The encouaging results on this stage allows the re-use of the SAR to calibrate of previous stage. And considering the ADC, we estimate a possible resolution of 11.2-bits in 5 clock cycles per sample with an extension to 13.3-bits in 6 clock cycles with an estimated area of 0.067 $\rm mm^2$.
+
+%-- paragraph sur les recommendations
+The ADC test chip not being fabricated yet, a first step is the characterization of the ADC\@. From the results of the planned measurement session, the main goal is to push the architecture at higher sampling rates to then leverage the digital processing to enhance the sampling rate without changing the analog.
+\end{small}
+\end{mdframed}
+
+%************************************
+\vspace{3cm} % ALIGNER EN BAS DE PAGE
+%************************************
+\fontfamily{fvs}\fontseries{m}\selectfont
+\begin{tabular}{p{14cm}r}
+\multirow{3}{16cm}[+0mm]{{\color{Prune} Université Paris-Saclay\\
+Espace Technologique / Immeuble Discovery\\
+Route de l’Orme aux Merisiers RD 128 / 91190 Saint-Aubin, France}} & \multirow{3}{2.19cm}[+9mm]{\includegraphics[height=2.19cm]{Figs/e.pdf}}\\
+\end{tabular}

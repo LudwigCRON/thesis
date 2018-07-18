@@ -1,0 +1,43 @@
+%!TEX root = ../thesis.tex
+% ******************************* Thesis Appendix B ****************************
+
+\chapter{Accuracy needed for comparators offset measurement}
+\label{app:acc-offset}
+
+Let us assume, for the average voltage of the offset N samples ($x_i ~ N(\overline{x}^*, \sigma^2)$) The average and the standard deviation is thus given by:
+\begin{equation}
+    \overline{x} = \frac{1}{N}\sum_{i=0}^{N-1}{x_i}
+\end{equation}
+and
+\begin{equation}
+    \sigma_{offset} = \sqrt{\frac{1}{N-1}\sum_{i=0}^{N-1}{(x_i - \overline{x})^2}}
+\end{equation}
+
+The error committed with respect to the true offset value ($\overline{x}^*$) is calculated by:
+\begin{equation}
+    \varepsilon_{\overline{x}} = \overline{x}^*-\overline{x} = \overline{x}^* - \frac{1}{N}\sum_{i=0}^{N-1}{x_i}
+\end{equation}
+
+Thus a non-biased measure gives an expectation of the error tending to zero. This is equivalent to say that
+the probes have no offset and have been calibrated.
+
+In consequence, the error for a given measure comes from the standard deviation of a measure: the
+precision of probes.
+
+\begin{equation}
+    Var\left(\varepsilon_{\overline{x}}\right) = Var\left(\overline{x}^*\right) + Var\left( \right) = \frac{1}{N^2} \sum_{i=0}^{N-1}{\sum_{j\neq i}{(x_i-x_j)^2}}
+\end{equation}
+
+Since each sample have the same variance and supposed sufficiently separated in the time to not be
+correlated (memory effect of the probe), the variance of the error can be simplified into
+
+\begin{equation}
+    Var\left(\varepsilon_{\overline{x}}\right) = \frac{\sigma^2}{N}
+\end{equation}
+
+So to limit the error on the offset to 5\% of the expected offset’s standard deviation for 10 samples, the $\sigma$
+should be less than
+
+\begin{equation}
+    \sigma < \sigma_{offset} \sqrt{10}\frac{5}{100} = 3 mV \times 0.158 = 474 \mu V
+\end{equation}

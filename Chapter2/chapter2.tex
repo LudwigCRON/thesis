@@ -1,0 +1,387 @@
+%!TEX root = ../thesis.tex
+% chktex-file 1
+% chktex-file 24
+%*******************************************************************************
+%****************************** Second Chapter *********************************
+%*******************************************************************************
+
+\chapter{Analogue Insight for High-Temperature ICs}
+\label{sec:temperature-analogue}
+% **************************** Define Graphics Path **************************
+\ifpdf
+    \graphicspath{{Chapter2/Figs/Raster/}{Chapter2/Figs/PDF/}{Chapter2/Figs/}}
+\else
+    \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
+\fi
+
+There are many industries such as the automotive that requires sensors and other mixed signal electronics capable of operating within an extreme temperature range from -40 \(\degree \)C to 175 \(\degree \)C. At high temperatures, transistors suffer from several defects that degrade their performance and the system performance.
+
+Over such a large temperature range, phenomena due to temperature should be considered early in the design and in the research. The background presented within this section discusses the impact of the temperature at the device and circuit level. Moreover the material dependences, as well as transistors variation with respect to the temperature, are illustrated with the CMOS XT018 technology results. % this last point should be discussed with JVE and PLA to respect technical disclosure.
+\nomenclature[z]{CMOS}{Complementary Metal-Oxide-Semiconductor}
+
+\section{Thermal Dependence of Semiconductor}
+\subsection{Energy Band Gap}        % section 2.1
+In solid-state physics, the energy band gap is the energy required to supercharge an electron from the valence band to the conduction band. Any extra energy, wherever does it come from, will change the thermodynamic equilibrium of the solid. As a consequence, electrons' state repartition in the valence and conduction band vary with the temperature according to the Fermi-Dirac distribution. In turn, tightly linked to this distribution, the band gap energy changes with respect to the temperature.
+
+Even if, the fitting equations of low-temperature data have been greatly discussed~\cite{Varshni1967,Allen1976,Manoogian1979,Donnell1991}, the trends of the bandgap energy required over temperature is modelled easily by the Varshni equation~(\ref{eqn:Varshni}) in~\cite{Varshni1967}
+\begin{equation}
+\label{eqn:Varshni}
+E_g(T) = E_g(T_0) - \alpha \frac{T^2}{T+\beta}
+\end{equation}
+\(E_g(T_0) \) represents the band gap energy required at the temperature of reference \(T_0 \), while \(\alpha \) and \(\beta \) are fitting constants. For the Silicon, with \(T_0 = \)300 K, \(\alpha \) and \(\beta \) are respectively 0.473 meV/K and 636K. \(E_g(T_0) \) is given to be 1.166 eV. The change over the temperature range of interest is given by the \figurename~\ref{fig:bandgap} where the derivative with respect to the temperature is about 400 ppm/K.
+\nomenclature[A-Eg]{$E_g$}{Bandgap Energy}
+\nomenclature[A-K]{$K$}{degree Kelvin}
+
+\begin{figure}[!ht]
+    \centering
+    %\includegraphics[width=0.6\textwidth]{bandgap}
+    \input{Chapter2/Figs/Vector/bandgap.pgf}
+    \caption{Band Gap Energy of the Silicon}
+    \label{fig:bandgap}
+\end{figure}
+
+\subsection{Carrier Density}        % section 2.2
+\label{sec:carrier_density}
+The density of electrons in a semiconductor is related to the density of available states and the probability that each of these states is occupied. For the silicon, the Fermi energy level is at least 3\(k_B T\) away from either band edge in the temperature range of interest, we restrict ourselves to non-degenerate semiconductors formulation in the conduction band and in the valence band expressed by equations~(\ref{eqn:fermi_cond_carrier_potential}) and~(\ref{eqn:fermi_valence_carrier_potential}).
+\nomenclature[P-KB]{$k_B$}{Boltzmann Constant \nomunit{$1.38064852 \times 10^{-23} m^2 s^{-2} K^{-1} kg$}}
+\begin{equation}
+\label{eqn:fermi_cond_carrier_potential}
+n = N_C \exp\left( \frac{E_C - E_F}{k_B T} \right)
+\end{equation}
+
+\begin{equation}
+\label{eqn:fermi_valence_carrier_potential}
+p = N_V \exp\left( \frac{E_F - E_V}{k_B T} \right)
+\end{equation}
+
+where 
+\begin{align}
+\label{eqn:number_intrisinc}
+N_C &= 2 {\left( \frac{2\pi m_e^* k_B T}{h^2} \right)}^{\frac{3}{2}}\\
+N_V &= 2 {\left( \frac{2\pi m_h^* k_B T}{h^2} \right)}^{\frac{3}{2}}
+\end{align}
+
+At low temperature, there is only enough energy to promote carriers into the conduction band. This is the ionization region. Now considering a n-doped semi-conductor, the carriers are only the injection carriers given by donors.
+
+The temperature increasing the dopant are energized into the conduction band till no one is left. This corresponds to the freezing-out region in the \figurename~\ref{fig:electron_density}.
+
+\begin{figure}[!ht]
+    \centering
+    %\includegraphics[width=0.6\textwidth]{carrier_density}
+    \input{Chapter2/Figs/Vector/carrier_density.pgf}
+    \caption{Electron density as a function of temperature in silicon}
+    \label{fig:electron_density}
+\end{figure}
+
+For highly doped semi conductor, when no dopant remains this is described by a flat carrier density over a wide temperature range called extrinsic region.
+
+As the temperature increases, the extrinsic region turns into the intrinsic region, and the number of thermally generated carriers exceeds the number of donor carriers. The intrinsic carrier concentration in a material \(n_i \) is generally much smaller than the dopant carrier concentration at room temperature, but \(n_i \) has a very strong temperature dependence given by equation~(\ref{eqn:ni-temp}).
+
+\begin{equation}
+\label{eqn:ni-temp}
+n_i^2 = N_C N_V \exp\left( -\frac{E_g}{k_B T} \right) 
+\end{equation}
+
+\subsection{Mobility}               % section 2.3
+\label{sec:mobility}
+Carriers respond to any extra energy, one can accelerate them by the application of an electric field. The momentum gained is \(m_c v_c \) where \(v_c \) is the drift velocity. The factor of proportionality between the drift velocity and the electric field applied is called the mobility \(\mu_c \) in units of \(cm^2/V \). One should consider that any collision deflecting the carrier is limiting the velocity. Thus, the various scattering mechanisms limit the mobility.
+\nomenclature[A-mu]{$\mu_i$}{mobility based on the phenomenon $i$ or of the particle $i$}
+
+Therefore, the mobility has very complex temperature dependence, defined by the intertwine of the following scattering: phonon scattering \(\mu_{ph} \), surface roughness scattering \(\mu_{sr} \), bulk charge Coulombic scattering \(\mu_{cb} \), and interface charge Coulombic scattering \(\mu_{int} \). Each of these depends on the temperature and the electric field \(\xi_{eff} \).
+
+The Berkeley Short-Channel IGFET Model (BSIM), one of the most widely used simulation models and the one of the technology used, combines these four scattering parameters into an effective mobility, \( \mu_{eff} \) using Matthiessen’s rule~(\ref{eqn:matthiessen}).
+
+\begin{equation}
+\label{eqn:matthiessen}
+\frac{1}{\mu_{eff}(T, \xi_{eff})} = \frac{1}{\mu_{ph}(T, \xi_{eff})} +
+\frac{1}{\mu_{sr}(T, \xi_{eff})} + \frac{1}{\mu_{cb}(T, \xi_{eff})} + 
+\frac{1}{\mu_{int}(T, \xi_{eff})}
+\end{equation}
+
+The phonon scattering is a vibration of the crystal lattice. The temperature increasing carriers collision are more frequent. The mobility limitation at high temperature is dominated by this scattering mechanism. Theoretical analysis shows that the mobility due to lattice scattering will decrease in proportion to \(T^{-\frac{3}{2}} \).
+
+Surface roughness scattering becomes dominant when high electric fields pull electrons closer to the Si/SiO2 surface (\(\mu_{sr} \varpropto \xi_{eff}^{-2.1} \))\cite{KLee1991}.
+
+At low temperatures, electrons move more slowly, and lattice vibrations are
+small. The ion impurity forces which have little impact on high-energy
+particles become the dominant limit to mobility. In this regime, decreasing temperature extends the amount of time electrons spend passing an impurity ion, causing mobility to decrease as temperature decreases (\(\mu_{cb} \varpropto T \)).
+
+At low temperatures, the interface charges have two conflicting dependences. Reduced temperature reduces the carriers’ thermal velocity, which increases the impact of interface charges; however, the reduced thermal velocity also reduces the screening effect\cite{Jeon1989}, and this reduction in screening dominates the temperature dependence (\(\mu_{int} \varpropto T^{-1} \)). For a temperature greater than 200 K, the mobility is decreasing with the temperature increasing.
+
+In the BSIM model of transistor, the mobility change over temperature is modelled as in the equation~(\ref{eqn:mobility_bsim}).
+
+\begin{equation}
+\label{eqn:mobility_bsim}
+\mu_{eff}(T) \varpropto \mu_{eff}(T_0) {\left(\frac{T}{T_0} \right)}^{\alpha_\mu}
+\end{equation}
+\(T_0 \) is the room temperature (\(\approx 300 K \)) and \(\alpha_\mu \) is a fitting coefficient set to -3/2 for NMOS transistors in strong inversion.
+
+\subsection{Velocity Saturation}    % section 2.4
+As presented in the Section~\ref{sec:mobility}, the mobility and the velocity of carriers are linked to each other as \(\nu \approx \mu \xi \); where \(\nu \) is the velocity, \(\mu \) the mobility, and \(\xi \) the electric field.
+
+One assumption so far has been that the mean free time of carriers between collision is constant, which holds for low values of \(\xi \). But for high electric fields, the additional velocity component will result in a shorter average time between lattice scatterings, thus the mobility is not longer constant. Increase in energy no longer cause carrier velocity to increase; instead, the additional energy is lost to phonon generation through lattice interactions. The mobility will finally saturate for high electric fields, and may be approximated by the following empirical expression: 
+\begin{equation}
+\label{eqn:vsat}
+    \nu = \frac{\nu_s}{1 + \left(\frac{\xi}{\xi_{sat}}\right)}
+\end{equation}
+where \(\nu_s \) is the saturation velocity (\(10^7 \) cm/s for Si at 300 K), and \(\xi_{sat}\) is a constant equal to \(7.10^3 \) V/cm for electrons and \(2.10^4 \) V/cm for holes.
+
+Although saturation velocity has been found to be a dominant temperature dependent parameter as far back as 1970~\cite{Fowler1970} using device lengths of 10 \(\mu \)m. In the BSIM4 device model, the impact of temperature on velocity saturation \(\nu_{sat} \) is modelled by~\cite{Cheng1997} as:
+\begin{equation}
+\label{eqn:vsat_T}
+    \nu_{sat}(T) = \nu_{sat}(T_0) - \alpha_\nu \left(\frac{T}{T_0}-1\right)
+\end{equation}
+where \(\nu_{sat}(T_0)\) is the saturation velocity at nominal temperature (\(T_0 \)) and a \(\alpha_\nu \) is the saturation velocity temperature coefficient. Thus, the temperature degrades the saturation velocity and devices' current.
+
+\subsection{Current Density}        % section 2.5
+\label{sec:current_density}
+The current densities relation related to the temperature it complex and based on two components given by the equation~(\ref{eqn:current_density}): the drift and the diffusion. 
+
+\begin{align}
+\label{eqn:current_density}
+J_N &= \textcolor{blue}{q\mu_n n \xi} + \textcolor{red}{qD_n\nabla n} \\
+J_P &= \textcolor{blue}{q\mu_p p \xi} - \textcolor{red}{qD_p\nabla p} 
+\end{align}
+
+The \textcolor{red}{diffusion} component corresponds to the displacement of carriers to even their concentration. The gradients of electrons and holes \(\nabla n \) and \(\nabla p \) is not dependant from the temperature. But the diffusion rates \(D_n \) and \(D_p \) are. Increasing the temperature increases particle kinetic energy, in turn, increasing the diffusion component of the total current.
+
+The \textcolor{blue}{drift} component corresponds to the displacement of carriers under a force proportional to the electric field \(\xi \) and the mobility \(\mu_n \) and \(\mu_p \) (velocity). The temperature impacts both the carrier density and the mobility as related in the Section~\ref{sec:carrier_density} and Section~\ref{sec:mobility}. The carrier density being flat over temperature in the extrinsic region and the mobility decreasing, we deduce that drift current density decreases as the temperature increase.
+
+The drift and diffusion currents have opposite temperature dependencies. The global trends of the current density over temperature will depends on the electric field applied.
+
+Transistor's current density (\(J_{DS} = I_{DS}/W\)) increases as bias increases according to~\cite{Sze1981}:
+
+\begin{equation}
+J_{DS} = \mu \frac{\epsilon_{ox} \cdot \xi_{DS}}{L} \left(V_{GS}-V_{th}\right)
+\label{eqn:JDS}
+\end{equation}
+
+Depending on transistor bias, \(J_{DS}\) is drift-dominated under the condition \(\xi_{DS} > \xi_{sat}\); but it is diffusion-dominated under the condition \(\xi_{DS} < \xi_{sat}\). In contrast to the bias dependency, \(J_{DS}\) have opposite temperature dependence while it is drift- and \allowbreak diffusion-dominated due to mobility scattering limitation. In fact, drift-dominated \(J_{DS}\) decreases, but diffusion-dominated \(J_{DS}\) increases as temperature increases.
+\nomenclature[A-xi]{$\xi$}{electric field}
+
+\begin{figure}[!ht]
+    \centering
+    %\includegraphics[width=0.6\textwidth]{jds_nel}
+    \input{Chapter2/Figs/Vector/jds_nel.pgf}
+    \caption{current density of low-VT nMOSFET of 1\(\mu \)m/180nm over temperature}
+    \label{fig:jds_nel}
+\end{figure}
+
+To clarify the temperature variation, a simulation experiment is carried out using a n-type (\emph{nel}) low-\(V_{th}\) MOSFET of XT018 technology of XFAB\@. The nel transistor is sized with \(W = 1 \mu \)m and \(L=180\) nm and the current density is represented at the \figurename~\ref{fig:jds_nel}. Another factor of change over the temperature is explicit in~(\ref{eqn:JDS}): the threshold voltage \(V_{th} \).
+
+\subsection{Threshold Voltage}      % section 2.6
+\label{sec:threshold}
+The MOSFET threshold voltage is given in the equation~(\ref{eqn:thresold_fb_fermi})~\cite{Sze2006}, where \(V_{FB} \) is the voltage for which its application yields to a flat energy band in the semiconductor, \(\Phi_F \) is the Fermi energy, and \(\gamma \) the body effect parameters.
+\begin{equation}
+\label{eqn:thresold_fb_fermi}
+V_{th} = V_{FB} + 2 \Phi_F + \gamma \sqrt{2 \Phi_F}
+\end{equation}
+\nomenclature[A-vth]{$V_{th}$}{transistor threshold voltage}
+Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_fermi_dT})~\cite{Filanovsky2001}. The flat band voltage depends on the dopant concentration of the substrate, of the gate, and the intrinsic carrier concentration of the silicon. The fermi energy also change over temperature as represented in \figurename~\ref{fig:electron_fermi_si}.
+\begin{equation}
+    \label{eqn:thresold_fb_fermi_dT}
+    \frac{\partial V_{th}}{\partial T} = \frac{\partial V_{FB}}{\partial T} + \left( 2  + \frac{\gamma}{\sqrt{2 \Phi_F}} \right) \frac{\partial \Phi_F}{\partial T}
+\end{equation}
+
+\begin{figure}[!ht]
+    \centering
+    %\includegraphics[width=0.6\textwidth]{fermi}
+    \input{Chapter2/Figs/Vector/fermi.pgf}
+    \caption{Fermi energy normalized over the temperature range of interest without (b-) and with (k-) impurities in the substrate}
+    \label{fig:electron_fermi_si}
+\end{figure}
+
+For practical design, the variation over temperature of the threshold voltage is modelled in the BSIM model as:
+
+\begin{equation}
+V_{th}(T) = V_{th0} + \alpha (T - T_0)
+\end{equation}
+where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearised variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behaviour for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}b, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the threshold voltage temperature sensitivity by either decreasing the transistor channel length or body biasing~\cite{Kumar2008}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{vth_nel}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/vth_nel.pgf}
+        }
+        \subcaption{average and \(\pm 3\sigma \) process variation range}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{vth_nel_T}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/vth_nel_T.pgf}
+        }
+        \subcaption{channel length effect}
+        \label{fig:vth_nel_L}
+    \end{subfigure}
+    \caption{threshold voltage of low-VT nMOSFET of 1\(\mu \)m/180nm over temperature under process and channel length variations}
+    \label{fig:vth_nel}
+\end{figure}
+
+\subsection{Leakage Current}        % section 2.7
+In semiconductor devices, leakage is a quantum phenomenon where mobile charge carriers tunnel through an insulating region.
+
+As a result, the off-state current of a transistor gradually became a limiting factor for down-scaling the threshold voltage since it determines the power consumption of a chip in its idle state. It could not be ignored longer and new physical models had to be applied to correctly describe the device behaviour in the so-called sub-threshold or weak-inversion regime~\cite{Cheng21997,Enz1995,Joardar1998}.
+
+Part of the leakage are described in this weak-inversion as:
+\begin{equation}
+\label{eqn:ids_leakage}
+I_{ds}(V_{gs}, V_{bs}, V_{ds}, T) = \mu_{eff} C_{ox} \frac{W}{L} {\left(\frac{k_B T}{q}\right)}^2 [n(V_{bs})-1] e^{q(V_{gs}-V_{th})/nk_B T} \left(1-e^{-qV_{ds}/k_B T} \right)
+\end{equation}
+where n is the slope factor, \(\mu_{eff} \) the mobility of carriers as given in Section~\ref{sec:mobility}. The leakage current due to the off state of a transistor is therefore increasing exponentially with the temperature. This is arguably the most challenging constraint on high temperature design.
+
+The temperature dependence of gate leakage current has been shown to be very minor compared to that of sub-threshold leakage current~\cite{Agarwal2006}. Discussing the scaling of technology, one should consider the impact of a thinner oxide thickness. Since the threshold voltage is proportional to the oxide thickness, this may seem to be an improvement. Because the thinner the oxide thickness, the higher the sub-threshold leakage current through the device will be.
+
+
+
+\section{\(g_m/I_{D} \) insight over temperature} % section 2.8
+\label{sec:analog-insight}
+Physical design for analog ICs has not been automated to the same degree
+as digital IC design, but such automation can significantly improve the productivity of circuit engineers. As presented in the Section~\ref{sec:threshold}, the threshold voltage decreasing with the temperature,  a design methodology based on the voltage overdrive, the difference between the gate-source voltage and the threshold voltage of a transistor, will be difficult and time consuming. To the contrary, the \(g_m/I_{D} \) methodology employs design charts to accurately size transistors which fits well the purpose of productivity. Moreover, a \(g_m/I_{D} \)  based design links design variables (\(g_m \), \(f_T \), \(I_d \), \ldots) to analog macro blocks specification such as the bandwidth, the power consumption, the noise budget, or accuracy.
+\nomenclature[A-gm]{$g_m$}{transistor small signal transconductance}
+
+The analysis of the variations of each circuit's characteristics, as noise figure, gain, bandwidth or power consumption, as function the \(g_m/I_{D} \) parameter over temperature helps us to select the mos transistor optimum inversion region to have a design cost equilibrated to the temperature related design~\cite{Shoucair1986, Silveira1996, Girardi2006, Zhang2017}.
+
+\subsection{High-Frequency design over temperature}
+\label{sec:des_speed}
+In the design of high-speed integrated circuit, PLL and RF-Amplifiers are few applications among many using transistors at the limit of their speed with an important criterion on the in-band noise. Usually with a low-impedance and at the largest transconductance possible, a transistor acts as a mere current source or current sink to either charge or discharge the capacitive load. In such circumstances, a very high frequency signal encounters a primary limitation known as slewing -- limited speed as long as a transistor is not able to source or sink the maximum current needed by the load --, and a second one which is the current-gain-bandwidth of a single transistor. Known as the transition frequency \(f_T \), this is the frequency at which the current gain drops to 0 dB.
+
+In a usual common-source configuration, a mosfet has its transition frequency \(f_T \approx g_m/2\pi (C_{gs}+C_{gd})\). In this equation, \(C_{gs} \) and  \(C_{gd} \) are the parasitic capacitance between the gate and the source and between the gate and the drain of a mosfet. The transconductance \(g_m \) defined as the derivative of the drain-source current (\(I_{ds} \)) with respect to the gate-source voltage (\(V_{gs}\)) depends on the transistor size (\(W/L\)), the carriers mobility (\(\mu \)), and the electric field (\(\xi \)).
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{ft_nel_L}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/ft_nel_L.pgf}
+        }
+        \subcaption{L dependence at 27 \(\degree \)C}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{ft_nel_T}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/ft_nel_T.pgf}
+        }
+        \subcaption{temperature sensistivity}
+        \label{fig:ft_nel_sensitivity}
+    \end{subfigure}
+    \caption{Transit Frequency \(f_T\) at different channel length L and its sensitivity over temperature}
+    \label{fig:ft_nel}
+\end{figure}
+
+From the \figurename~\ref{fig:ft_nel}, we deduce that:
+\begin{itemize}
+\item[--] increasing bias current increases transit frequency (square root dependence)
+\item[--] Keeping bias current constant, decreasing length increases transit frequency (\(\propto L^{-3/2}\)).
+\item[--] the transit frequency decreases with increasing temperature.
+\item[--] smaller the L is, less sensitive the frequency is with respect to the temperature
+\end{itemize}
+\nomenclature[A-W]{W}{transistor gate width}
+\nomenclature[A-L]{L}{transistor gate length}
+Therefore, for high speed design, the transistor sizing shall be minimum to decrease the parasitics and reduce its variation with the temperature. So technology scaling favour the transit frequency. Regarding the temperature dependence, the current should be minimum to limit the variation of the frequency.
+
+\subsection{Signal amplification over temperature}
+\label{sec:des_accuracy}
+Analog Systems is often decomposed into one-functionality blocks easier to design. These are thus easy to express as a function of transconductance and the output impedance of each transistor. The design for instrumentation, or the design of an high-resolution ADC, requires very high gain amplifiers. In order to efficiently design such amplifiers, the voltage gain temperature influence should known in advance to correctly choose the biasing point.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{Av_nel_id}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/Av_nel_id.pgf}
+        }
+        \subcaption{Gain for L = 180 nm}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{Av_nel_id_720}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/Av_nel_id_720.pgf}
+        }
+        \subcaption{Gain for L = 720 nm}
+        \label{fig:Av_nel_sensitivity}
+    \end{subfigure}
+    \caption{Intrinsic gain \(g_m/g_{ds} \) at \(L = L_{\min}\) on the left and \(L = 4 L_{\min}\) on the right}
+    \label{fig:Av_nel}
+\end{figure}
+
+\figurename~\ref{fig:Av_nel} represents the intrinsic gain of a single nel transistor: the product of its transconductance \(g_m \) and its output impedance \(1/g_{ds} \). For \(L = L_{\min} \), the gain falls with the increasing drain-source current, from the weak inversion to the strong inversion. A longer channel length maintain the gain higher over an extended drain-source current range.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{sAv_nel_T_2e-07}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/sAv_nel_T_2e-07.pgf}
+        }
+        \subcaption{temperature sensistivity for \(I_{DS} = 200 nA \)}
+        \label{fig:Av_nel_sensitivity_wi}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{sAv_nel_T_1e-05}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/sAv_nel_T_1e-05.pgf}
+        }
+        \subcaption{temperature sensistivity for \(I_{DS} = 10 \mu A \)}
+        \label{fig:Av_nel_sensitivity_si}
+    \end{subfigure}
+    \caption{Intrinsic gain \(g_m/g_{ds} \) temperature sensitivity in different inversion level}
+    \label{fig:sAv_nel}
+\end{figure}
+
+The intrinsic gain temperature sensitivity is depicted by \figurename~\ref{fig:sAv_nel} for different channel length in both weak inversion and in strong inversion. In weak inversion, the gain is increasing with temperature while in strong inversion the gain is decreasing. The channel length only shift the biasing current at which the derivative of the gain with respect to the temperature change its sign. This trip point current is higher with small channel length compared to longer ones.
+
+Therefore, a design for high accuracy should be done in weak inversion. The weak inversion gives the maximum of the intrinsic gain and reduce the temperature sensitivity. A first trade-off between the gain and the speed occurs.
+
+\subsection{Low-Power Design Consideration}
+As the opposite of speed, the design for low-power reduces the current consumption to its maximum. Therefore, the speed is limited. Moreover a particular attention is paid to the minimise the leakage currents%add support
+. From the equation~(\ref{eqn:ids_leakage}), the designer shall decrease the gate-source voltage, the drain-source voltage (power supply voltage), and increase the transistor channel length L. Therefore working in a diffusion dominated region, the transit frequency is low but its degradation with respect to the temperature is limited to approximately 2000 ppm/\(\degree \)C according to \figurename~\ref{fig:ft_nel_sensitivity}. Moreover, the increase of the channel length limits the decrease of the threshold voltage as represented by \figurename~\ref{fig:vth_nel_L}, decreases leakage current as given by equation~(\ref{eqn:ids_leakage}) at the cost of a severe change in the current density depicted by \figurename~\ref{fig:jds_nel}.
+
+\subsection{Low-Signal-Distortion over temperature}
+A single MOSFET transistor being an transconductance amplifier by itself, the linearity can be viewed as the input gate voltage range for which the current changes is minimum. Defined that way, the sensitivity of the current with respect to the input gate voltage is related to the \(g_m/I_D \) ratio.
+
+\figurename~\ref{fig:gm_id} represents the variation of the current dependence to the gate voltage, the temperature and the channel length. For the sake of clarity, this is plot for only \(V_{ds} = 0.45 V\). Disregarding \(V_{ds}\), increasing \(V_{gs}\) is beneficial for linearity. This implies to work in strong inversion where the intrinsic gain is minimum and while the speed is maximum. 
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{gm_nel_T}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/gm_nel_T.pgf}
+        }
+        \subcaption{temperature effect for \(L = L_{\min}\)}
+        \label{fig:gm_nel_T}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        %\includegraphics[width=\textwidth]{gm_nel_L}
+        \resizebox {\textwidth} {!} { 
+            \input{Chapter2/Figs/Vector/gm_nel_L.pgf}
+        }
+        \subcaption{channel length effect}
+        \label{fig:gm_nel_L}
+    \end{subfigure}
+    \caption{Intrinsic gain \(g_m/g_{ds} \) temperature sensitivity in different inversion level}
+    \label{fig:gm_id}
+\end{figure}
+
+For \(L = L_{\min}\), \figurename~\ref{fig:gm_nel_T}, the temperature lower the \(g_m/I_D\) ratio and keep it small over an extended \(V_{gs}\). In other term, the temperature is beneficial and improves the linearity range.
+
+As represented in \figurename~\ref{fig:gm_nel_L}, the channel length has a reduced impact compared to the temperature. Moreover, the temperature has almost the same impact whatever the channel length is for small \(V_{ds}\).
+
+\subsection{Tradeoffs for a temperature-driven design}
+Nowadays ADC target ever more high speed and higher resolution. Pushing design constraints in a precise corner in the area of the possible design set. As discussed in Section~\ref{sec:des_speed}, the speed of a single common-source transistor is severely reduced by the temperature. 
+
+Temperature variation in semiconductor physics is widely studied in the literature. Since 1995, C. Park \textit{et al.} have described the trade-off between mobility (\(\mu \)) and threshold voltage (\(V_{th} \)) under temperature variation~\cite{Park1995}. The reduction in mobility at high temperatures affect most the speed of the circuit and the reliability. To counterbalance, MOSFETS can be biased near the zero temperature coefficient (ZTC) point that oppose threshold and mobility variations with temperature within MOSFETs~\cite{Shoucair1986,Filanovsky2001}. In a stringent area constraint, the ZTC biasing restrict the maximum achievable speed. An other mean is to implement temperature compensation circuit that either adapt the gate voltage~\cite{Chen2011, Gomez2010}, or pre-distort the inputs~\cite{Sira2013}, or generate a constant current.
+
+Depending on the system constraints, one solution is preferred over another. For instance, in high-speed switched capacitor circuit (above 100 MHz), a very high DC-gain stable over temperature is difficult to achieved. A constant Gain-BandWidth Product (GBW) or Unity Gain Frequency (UGF) over temperature is more attractive considering a digital calibration able to correct linear error due to the Gain and the UGF limitation. The \figurename~\ref{fig:tradeoffs} represents the MOSFET operating plane and describes the trade-offs as presented by~\cite{Binkley2003}. The temperature analysis and effect are added in blue.
+
+% based on \cite{Binkley2003}
+\begin{figure}[!ht]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{tradeoffs}
+    \input{Chapter2/Figs/Vector/tradeoffs.pgf}
+    \caption{trade-offs in circuit performance as a function of the channel length L and the Inversion level}
+    \label{fig:tradeoffs}
+\end{figure}
+
