@@ -244,15 +244,28 @@ Finally, a synchronizer block is in charge of triggering the start of a new samp
 
 \clearpage
 \section{Preliminary ADC Schematic Results}
-In this section we presents preliminary results of the analog core of the ADC\@. The simulation performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the Chapter~\ref{sec:analog-building-bloc} at the schematic level.
+In this section we presents preliminary results of the analog core of the ADC\@. The simulation performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the chapter~\ref{sec:analog-building-bloc} at the schematic level.
+
+the DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behaviour of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. These corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
+As depicted by \figurename~\ref{fig:tb_adc-top}, all signals and power supplies are connected by the wire bondings model to the chip. A verilog bloc sent the test configuration to DOE\_ADC\@. For instance, to test only the ADC in 6 clock cycle mode the pattern sent is 1000010010100. While for the ADC with an OSR = 5, we send 1000000010100. In addition to that, a verilog-ams bloc store in a file the output codes and the voltages $V_{\rm inp}/V_{\rm inm}$. These permit the evaluation of the ADC (DNL, INL, SNR, ENOB, ...).
 
 % detail the test bench
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{Chapter5/Figs/adc_chip/tb_adc_full.ps}
     \caption{Stimuli generation to check static performance of the ADC}
-    \label{fig:tb_adc_stimuli}
+    \label{fig:tb_adc-top}
 \end{figure}
+
+For the analogue voltages, we allow the use of ideal power supplies as display in \figurename~\ref{fig:tb_adc_stimuli}. In order to re-use the simulation test bench, the parameters are the following:
+\begin{itemize}
+    \item[--] OSR: the oversampling ratio between the sampling frequency, and the ADC clock
+    \item[--] $T_{\rm start-up}$: the time given for the slow-start of the circuit, to let settle the common-mode
+    \item[--] LSB: the voltage resolution expected of the ADC
+    \item[--] $F_s$: the sampling frequency
+    \item[--] $V_{\rm DD}$: the ADC power supply voltage for the test
+\end{itemize}
+By default, the input voltage is a linear ramp changing at a rate of $1/F_s$ by a fifth of the LSB\@. The differential input voltage ramps up from -1 V to + 1 V.
 
 % input voltage generation
 \begin{figure}[htp]
@@ -263,28 +276,10 @@ In this section we presents preliminary results of the analog core of the ADC\@.
 \end{figure}
 
 % clock generation
-
-% configuration sent
-% check the ADC --> gives the code sent
-1000010010100 for the ADC with an OSR = 6
-1000000010100 for the ADC with an OSR = 5
-% \begin{figure}[htp]
-%     \centering
-%     \begin{subfigure}[b]{\textwidth}
-%         \includegraphics[trim={0 5cm 0 0},clip,width=\textwidth]{Chapter5/Figs/adc_chip/ADC_CFG_SPI.ps}
-%         \subcaption{test chip configuration}
-%     \end{subfigure}
-%     \begin{subfigure}[b]{\textwidth}
-%         \includegraphics[trim={0 0 0 5cm},clip,width=\textwidth]{Chapter5/Figs/adc_chip/ADC_CFG_SPI.ps}
-%         \subcaption{test chip configuration verification}
-%     \end{subfigure}
-%     \caption{Configuration link of the test chip with a possibility to check the configuration stored}
-%     \label{fig:tb_adc_stimuli_conf}
-% \end{figure}
-
-% data saved
+Concerning the clock generation, the LVDS signal is made from an ideal pulsed source with a transition time of 3 ns between a low-level of 0.7 V to a high-level of 1.1 V. With a differential amplitude of 400 mV around a common-mode of 0.9 V, the LVDS clock signal is a best-case.
 
 % post-processing
+To extract the information on the resolution, we reconstruct the input signal from the output bit of the ADC by their ideal weight. In this case the weight is the voltage contribution of each bits. For the first stage, each bit has an ideal weight of 1/OSR. For the second stage, the ideal weight is [0.5 0.25 0.125 0.0625]/OSR. And the contribution of the SAR is given by the equation~(\ref{eqn:output_voltage_dac_sar}) scaled by a factor 0.0625/OSR\@. The offset has been estimated by averaging the output code and is removed in transfer function. 
 
 \figurename~\ref{fig:adc-res-schematic-temp-tt} present the resolution based on the maximum error between the resolution input voltage and its reconstruction from the output codes. After an offset estimation based on the average output code, the maximum resolution is represented for an oversampling ratio of 5 and 6 in the typical process corner.
 
@@ -302,7 +297,9 @@ In this section we presents preliminary results of the analog core of the ADC\@.
     \label{fig:adc-res-schematic-temp-tt}
 \end{figure}
 
-The ADC exhibits an encouraging stable behaviour over temperature. The impact of the process variation is depicted by \figurename~\ref{fig:adc-res-schematic-temp-corners} for the ADC operating in 6 clock cycles per sample.
+The ADC exhibits an encouraging stable behaviour over temperature. The error committed on the residue of the first stage has the deepest impact on the final resolution. Heavily relying on the performance of the OTA, and a gain higher than the 11.2-bits of resolution, the ADC in 5 clock cycles mode does not suffer from the temperature. To the contrary, in the 6 clock cycle mode, the OTA gain in a typical corner drop from 86 dB to 78 dB. In consequence, the best case error of the OTA on the residue drop from a 14-bits resolution to a 13.3-bits one. Therefore, the resolution drops too from 100$\degree$C. The error committed on the first stage residue being less than the LSB of the sub-ADCs remaining, the ADC does experienced a more severe degradation of its resolution.
+
+With the process variation, the OTA undergoes a severe degradation of its gain and settling speed. The results on the resolution due to the process variation is depicted by \figurename~\ref{fig:adc-res-schematic-temp-corners} for the ADC operating in 6 clock cycles per sample.
 
 \begin{figure}[htp]
     \centering
@@ -311,4 +308,6 @@ The ADC exhibits an encouraging stable behaviour over temperature. The impact of
     \label{fig:adc-res-schematic-temp-corners}
 \end{figure}
 
-The results over corners of the process display a drop of 0.67-bits. This drop a third of experimentation in the work of Ericson over the same temperature range in a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behaviour in simulation with coming experimental data.
+The results over corners of the process display a drop of 0.67-bits. This drop is a third of experimentation in the work of Ericson over the same temperature range in a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behaviour in simulation with coming experimental data.
+
+At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode, the corresponding Walden Figure of Merit is 131 fJ for an area of 0.12 $\rm mm^2$.
