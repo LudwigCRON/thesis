@@ -310,4 +310,20 @@ With the process variation, the OTA undergoes a severe degradation of its gain a
 
 The results over corners of the process display a drop of 0.67-bits. This drop is a third of experimentation in the work of Ericson over the same temperature range in a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behaviour in simulation with coming experimental data.
 
-At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode, the corresponding Walden Figure of Merit is 131 fJ for an area of 0.12 $\rm mm^2$.
+At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode. The corresponding Walden Figure of Merit is 131 fJ/conv for an area of 0.12 $\rm mm^2$. Similarly, in 5 clock cycle mode, the Walden FoM is given to be 382 fJ/conv for a target of 390 fJ/conv. The design is in the middle of publications in ISSCC and VLSI as depicted by \figurename~\ref{fig:walden-fom-comparison-designed}.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=.8\textwidth]{Chapter5/Figs/adc_chip/walden-fom-2018-designed.eps}
+    \caption{Walden FoM versus the nyquist frequency of ADC published in ISSCC and VLSI from 1997 to 2018 in comparison with the proposed one}
+    \label{fig:walden-fom-comparison-designed}
+\end{figure}
+
+In order to represent the effort of integration, \figurename~\ref{fig:walden-area-fom-comparison-designed} represent the FoM versus the area of one channel.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=.8\textwidth]{Chapter5/Figs/adc_chip/walden-fom-area-2018-designed.eps}
+    \caption{Walden FoM versus the area of a single channel ADC published in ISSCC and VLSI from 1997 to 2018 in comparison with the proposed one}
+    \label{fig:walden-area-fom-comparison-designed}
+\end{figure}

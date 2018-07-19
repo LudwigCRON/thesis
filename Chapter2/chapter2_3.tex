@@ -16,7 +16,7 @@
 
 In a nutshell, the performance of an ADC can be defined by the fidelity of signal representation, and the bandwidth of the signal which can be represented. In other term, the key criteria of an ADC are the Signal to Noise and Distortion Ratio (SNDR) and the Nyquist frequency ($F_{\rm snyq}$).
 
-As represented in \figurename~\ref{fig:topology-sndr-fsnyq-comparison}, clear distinction can be made from one kind of ADC to another. For instance, Flash ADCs achieve rather low SNDR at very high speed while Incremental ADCs achieve high fidelity signal representation for low signal bandwidth. 
+As represented in \figurename~\ref{fig:topology-sndr-fsnyq-comparison}, clear distinctions can be made from one kind of ADC to another. For instance, Flash ADCs achieve rather low SNDR at very high speed while Incremental ADCs achieve high fidelity signal representation for low signal bandwidth. 
 
 \begin{figure}[htp]
     \centering
@@ -25,11 +25,16 @@ As represented in \figurename~\ref{fig:topology-sndr-fsnyq-comparison}, clear di
     \label{fig:topology-sndr-fsnyq-comparison}
 \end{figure}
 
-A first analysis, 
+A first analysis of the chart allows the design of a converter with the desired speed and fidelity of the signal representation in one of the following topology:
+\begin{itemize}
+    \item[--] Algorithmic
+    \item[--] Pipelined
+    \item[--] SAR
+    \item[--] $\Delta\Sigma$
+\end{itemize}
+It is worth to mention that Folding ADC are close from the target point. Beside that, topologies enumerated are usually requiring more than 5 clock cycle per conversion to reach the resolution expected. So that, there is no immediate solution to propose a solution that meet the requirements of the specification. A new topology is thus mandatory. Therefore, we begin with the analysis of classical possible architectures. A large emphasis is set on the low-OSR and high resolution possibility at a medium conversion rate.
 
-A first analysis shows there is no immediate solution to propose a solution that meet the requirements of the specification. A new topology is thus mandatory. Therefore, a we begin with the analysis of classical possible architectures. A large emphasis is set on the low-OSR and high resolution possibility at a medium conversion rate.
-
-At high temperatures, transistors suffer from several defects that degrade their performance and the system performance. After a brief review of ADC design over extended temperature range, the background phenomena due to temperature are presented. With the latter in mind, the impact of the temperature at the device level and the material dependences are illustrated with CMOS XT018 technology results to limit their effect in the proposed ADC\@. % this last point should be discussed with JVE and PLA to respect technical disclosure.
+Then, at high temperatures, transistors suffer from several defects that degrade their performance and the system performance. After a brief review of ADC design over extended temperature range, the background phenomena due to temperature are presented. With the latter in mind, the impact of the temperature at the device level and the material dependences are illustrated with CMOS XT018 technology results to limit their effect in the proposed ADC\@. % this last point should be discussed with JVE and PLA to respect technical disclosure.
 \nomenclature[z]{CMOS}{Complementary Metal-Oxide-Semiconductor}
 \section{Analog-to-Digital Converters}
 \subsection{Flash}                             % section 2.1
