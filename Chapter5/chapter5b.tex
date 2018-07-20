@@ -270,7 +270,7 @@ By default, the input voltage is a linear ramp changing at a rate of $1/F_s$ by 
 % input voltage generation
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=\textwidth]{Chapter5/Figs/adc_chip/input_signal_generator.ps}
+    \includegraphics[width=0.8\textwidth]{Chapter5/Figs/adc_chip/input_signal_generator.ps}
     \caption{Stimuli generation to check static performance of the ADC}
     \label{fig:tb_adc_stimuli}
 \end{figure}
@@ -303,7 +303,7 @@ With the process variation, the OTA undergoes a severe degradation of its gain a
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=0.8\textwidth]{Chapter5/Figs/preliminary/adc_real_ota_osr6_temp-corners.pdf}
+    \includegraphics[width=0.6\textwidth]{Chapter5/Figs/preliminary/adc_real_ota_osr6_temp-corners.pdf}
     \caption{Resolution over the temperature for each corner of the process with the ADC operating in 6 clock cycles per sample}
     \label{fig:adc-res-schematic-temp-corners}
 \end{figure}
@@ -314,16 +314,16 @@ At this stage of the realization, the analogue part of the ADC consumes 9 mW in 
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=.8\textwidth]{Chapter5/Figs/adc_chip/walden-fom-2018-designed.eps}
+    \includegraphics[width=.75\textwidth]{Chapter5/Figs/adc_chip/walden-fom-2018-designed.eps}
     \caption{Walden FoM versus the nyquist frequency of ADC published in ISSCC and VLSI from 1997 to 2018 in comparison with the proposed one}
     \label{fig:walden-fom-comparison-designed}
 \end{figure}
 
-In order to represent the effort of integration, \figurename~\ref{fig:walden-area-fom-comparison-designed} represent the FoM versus the area of one channel.
+In order to represent the effort of integration, \figurename~\ref{fig:walden-area-fom-comparison-designed} represent the FoM versus the area of one channel for ADC realized in 180 nm technology. The proposed converter exhibits a low area footprint, placing it at the edge front of the technology. Considering the FoM, the results can be improved by either reducing the power consumption, or by increasing the resolution.
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=.8\textwidth]{Chapter5/Figs/adc_chip/walden-fom-area-2018-designed.eps}
+    \includegraphics[width=.75\textwidth]{Chapter5/Figs/adc_chip/walden-fom-area-180nm.eps}
     \caption{Walden FoM versus the area of a single channel ADC published in ISSCC and VLSI from 1997 to 2018 in comparison with the proposed one}
     \label{fig:walden-area-fom-comparison-designed}
 \end{figure}

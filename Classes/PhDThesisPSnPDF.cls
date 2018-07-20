@@ -944,11 +944,10 @@ wish to left align your text}
 préparée à CentraleSupelec\\
 
 \bigskip
-
-École doctorale n$^{\circ}$ 000 XXXXX\\}
-\normalsize Spécialité de doctorat: electronique et optoélectronique, nano- et microtechnologies\\
+École doctorale n$^{\circ}$ 575 EOBE: Electrical, Optical, Bio Physics-and-Engineering\\}
+\normalsize Spécialité de doctorat: électronique et optoélectronique, nano- et microtechnologies\\
 \bigskip
-\footnotesize Thèse présentée et soutenue a CentraleSupelec, le XX Octobre 2018, par\\
+\footnotesize Thèse présentée et soutenue à Gif-sur-Yvette, le XX Novembre 2018, par\\
 \bigskip
 \LARGE \textbf{Ludwig CRON}
 
@@ -962,22 +961,24 @@ préparée à CentraleSupelec\\
 
 \small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-Prénom Nom &   \\ 
-Foncion Établissement --- Laboratoire & Président\\
-Prénom Nom &   \\ 
-Foncion Établissement --- Laboratoire  &  Rapporteur \\ 
-• &   \\ 
-• & Rapporteur  \\ 
-• &   \\ 
-• & Examinateur  \\ 
-• & •  \\ 
-• & •  \\ 
-• & •  \\ 
-• & •  \\ 
-• & •  \\ 
-• & •  \\ 
-• & •  \\  
-• & •  \\ 
+Patricia Degreys &  \\ 
+\footnotesize Enseignant-Chercheur, LTCI, Telecom ParisTech & Rapporteur \\ 
+Franck Badets &  \\ 
+\footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\ 
+Pieter Rombouts &  \\ 
+\footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Examinateur \\ 
+Souhil MEGHERBI &  \\ 
+\footnotesize Professeur, C2N, Université Paris-Saclay & Examinateur \\ 
+Philippe Benabes &   \\ 
+\footnotesize Professeur, GeePs, Université Paris-Saclay & Directeur de Thèse  \\ 
+Pietro Maris Ferreira &    \\ 
+\footnotesize Professeur, GeePs, Université Paris-Saclay & • \\ 
+Philippe Laugier &  \\  
+\footnotesize Ingénieur, Melexis & Invité \\ 
+Johan Vergauwen &  \\  
+\footnotesize Ingénieur, Melexis & Invité \\ 
+Francois Piette &  \\  
+\footnotesize Ingénieur, Melexis & Invité \\ 
 % \usebox{\PHD@supervisor}
 %   \usebox{\PHD@advisor}
 \end{tabular*} 
