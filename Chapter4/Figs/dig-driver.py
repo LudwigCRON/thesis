@@ -107,7 +107,8 @@ if __name__ == "__main__":
             horizontalalignment='center',
             verticalalignment='center',
             )
-    
+    plt.text(0.8, 1.6, "$S_p$", color='r')
+    plt.text(0.8, 0.1, "$S_m$", color='b')
     plt.yticks([0, 0.45, 0.9, 1.35, 1.8])
     plt.axis([0.35, 0.85, -0.1, 2])
     plt.xlabel("Time [ns]")

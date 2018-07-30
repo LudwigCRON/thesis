@@ -59,7 +59,8 @@ As a rule of thumb, to reduce the area, the topology of the ADC should minimize 
 	\end{tabular}
 \end{table}
 
-From all these constraints, we deduce some possible candidates, to wit a pipeline of Incremental-$\Delta\Sigma$ with one last sub-ADC of any kind, an Extended-Range followed by a last sub-ADC of any kind. These maximize the robustness and benefit from the noise shaping of the $\Delta\Sigma$ modulation with a limited sensitivity to analog defects with few components.
+From all these constraints, we deduce some possible candidates to achieve the resolution of 12-bits with a limited oversampling ratio.
+A MASH or an Extended-Range followed by a last sub-ADC of any kind benefit from the noise shaping of the $\Delta\Sigma$ modulation with a limited sensitivity to analog defects with few components.
 
 \subsection{Pipelined of Counting ADCs}
 The converter is composed with several counting stages, each of them being composed with first-order or second-order sigma delta. The clock frequency of the
@@ -117,19 +118,19 @@ To provide extra margin, the modification highlighted in \figurename~\ref{fig:fi
 Change of the bits distribution to 4-bits from the second stage, and 6-bits for the last stage allows us to extract 1 extra bits margin. This section discusses in detail the implementation of the selected architecture depicted in \figurename~\ref{fig:final-prop-adc-architecture}.
 
 \section{Sub-ADC Analysis}
-
 \subsection{Incremental-\(\Delta\Sigma \)} % section 5.1
-\textbf{\textcolor{red}{principle and the basic choice}}
+
+\textbf{\textcolor{black}{principle and the basic choice:}}
 The first stage is a fully-differential Incremental-\(\Delta\Sigma \) modulator based on the principle given in section~\ref{sec:soa-isd}.
 Compared to a conventional $\Delta\Sigma$ modulator, the integrator is reset at each new sample to mimic a nyquist rate ADC\@. Therefore, the design of an \(I\Delta\Sigma \) requires OSR+1 clock cycles to achieve an oversampling ratio of OSR\@. The version presented in the State of the Art was a multi-bit quantizer to be generic. However, the 1-bit quantizer is the simplest and is inherently linear. In consequence, a first-order Incremental-$\Delta\Sigma$ with 1-bit quantizer is the most robust solution.
 
-\textbf{\textcolor{red}{limitations}}
+\textbf{\textcolor{black}{limitations:}}
 Kept as a basis for the first stage of our ADC, the 1-bit quantizer in this topology does not limit the excursion of integrator output. Without this limitation of the excursion, a large constraint is placed on the amplifier inside the integrator, and results in an integrator output deformed and outside of the allowed input swing of the following stage. In order to suppress this eventuality, two key actions have been implemented.
 
-\textbf{\textcolor{red}{solutions}}
+\textbf{\textcolor{black}{solutions:}}
 First, the two comparators instead of one detects when the output of integrator, also called the residue, is outside the desired excursion range. Second, the input voltage is summed to the integrator output before the comparison to the excursion range limits. The input has a feed-forward path not to saturate the integrator by summing the residue with the input signal.
 
-\textbf{\textcolor{red}{solution 1: 3-levels quantizer}}
+\textbf{\textcolor{black}{solution 1 (3-levels quantizer):}}
 Let us assume the output of comparators is either zero or one, and we call the quantification error $e(z)$, the error between the input voltage of the quantizer $x(z)$, and the estimation coming from the comparators output. The estimation performed by the 3-levels quantizer is thus \((S_1(z)+S_0(z)-1)V_{\rm ref} \), if we consider $S_1(z)$ and $S_0(z)$ the comparators output in the z-domain. The value of the estimation is one among those in the following set \(\{-1,0,1\}\). The quantification error is thus given to be
 \begin{equation} 
 	e(z) = x(z) - (S_1(z)+S_0(z)-1)V_{\rm ref}
@@ -147,7 +148,7 @@ Based on the latter, the output of the integrator is thus defined by
 \end{equation}
 To minimize the Residue, \(e(z) \) shall be minimized too. 
 
-\textbf{\textcolor{red}{error minimization}}
+\textbf{\textcolor{black}{error minimization:}}
 From the definition of quantification error, at the n clock cycle, \(e[n]\) can be expressed as a function of the threshold voltages and the input swing of the quantizer delimited in the range $[x_{\min}, x_{\max}]$. This is given in equation~(\ref{eqn:quantizer-error-function}).
 \begin{equation}
 	\label{eqn:quantizer-error-function}
@@ -167,10 +168,10 @@ Graphically, the error function is depicted in \figurename~\ref{fig:3-levels-err
 	\label{fig:3-levels-error-pattern}
 \end{figure}
 
-\textbf{\textcolor{red}{error minimization: threshold voltages tuning}}
+\textbf{\textcolor{black}{error minimization (threshold voltages tuning):}}
 As the structure is fully differential a constraint of symmetry on the threshold voltage is equivalent to impose the same output swing for both the positive and negative signal of the integrator around the common-mode voltage. This assumption being reasonable, the error \(e[n](x) \) is minimal when \(V_{\rm th2}=-V_{\rm th1}=\frac{x_{\max}-x_{\min}}{2} \).
 
-\textbf{\textcolor{red}{solution 2: input feedforward}}
+\textbf{\textcolor{black}{solution 2 (input feedforward):}}
 The second solution to control the excursion of the integrator output consists in the addition of a feedforward input path. For the sake of clarity the modulator is represented as a single-ended topology in \figurename~\ref{fig:isd-alone-clk-cycle}. This figure represents the normal behaviour of the modulator. Being incremental, the integrator is be reset at the beginning of each new sample: during the first clock cycle. Without the feedforward path, the decision of the 3-levels quantizer in this clock cycle is irrelevant. And the integrator will increment by the value of the input at the second clock cycle. With this input path, the input voltage is estimated from the first clock cycle. And a feedback is applied then. The integrator does not have the possibility to exceed the limit fixed as the increment is the error between the input and its pre-estimation.
 
 Besides that, the input feedforward is beneficial for the modulator in the configuration depicted in \figurename~\ref{fig:isd-alone-std-clk-cycle}. Without the input feedforward, the integrator has to process the quantization noise in addition to the input signal for the regulation of the output. On the other hand, the integrator has to process only the quantization noise. And the removal of the input signal component reduces the swing at the internal nodes of the modulator which relaxes the headroom requirements, and allows for more efficient amplifier architectures to be used. However, the input-feedforward path presents complications, a timing constraint overhead and the analog adder at the quantizer input.
@@ -196,12 +197,12 @@ This given, the adder can be implemented as an active analog bloc or as a passiv
 	\label{fig:isd-alone-clk-cycle}
 \end{figure}
 
-\textbf{\textcolor{red}{resolution and strategy}}
+\textbf{\textcolor{black}{resolution and strategy:}}
 Due to the minimization of the quantification error by selecting the threshold voltages of the quantizer, the residue is bounded to $\pm V_{\rm ref}/2$. The resolution of the ADC can be enhanced by an inter-stage gain of two between this stage, and the one following. This transfer analog constraint on the offset to the second stage with a possible input overflow. With an ability to withstand greater offsets, errors from non-perfectly set threshold voltages, and prevents extra noise source decreasing the SNR of internal nodes, no inter-stage gain is introduced within this stage. With 8-steps in the transfer function of this stage, the maximum resolution is 3-bits.
 
 	\subsubsection{Integrator}              % section 5.1.2
 % discuss delta charge redistribution or standard sc integrator
-\textbf{\textcolor{red}{principle}}
+\textbf{\textcolor{black}{principle:}}
 The switched capacitor integrator is countinous-time integrator whose resistor is emulated by a switching capacitor. Here in the \figurename~\ref{fig:sigma-delta-integration}, $C_S$ first samples the input voltage during $\Phi_1$ and then delivers its charge to $C_I$ through the virtual ground of the amplifier during $\Phi_2$. Not being reset, at each clock cycle, $C_I$ integrate charges sampled. At the output, the voltage change after each clock period is equal to $-(C_S/C_I)(V_{\rm in} - V_{\rm FB})$.
 
 \begin{figure}[htp]
@@ -219,13 +220,13 @@ The switched capacitor integrator is countinous-time integrator whose resistor i
 	\label{fig:sigma-delta-integration}
 \end{figure}
 
-\textbf{\textcolor{red}{parasitic insensitive}}
+\textbf{\textcolor{black}{parasitic insensitive:}}
 Suppose $C_S$ has a parasitic capacitance from each plate to ground. While the left plate charge to $V_{\rm in}$ then $V_{\rm FB}$, the parasitic capacitor of this plate has no contribution in the charge transfer during $\Phi_2$. Unfortunately, the right plate parasitic will be charged a little due to the finite gain of the amplifier and appears in the charge transfer as a small voltage drop. This point also applies to the nonlinearities arising from these parasitics.
 
 In addition to this, the implementation using parasitic insensitive switched capacitor integrator require the use of non-overlapping phases. This is necessary for avoiding the simultaneous activation of switches connecting to the $V_{\rm cm}$ or $V_{\rm refp}$/$V_{\rm refm}$, which would corrupt the value stored on $C_S$, and
 switches connecting the input voltage and the virtual ground, which would allow Vin to momentarily charge $C_I$ through $C_S$, reducing the integrator gain. 
 
-\textbf{\textcolor{red}{integrator existing modes}}
+\textbf{\textcolor{black}{integrator existing modes:}}
 In a conventional mode a clock cycle is lost for the reset of the integrator. In the case of a reset made at the first clock cycle of a new conversion, the output bits of the last clock cycle are not related to the residue transfer at this clock cycle. With two bits at each clock cycle, only 8-bits are necessary out of the ten provided. With a low-OSR conversion, each clock cycle is important. One can enhance by adding a switch in the charge transfer path as depicted in \figurename~\ref{fig:sigma-delta-modes-integration}. This switch opens the signal path to shunt the amplifier at each clock cycle without resetting the charge store in $C_I$. As a result, the residue is fall down to zero at each clock cycle. The amplifier has thus an increased speed and slew-rate constraint. For the implementation, \(\Phi_{1mode} \) is a signal always on to operate in a conventional mode.
 
 \begin{figure}[htp]
@@ -252,7 +253,7 @@ The final representation of the integrator is represented by the \figurename~\re
 	\label{fig:isd-sc-integrator}
 \end{figure}
 
-\textbf{\textcolor{red}{Reduction of the INL without calibration by the ratio $C_S/C_I$}}
+\textbf{\textcolor{black}{Reduction of the INL without calibration by the ratio $\mathbf{C_S/C_I}$:}}
 In such circumstances the SC-Integrator respects the equation~(\ref{eqn:sc-integrator}) where A is the OTA DC Gain, \(C_S \) the sampling capacitor, \(C_I \) the integration capacitor, and \(V_{\rm in} \), \(V_{\rm ref} \), \(V_{\rm out} \) respectively the differential voltage \(V_{\rm inp}-V_{\rm inm} \), \(V_{\rm refp}-V_{\rm refm} \), and \(V_{\rm outp}-V_{\rm outm} \).
 \begin{equation}
     \label{eqn:sc-integrator}
@@ -263,11 +264,11 @@ As demonstrated in Appendix~\ref{app:integrator-inl}, the INL is tightly linked 
 
 %In order to fully use each of them, another integrating capacitor could be added. This capacitor noted \(C_{I2} \) is only used while the first integrator's capacitor \(C_{I1} \) is reset. The extra capacitor in the integrator to deliver the residue processed to the next stage. Meanwhile, the 1.5-bit quantizer is still providing firsts bits of new samples. Despite this solution prevents a clock cycle loss, the mismatch between integration capacitor affects the weight inside the digital counter and a digital calibration is required. Moreover, non-idealities of the OTA introduce a memory effect between each sample due to extra parasitics of switches worsen with the temperature. Therefore, we allow the possibility of a clock cycle loss. The resolution of this stage is thus enhanced by the introduction of an inter-stage gain of 2 between this stage and the following.
 
-\textbf{\textcolor{red}{switches noise}}
+\textbf{\textcolor{black}{switches noise:}}
 Considering error sources, switches on the signal path is of much importance as they source the signal and induce noise by their finite channel resistance. 
 Therefore, the voltage standard deviation of the thermal noise injected by a switch on a capacitance is given to be \(\sqrt{k_BT/C} \) where \(k_B\) is the Boltzmann constant, T the temperature, and C the load capacitance of a switch. On the sampling capacitor, the number of switches connected is $N_{\rm switches} = 6$. To bound the noise variation within a LSB of a given resolution, the following criterion shall be respected: $\sqrt{N_{\rm switches} k_BT/C} < \frac{V_{\rm in_{\max}}-V_{\rm in_{\min}}}{2^{\rm resolution}}$. So, the minimum capacitance to for a desired resolution is $C_{\min} > N_{\rm switches} k_BT \left(\frac{2^{\rm resolution}}{V_{\rm in_{\max}}-V_{\rm in_{\min}}} \right)^2$. As the $\Delta\Sigma$ is oversampling at least over 5 clock cycle, the noise power is divided by OSR\@. For a maximum temperature of 175\(\degree \)C, the sampling capacitor should at least be to 110 fF in order to bound the thermal noise within a 11.7-bits LSB\@.
 
-\textbf{\textcolor{red}{channel resistance and settling time}}
+\textbf{\textcolor{black}{channel resistance and settling time:}}
 The second source of error concerning them is the settling error. This error comes from a first order system settling error whose time constant is defined by the product of the finite channel resistance and the sampling capacitance as \(\tau = R_{\rm switches}C_S \). In this regard, two switches in series samples the input voltage with a settling time of 9 ns and an accuracy of 14-bits. The maximum switch resistance follows as 
 \begin{equation}
 2 R_{\rm switches} = -\frac{T_{\max}}{C_S \times \ln(V_{\rm error})} = - \frac{9 ns}{110 fF \times \ln (1/2^{14})} \approx 8400 \Omega
@@ -280,7 +281,7 @@ This does not consider the voltage dependence of \(\tau \) coming from the non-l
 	\label{fig:cmos-ron-vin-temp}
 \end{figure}
 
-\textbf{\textcolor{red}{charge injection}}
+\textbf{\textcolor{black}{charge injection:}}
 By the way, charge injection in analog switches and multiplexers is a level change caused by stray capacitance associated with the NMOS and PMOS transistors that make up the analog switch. In a fully differential architecture this phenomenon is fairly reduced, but not annihilated. Indeed, the voltage commuted in the positive side is the opposite of the one in the negative side: at least a voltage dependant error is introduced. In the case of switches connecting the input voltages, the error on the transfer function of the ADC is dependant of the input voltage.
 
 As signal switches shall be complementary ones with at least PMOS 3.5 times larger than NMOS to prevent non-linearity dependant on the input voltage. The charge injected by PMOS stray capacitance are thus not fully absorbed by the NMOS stray capacitance as depicted by \figurename~\ref{fig:charge-injection-switches}. As we assume that the input voltage of the switch is approximately equal to the one sampled on the capacitor \(C_S\), the charge deposited by the NMOS transistor is \(\Delta q = W_nL_nC_{\rm ox}(V_{\rm DD}-V_{\rm in}-V_{\rm thn}) \) while the charge from the PMOS transistor is \(\Delta q = W_pL_pC_{ox}(V_{\rm in}-V_{\rm thp}) \). Hence, size of switches shall be minimal to reduce the charge injection while the increased channel resistance induce distortions.
@@ -305,8 +306,8 @@ Finally, the bottom switch connecting the bottom plate of the capacitor to the c
 	\label{fig:sample-switches-error-source}
 \end{figure}
 
-\textbf{\textcolor{red}{clock feedthough}}
-In addition to the charge injection coming from these signal switches, the clock feed-through is an error that is constant with the input voltage level \(\Delta V = V_{\rm gate} \frac{W C_{\rm ov}}{W C_{\rm ov}+C_S}\). For high-speed input signals, it is critical that the NMOS and PMOS switches in \figurename~\ref{fig:clock-feedthrough-switches} turn off simultaneously so as to avoid ambiguity in the sampled value. If, for example, the NMOS device turns off \(\Delta t\) seconds earlier than the PMOS device, then the output voltage tends to track the input for the remaining \(\Delta t\) seconds, but with a large, input-dependent time constant. This effect gives rise to distortion in the sampled value.
+\textbf{\textcolor{black}{clock feedthough:}}
+In addition to the charge injection coming from these signal switches, the clock feed-through is an error that is constant with the input voltage level \(\Delta V = V_{\rm gate} \frac{W C_{\rm ov}}{W C_{\rm ov}+C_S}\). For high-speed input signals, it is critical that the NMOS and PMOS switches in \figurename~\ref{fig:clock-feedthrough-switches} turn off simultaneously. If, for example, the NMOS device turns off \(\Delta t\) seconds earlier than the PMOS device, then the output voltage tends to track the input for the remaining \(\Delta t\) seconds, but with a large, input-dependent time constant. This effect gives rise to distortion in the sampled value.
 
 To reduce the amount of charges, the switches size is determined by \(L=L_{\min}\) to minimize the area, and an optimization of their width to reduce the input voltage dependency of this sub-ADC residue in the range from 1\(\mu \)m to 4\(\mu \)m. A good balance is found for \(W/L = \) 2 \(\mu \)m/180 nm with a ratio PMOS over NMOS of 3.5.
 
@@ -366,7 +367,7 @@ The latter precise the nature of the offset for arbitrary differential voltage o
  V_{\rm DD}\left(\frac{C_0 \Delta C_0\sum_{i=1}^{3}{\sqrt{k_i}}}{C_0\left(\sum_{i=1}^{3}{k_i}\right)}\right)+(1-V_{\rm DD})\left(\frac{{\left(C_0 \Delta C_0\right)}^2{\left(\sum_{i=1}^{3}{\sqrt{k_i}}\right)}^2}{\left(C_p+C_0\left(\sum_{i=1}^{3}{k_i}\right)\right)\left(C_0\left(\sum_{i=1}^{3}{k_i}\right)\right)} \right)
 \end{equation}
 
-Henceforth, from the allowed tolerance on the mismatch from the ideal values, the area of the unit capacitance can be found according to the Pelgrom modelling of capacitance variation in the design kit: \(\Delta C_0 \propto A_{c_{\rm MIM}}/\sqrt{WL} \) with \(C_0 \propto WL\times C_{\rm MIM}(fF/\mu m^2)\). In consequence, the unit capacitance is chosen to be 50 fF.
+Henceforth, from the allowed tolerance on the mismatch from the ideal values, the area of the unit capacitance can be found according to the Pelgrom modelling of capacitance variation in the design kit: \(\Delta C_0 \propto A_{c_{\rm MIM}}/\sqrt{WL} \) with \(C_0 \propto WL\times C_{\rm MIM}(fF/\mu m^2)\). We consider a large tolerance of 1\% mismatch on the unit capacitance for an offset generated to be under 20 mV. For an OSR=6, the reconstruct transfer function is a stair case with 200 mV steps. This value of the offset is a less than tenth of this sub-ADC transfer function step. In consequence, the unit capacitance is chosen to be 50 fF with a size of 3.2 $\mu$m $\times$ 3.2 $\mu$m.
 
 One should consider the influence of a fast latching output of the comparator. By capacitive coupling to its inputs, a fast transient variation of the outputs kickback on the signal \(V_p\)/\(V_m\) used for the comparison. In this case, only the differential kickback is of interest. As the kickback propagates to the residue via \(C_2\) and introduce and extra error on the final value, this could be reduced by cutting the path for the kickback before the comparator makes a decision.
 
@@ -408,14 +409,14 @@ As discussed earlier, the simultaneity of turning off switches prevents ambiguit
 		\subcaption{crossing over temperature}
 		\label{fig:dig-driver-crossing}
 	\end{subfigure}
-	\caption{digital driver to ensure PMOS and NMOS signal transition crossing around half the power supply voltage}
+	\caption{digital driver to ensure PMOS and NMOS command signal $S_p/S_m$ transition crossing around half the power supply voltage}
 	\label{fig:dig-driver}
 \end{figure}
 
 For a minimal size inverter, good results are given without the transmission gate as depicted by \figurename~\ref{fig:dig-driver-crossing}. In a typical corner over temperature, the variation of the crossing point is 300 ps for a capacitive load that analog switches represents. Crossings between the PMOS and the NMOS command signals are in the 600-725 mV range over the temperature range. Taking into account the process variation, this range enlarges to 490-850 mV. With the transmission gate, the delay for low-to high variation is compensated. Taking into account the process variation, this range enlarges to 700-1150 mV. In comparison, the range suffers from a greater process variation given by the transmission gate equivalent resistance while the range is centred around half the power supply voltage. Furthermore crossings occurs at almost the same time over temperature. For this last reason, the version using transmission gate is preferred.
 \paragraph{Relaxed comparator constraints}
 
-Analog constraints undergo large variation with process alteration and increasing temperature. In this regard, the digital should respect these constraints, but can also relieve them. As an example, the transition frequency of a single transistor as a sensitivity of about 2000 ppm/\(\degree \)C. This is equivalent to say from -40\(\degree \)C to 175\(\degree \)C that the speed is reduced by 35 \%. For the sake of simplicity, let us assume comparators follows the same trend over temperature. As the differential input is getting closer to zero, the delay increase. In order to reduce the probability of a metastable state or to prevent transition at the time the digital shall apply the feedback voltage when the decision is ready. While in most of the case the decision is made within the non-overlapping time, this is not the case in this design.
+Analog constraints undergo large variation with process alteration and increasing temperature. In this regard, the digital should respect these constraints, but can also relieve them. As an example, the transition frequency of a single transistor as a sensitivity of about 2000 ppm/\(\degree \)C. This is equivalent to say from -40\(\degree \)C to 175\(\degree \)C that the speed is reduced by 35 \%. For the sake of simplicity, let us assume comparators follows the same trend over temperature. As the differential input is getting closer to zero, the delay increase. While in most of the case the decision is made within the non-overlapping time, this is not the case in this design. This is done in order to reduce the probability of a metastable state, or more generally to prevent latch output transition at the time the digital is applying the feedback voltage.
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/comp-timing-isd.ps}
@@ -424,10 +425,13 @@ Analog constraints undergo large variation with process alteration and increasin
 \end{figure}
 
 \figurename~\ref{fig:comp-timing} depicts the scheduling of the comparator decision in order to apply the correct voltage feedback. As the second clock phase settle the input voltage of the quantizer, the comparator makes a decision in less than 1 ns after. The decision made toggle the nand-RS-latch to generate the appropriate feedback selector signal. In the case of the critical path, a single gate generates the signal. The following AND gate makes the results only available for the next second phase of the clock. Therefore, between the beginning of the settling of input voltages to compare and the available result signal, there is \(T_{clk}/2-T_{delay}-T_{RSLatch}-T_{nor}-T_{setup}\) for the comparator.
+
+In summary, the first stage Incremental-$\Delta\Sigma$ heavily relies on the performance of the integrator. The design from the top-level down to switches' transistors have been considered to reduce the INL drop due to parasitics, coupling, charge trapped and mismatches. From a system point of view, the fully differential structure limits the impact of clock coupling, charge injections and mismatches. With a parasitic insensitive topology, the parasitic can be disregarded for the design as the switches command signals are non-overlapping and limits charge injections. However, only partial specification have been given for the OTA not discussed yet.
+Connected to the integrator, the 3-levels switched capacitor quantizer limits the swing of the residue by making the decision of the feedback to apply. Being the interface between comparators and the integrator, the offset introduced by mismatch in capacitors sums with the offset of comparators. The excursion of the residue takes into account the disturbance to be processed by the following stage: the Algorithmic.
 \clearpage
 	 
 \subsection{Algorithmic}                    % section 5.2
-\textbf{\textcolor{red}{principle}}
+\textbf{\textcolor{black}{principle:}}
 The principle of the Algorithmic conversion lies in the successive amplification of the estimation error. Made out of an ADC-DAC chain to estimate the input voltage, the error is then amplified by an arbitrary factor $a$ before the recycle of this error as the new input of this converter.
 
 For its first clock cycle, this stage sample the residue of the previous stage. Herein the previous stage residue is named \(V_{\rm in}\) for clarity as represented in \figurename~\ref{fig:algo-alone-clk-cycle}. After the comparator makes a decision, either \(+bV_{\rm ref} \), or 0, or \(-bV_{\rm ref} \) is added to the amplified input signal. The output of the adder is the part of the input that has not yet been quantized and is called the residue. Here \(a\) denotes the gain applied to the residue between comparator decisions and is called the residue gain. In later cycles, the input switch is always in the up position, and the residue is sent back to the comparator for further quantization as in \figurename~\ref{fig:algo-alone-std-clk-cycle}.
@@ -456,13 +460,13 @@ For its first clock cycle, this stage sample the residue of the previous stage. 
 	\label{fig:algo-alone-clk-cycle}
 \end{figure}
 
-\textbf{\textcolor{red}{limitations: analog error amplified and residue}}
+\textbf{\textcolor{black}{limitations from analog error amplified and on residue:}}
 A common implementation of the algorithmic converter is by building the stage around a Flip-Around Multiplying DAC (FA-MDAC) composed of two capacitors and one amplifier. While a simple differential pair is a valid amplifier to operate under low-supply condition, as the resolution increased the gain of the amplifier shall drastically increase too. Indeed, at each clock cycle the FA-MDAC recycles its inner self error. To achieve high gain amplifier by stacking transistors the output swing is thus limited and non-linearity occurs. Therefore, medium to high resolution algorithmic ADC require a digital compensation or an adjustment of its residue curve.
 
-\textbf{\textcolor{red}{limitations: resolution enhancement with interstage gain}}
+\textbf{\textcolor{black}{resolution enhancement with interstage gain:}}
 Besides this, the residue of the first stage is within the $\pm V_{\rm ref}/2$ range. With a SAR following this stage, an increase of this stage residue can be converted. In consequence, the resolution of the ADC can be enhanced by the introduction of an interstage gain to amplify the residue of the first stage. The benefits and limitations of an interstage gain will be discussed later in this section.
 
-\textbf{\textcolor{red}{limitations: resolution enhancement and threshold change}}
+\textbf{\textcolor{black}{resolution enhancement and threshold change:}}
 In addition to that, the architecture proposal discussed in section~\ref{sec:selected-topology} consists in turning the estimation of the error provided by the last clock cycle into the first bits of the SAR. Depending on the adjustment of the residue curve, threshold voltages of the quantizer change in the last cycle to \(\pm V_{\rm ref}/2\). Depicted by \figurename~\ref{fig:sar-first-bits-from-algo}, during this last clock cycle, a third comparator is used to give the sign of the residue. The output of the comparison results in the expected first step perform by a SAR\@. The threshold change matching the threshold of the second step of the SAR, the combined the outputs of the three comparators provide the quadrant of the residue. This digital information will be used by the third stage of the converter right after the sampling phase to perform its third comparison.
 
 \begin{figure}[htp]
@@ -472,8 +476,8 @@ In addition to that, the architecture proposal discussed in section~\ref{sec:sel
 	\label{fig:sar-first-bits-from-algo}
 \end{figure}
 
-\textbf{\textcolor{red}{solutions: residue constrained with a 1.5-bit quantizer}}
-Expecting a digital calibration of mismatch compensation, the adjustment of the residue curve provides the necessary margin to achieve medium to high resolution with an algorithmic ADC. With a transfer function of the form $V_{\rm residue}[n+1] = a V_{\rm residue}[n] \pm b V_{\rm ref}$, thw two parameters $a$ and $b$ can be tuned.
+\textbf{\textcolor{black}{solutions (residue constrained with a 1.5-bit quantizer):}}
+Expecting a digital calibration of mismatch compensation, the adjustment of the residue curve provides the necessary margin to achieve medium to high resolution with an algorithmic ADC\@. With a transfer function of the form $V_{\rm residue}[n+1] = a V_{\rm residue}[n] \pm b V_{\rm ref}$, thw two parameters $a$ and $b$ can be tuned.
 
 If the residue gain \(a = 2\), N-bit conversion requires N clock cycles and the output code is simply raw outputs bit of the comparator shifted and added. Reducing the residue gain increases the number of required clock cycles, but also introduces redundancy, allowing ADC non-linearity from the SHA charge injection, comparator offset, and OTA offset to be avoided~\cite{Lewis1987}. However, the ADC output cannot be calculated by a simple bit shift and addition. So, we decide to keep the residue gain \(a = 2\).
 
@@ -542,7 +546,7 @@ Based on a common Flip-Around Multiplying DAC (FA-MDAC) represented in \figurena
 	\label{fig:algo-mdac}
 \end{figure}
 
-\textbf{\textcolor{red}{inter stage gain}}
+\textbf{\textcolor{black}{inter stage gain:}}
 The second tuning relates to the inter-stage gain. As only the sampling of the first stage residue shall be multiplied by a factor of two, an extra capacitance \(C_G\) is mandatory. As represented in \figurename~\ref{fig:algo-Cg-phi1}, during the sampling phase the capacitor \(C_G\) is connected to the inputs of the OTA and the first stage residue for the sampling. Then illustrated by \figurename~\ref{fig:algo-Cg-phi2}, till to the end of the sample conversion the latter is connected to the inputs of the OTA and the common-mode voltage \(V_{\rm cm}\).
 
 \begin{figure}[htp]
@@ -568,7 +572,7 @@ Over the first clock cycle, the charges stored in the system for an amplifier ga
 Q_{11p} &= \left(C_G+C_S+C_F \right) \left( V_{\rm inp}[n-1] - V_{\rm cm} \right)\\
 Q_{12p} &= \left(C_S \right) \left( V_{\rm ref}b_i[n-1] - V^{-}[n] \right) + C_G \left(V_{\rm cm}-V^{-}[n] \right)  + C_F \left(V_{\rm op}[n]-V^{-}[n] \right) \\
 Q_{11m} &= \left(C_G+C_S+C_F \right) \left( V_{\rm inm}[n-1] - V_{\rm cm} \right) \\
-Q_{12m} &= \left(C_S \right) \left( V_{\rm ref}b_i[n-1] - V^{+}[n] \right) + C_G \left(V_{\rm cm}-V^{+}[n] \right)  + C_F \left(V_{\rm om}[n]-V^{+}[n] \right) \\
+Q_{12m} &= \left(C_S \right) \left( V_{\rm ref}b_i[n-1] - V^{+}[n] \right) + C_G \left(V_{\rm cm}-V^{+}[n] \right)  + C_F \left(V_{\rm om}[n]-V^{+}[n] \right)
 \end{align}
 
 which results into a differential output voltage following 
@@ -583,7 +587,7 @@ Then, the gain capacitor being always connected to the $V_{\rm cm}$, the transfe
 
 We deduce the interstage gain as the ratio of input gain between the first and the following clock cycles, to wit, $1+frac{C_G}{C_S+C_F}$.  In this configuration, the gain capacitor is not disconnected to prevent a switch injecting thermal noise on the input of the amplifier, and to simplify the digital calibration as the feedback gain is constant.
 
-\textbf{\textcolor{red}{feedback gain}}
+\textbf{\textcolor{black}{feedback gain:}}
 To optimize the feedback gain $b$, either new references can be generated for this stage, or an extra capacitor can be charged and connected. The change of reference voltages only for this stage is not recommended as extra circuitry is required which could exhibit a temperature variation in opposition to the first stage references. In this case, the accuracy of the ADC is compromised.
 
 To the contrary, a capacitor ratio based design based on capacitance experiences a reduced alteration and good variation over temperature and process. As the feedback gain of a conventional FA-MDAC has been set to \(C_S/C_F = 1\), only an extra fraction of \(V_{\rm ref}\) capacitance is required. Considering a design with unit capacitors, both the sampling and the feedback capacitance could be Q units. \figurename~\ref{fig:algo-mdac-cb} highlights the extra capacitance \(C_B\) of P units connected between the OTA inputs and the feedback voltage applied to \(C_S\) in order to bring charges in the amounts of \(C_B/C_F = P/Q\) of \(V_{\rm ref}\). During the sampling phase on \(C_S\) and \(C_F\), this \(C_B\) capacitor is reset by connecting its plates to the common-mode voltage \(V_{\rm cm}\).
@@ -613,7 +617,7 @@ To estimate the error by combining the modification of the interstage gain and t
 Q_{11p} &= \left(C_G+C_S+C_F \right) \left( V_{\rm inp}[n-1] - V_{\rm cm} \right) + C_B \left(V_{\rm cm}-V_{\rm cm} \right) \\
 Q_{12p} &= \left(C_S+C_B \right) \left( V_{\rm ref}b_i[n-1] - V^{-}[n] \right) + C_G \left(V_{\rm cm}-V^{-}[n] \right)  + C_F \left(V_{\rm op}[n]-V^{-}[n] \right) \\
 Q_{11m} &= \left(C_G+C_S+C_F \right) \left( V_{\rm inm}[n-1] - V_{\rm cm} \right) + C_B \left(V_{\rm cm}-V_{\rm cm} \right) \\
-Q_{12m} &= \left(C_S+C_B \right) \left( V_{\rm ref}b_i[n-1] - V^{+}[n] \right) + C_G \left(V_{\rm cm}-V^{+}[n] \right)  + C_F \left(V_{\rm om}[n]-V^{+}[n] \right) \\
+Q_{12m} &= \left(C_S+C_B \right) \left( V_{\rm ref}b_i[n-1] - V^{+}[n] \right) + C_G \left(V_{\rm cm}-V^{+}[n] \right)  + C_F \left(V_{\rm om}[n]-V^{+}[n] \right) 
 \end{align}
 which results into a differential output voltage following 
 \begin{equation}
@@ -625,7 +629,7 @@ Then, in the same manner, the differential output voltage for following clock cy
 	V_{\rm out}[n] = \frac{C_S+C_F}{C_F+\frac{C_B+C_G+C_S+C_F}{A}} V_{\rm in}[n-1] - \frac{C_S+C_B}{C_F+\frac{C_B+C_G+C_S+C_F}{A}} V_{\rm ref}b_i[n-1]
 \end{equation}
 
-\textbf{\textcolor{red}{optimization of ratio}}
+\textbf{\textcolor{black}{optimization of ratio:}}
 For the sake of clarity, we define the interstage gain of \(g = 1+C_G/(2C_F)\) and a feedback gain of \(b = 1+C_B/C_F\), after N clock cycle the estimated error for the same output code is
 \begin{equation}
 	error[N] = g \times 2^N \left(1-{\left(\frac{1}{1+\frac{2g+b-1}{A}} \right)}^N \right) V_{\rm in} - b \times \sum_{i=0}^{N-1}{2^i\left(1-{\left(\frac{1}{1+\frac{2g+b-1}{A}} \right)}^{i+1} \right)} V_{\rm ref}
@@ -655,7 +659,7 @@ From this equation, the minimum gain of the amplifier can be calculated as we al
 	\label{fig:algo-error-cb-cg}
 \end{figure}
 
-As the feedback gain increase, the OTA DC Gain shall increase too to reach the same level of error. Let us suppose the maximum error to target is 7 mV which corresponds to a resolution of 6-bits on the last stage. For an interstage gain \(g = 1\), the minimum gain varies from 67 dB to 76 dB, while a variation of \(g\) for \(b = 1.2\) the minimum gain varies from 67 dB to 84 dB. We deduce a higher sensitivity to the interstage gain rather than to feedback. Moreover, the feedback with less error on the settling is for \(b = 1.2\). This can be explained by the fact the residue transfer function does not exceed . 
+As the feedback gain increase, the OTA DC Gain shall increase too to reach the same level of error. Let us suppose the maximum error to target is 7 mV which corresponds to a resolution of 6-bits on the last stage. For an interstage gain \(g = 1\), the minimum gain varies from 67 dB to 76 dB, while a variation of \(g\) for \(b = 1.2\) the minimum gain varies from 67 dB to 84 dB. We deduce a higher sensitivity to the interstage gain rather than to feedback. Moreover, the feedback with less error on the settling is for \(b = 1.2\). This can be explained by the fact the residue transfer function does not exceed thresholds of the 3-levels quantizer as often. Therefore, large settling errors occurs latter in the conversion process for input voltages closed to limits of its excursion. The settling error is thus multiplied by a smaller factor.
 
 Therefore, the optimization leads us to the solution of \(b = 1.2, g = 1\) which corresponds to the conventional sizing of the algorithmic. This point is equivalent to an output range of \(\pm 0.6 V_{\rm ref}\) with threshold of \(\pm 0.3 V_{\rm ref}\). The system is able to withstand 200 mV of error coming from the analog devices offset and charge injections, enhance the output swing of the sub-ADC, while the constraint on the OTA Gain is reduced. The second option close behind is the conventional sizing \(b = 1, g = 1\) with an area smaller than the optimized solution. With a priority set on the area, we let the impact of temperature in each of these two at the transistor level simulation decides which is the final one.
 
@@ -753,13 +757,13 @@ In the same manner, the error committed on the last clock cycle engender a misma
 \end{equation}
 
 	\subsubsection{Digital Circuit}         % section 5.2.4	
-\textbf{\textcolor{red}{define what is reused in the digital}}
+\textbf{\textcolor{black}{define what is reused in the digital:}}
 To drive the analog core, the digital circuit also need a clock generator, a sequencer, and driver interfaces. The sequencer and the clock generator present inside the digital circuit of the first stage are re-used while the driver interfaces are instantiated again for the switches command signal of this stage. The new sequencing no more based on clock phase for the MDAC, the clock phase generated only serve the purpose of the 3-levels quantizer.
 
-\textbf{\textcolor{red}{the problematic of non overlapping without using clock phases}}
+\textbf{\textcolor{black}{the problematic of non overlapping without using clock phases:}}
 As switches in the MDAC connect several analog reference voltages on the same capacitors plates, non overlaps shall be respected to prevent the short circuit of them. In order to improve both the sustainability and the yield, the non-overlap time in the digital circuit shall be fully ``synthetizable''. Then, non overlapping time being part of the digital static time analysis, such cells ensure the operation with an increased reliability on the sub-ADC\@.
 
-\textbf{\textcolor{red}{solution 1}}
+\textbf{\textcolor{black}{solution 1:}}
 A first possible realization could be the one depicted by \figurename~\ref{fig:solution-1}. This solution can be implemented with standard digital tools with a pulse generation based on a clock and a delayed one. Unfortunately, this circuit suffers from possible glitches due to the multiplex of DFF outputs and clocks are used in a data path.
 
 A Double-Edge circuit is able to implement the functionality desired as one clock sets the value to block analog switches till a delayed clock sample the signal to activate the analog switches. A usual realization is built around two pulse generation to trigger a latch at two distinct instant~\cite{Afghahi1996, Cheng2003dig, Murotiya2013, Bonetti2015}. Pulses generation is considered as an analog circuits for which digital tools cope with badly.
@@ -780,10 +784,10 @@ A Double-Edge circuit is able to implement the functionality desired as one cloc
 	\label{fig:digital-non-overlap}
 \end{figure}
 
-\textbf{\textcolor{red}{solution 2}}
+\textbf{\textcolor{black}{solution 2:}}
 In response, \figurename~\ref{fig:solution-2} represents an alternative based on combinatorial logic. This clocked nor rs-latch with a reset generates a new dual-edge DFF with a distinct data path from the clock path. From a timing point of view, the non overlap between \(CLK_1\) and \(CLK_2\) shall be ideally ensured. Otherwise a glitch can occur for arbitrary \(D_1\) and \(D_2\). In case of \(D_1 = 0\), the overlapping of \(CLK_1\) and \(CLK_2\) is no more a concern. For timing constraints, the cell is sensitive to the placement.
 
-\textbf{\textcolor{red}{solution 3: the one kept}}
+\textbf{\textcolor{black}{solution 3 (the one kept):}}
 Proposed by Ralf Hildebrandt, such a block can be described with only two DFFs without mixing of the clock and data path and no possibility for glitches. This proposition is represented in \figurename~\ref{fig:digital-non-overlap} after a change of \(CLK_2\) as a delayed \(CLK_1\). Therefore, there is no hold time issue and the setup time constraint relaxed on the DFF triggered by \(CLK_1\) put under pressure the DFF triggered by the delayed clock. Over temperature the transition time of analog switches increases as the non overlap time defined by the delay between the two clocks does.
 
 \begin{figure}[htp]
@@ -796,6 +800,9 @@ Proposed by Ralf Hildebrandt, such a block can be described with only two DFFs w
 Then, the latter is followed by digital driver presented in Section~\ref{sec:dig-driver} to prevent ambiguity in the sampled value when the settling time is limited and the non-overlapping time is short.
 
 For switches in the 3-levels quantizer, two non overlapping clock phases are required. The already mentioned clock phase generator circuit of the first stage fits this purpose. A particular caution is paid at the clock phase connection such that the sampling occurs when the settling is almost performed around the instant of the falling edge of the main clock. As the delay between our pseudo dual edge trigger DFF (pseudo-DET-DFF) reduces the settling time, the clock tree skews gain much importance. For accurate results, the clock of the clock phase generator shall be late in comparison of the clock provided to the pseudo-DET-DFFs.
+
+The algorithmic ADC is known to be sensitive to analogue defects. At a system-level, the architecture and the conversion sequencing have been though to reduce the error on the settling of the residue. From the equation of the error in the MDAC, we consider the introduction of an interstage gain $g$, and a tunable feedback gain $f$. The two candidate pair of values exhibiting a reduce error are the conventional design ($g$=1, $f$=1), and ($g$=1, $f$=1.2).
+To facilitate the digital implementation of non-overlapping command signal without clock phase, the digital interface has been investigated. The selected circuit allows the introduction of a scan chain, and simplifies the layout phase without introducing failure in the timing analysis.
 \clearpage
 \subsection{SAR}                            % section 5.3
 The SAR architecture benefits from using only one comparator to reduce the occupied area. With recent progress, the SAR converter outperformed power consumption, its area occupancy has tremendously shrunk, and the speed has been soared. Made of a capacitive DAC, a comparator, and a digital control circuit, the primary source of power dissipation are the digital control circuit and capacitive reference DAC network, while the source of large area occupancy is the capacitive DAC\@.
@@ -814,14 +821,14 @@ To address both the area occupancy and further reduce the energy consumption, th
 	\caption{Load reduction for both the OTA of the Algorithmic and the voltage references}
 	\label{fig:sar-dac-normal-split-cap}
 \end{figure}
-\textbf{\textcolor{red}{position of the attenutation capacitor to minimize the load}}
+\textbf{\textcolor{black}{position of the attenutation capacitor to minimize the load:}}
 In \figurename~\ref{fig:sar-dac-normal-split-cap}, the position of the attenuation capacitance \(C_a\) can be placed between either group of two consecutive capacitors of the DAC, which create a group of \textcolor{red}{MSB} capacitors and a group of \textcolor{blue}{LSB} capacitors. The attenuation capacitor is at the position which minimize the load seen by voltage references and the previous stage OTA\@.
 
-\textbf{\textcolor{red}{parasitic insensitive}}
+\textbf{\textcolor{black}{parasitic insensitive:}}
 Switches connecting either voltage of the following set \(\left\{ V_{\rm in}, V_{\rm refp}, V_{\rm refm} \right\} \) are on the bottom plate (side opposite to the comparator input). It makes the DAC inherently insensitive to switches' parasitic capacitance and still keep the criterion on accurate reference voltages \(\varepsilon_{\rm references} < 1 LSB\).
 
-\textbf{\textcolor{red}{voltages generated and scale}}
-By application of superposition, the output voltage \(V_r\) is given by equation~(\ref{eqn:output_voltage_dac_sar}) where \(C_i\) the capacitance connected to the voltage \(b_i V_{\rm ref}\) of the aforementioned figure. A consequence of the attenuation capacitor is the difficult implementation to have both a binary scale and \(C_a\) a multiple integer of the unit capacitance \(C_0\).
+\textbf{\textcolor{black}{voltages generated and scale:}}
+By application of superposition, the output voltage \(V_r\) is given by equation~(\ref{eqn:output_voltage_dac_sar}) where \(C_i\) the capacitor connected to the voltage \(b_i V_{\rm ref}\) of the aforementioned figure. A consequence of the attenuation capacitor is the difficult implementation to have both a binary scale and \(C_a\) a multiple integer of the unit capacitance \(C_0\).
 
 \begin{align}
 	\label{eqn:output_voltage_dac_sar}
@@ -831,7 +838,7 @@ By application of superposition, the output voltage \(V_r\) is given by equation
 
 In the case of ideal value of the attenuation capacitor $C_a = 8/7$ for a configuration as represented in \figurename~\ref{fig:sar-dac-normal-split-cap}, the voltage contribution of each capacitor driven by $b_5$ to $b_0$ is respectively \{0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625\}.
 
-\textbf{\textcolor{red}{second stage decision error}}
+\textbf{\textcolor{black}{second stage decision error:}}
 The previous stage generating the two first bits of the SAR, an erroneous decision of the algorithmic impacts the overall decisions of the SAR and cannot be fully corrected. Without any redundancy as represented in \figurename~\ref{fig:std-scale}, an error in the decision made by comparators providing a 01 instead of a 10 corresponds a final error of 1 LSB\@. The redundancy could be introduced by decreasing the two first bits’ weight \(A_{MSB}\) and \(A_{MSB-1}\): a weight distribution of \(A_i\)'s as 3-1.5-1-4-2-1-1 rather than 4-2-1-4-2-1-1 times the unit capacitor. In fact, keeping \(A_i\) as an integer multiple of the unit capacitor, the version 6-3-2-4-2-1-1 is implemented with an ideal attenuation capacitor of \(8/3\). As depicted by \figurename~\ref{fig:altered-scale-1}, the resulting error is less than 1 LSB\@. The counterpart is a bigger LSB which is representative of a trade off between robustness and resolution. 
 
 \begin{figure}[htp]
@@ -850,7 +857,7 @@ The previous stage generating the two first bits of the SAR, an erroneous decisi
 	\label{fig:sar-redundancy}
 \end{figure}
 
-\textbf{\textcolor{red}{attenuation capacitor rounding for redundancy}}
+\textbf{\textcolor{black}{attenuation capacitor rounding for redundancy:}}
 The attenuation capacitor scaling down the \(A_i\)'s in the LSB part can be an alternative for redundancy. As the ideal attenuation capacitor is most of the time not an integer multiple of the unit capacitor, rounding to the superior integer could be sufficient.
 
 For instance, let us consider two ``capacitors'' in series of which their equivalent capacitance is the weight the smallest capacitor within the MSB group in \figurename~\ref{fig:sar-dac-normal-split-cap}. The size of the attenuation capacitor to ensure ideal scale is given by \(\frac{1}{C_{eq}} = \frac{1}{C_1}+\frac{1}{C_2}\). Similarly, in the case of a split-dac the attenuation capacitor is given by equation~(\ref{eqn:attenuation-cap-size}).
@@ -862,10 +869,10 @@ For instance, let us consider two ``capacitors'' in series of which their equiva
 
 For a capacitance \(C_{eq} = 2 \) and \(C_2 = 8\), the expected value of \(C_1\) to ensure the equality is \(8/3 \approx 2.667 \). Rounding the value of \(C_1\) to 3, change the equivalent capacitance to \(24/11 \approx 2.18 \) while a ceiling of \(C_1\) to 2, results into an equivalent capacitance of \(8/5 = 1.6 \). Therefore, rounding the attenuation capacitor gives more weight to the LSB group to be able to alleviate errors of the previous stage. This solution also results into a resolution/robustness trade-off with an easier realization since each capacitance is made of an integer multiple of the unit capacitor. The finale capacitor distribution is thus 6-3-2---4-2-1-1 with an attenuation capacitor of 3 unit capacitor. The reference voltages generated are \{0.5, 0.25, 0.167, 0.091, 0.045, 0.023, 0.011\}.
 
-\textbf{\textcolor{red}{unit capacitor sizing procedure}}
+\textbf{\textcolor{black}{unit capacitor sizing procedure:}}
 Based on the procedure formulated in~\cite{Yue2013}, we estimate the noise contribution and the mismatch impact on the resolution of the DAC with respect to the unit capacitor size. We consider that the maximum tolerable error for an N-bit DAC is $\pm 1/2$ LSB which equals $V_{\rm ref}/2^{N+1}$. We suppose that mismatch variation and noise contribution of each capacitor is uncorrelated such that the standard deviation of the error is given by $\sigma^2 = \sigma_{\rm mismatch}^2 + \sigma_{\rm noise}^2$, and we shall constrain the error to within $\pm 1/2$ LSB.
 
-\textbf{\textcolor{red}{matching error contribution}}
+\textbf{\textcolor{black}{matching error contribution:}}
 For the matching determination to be relevant, the assumption is a common-centroid layout for the implementation of the DAC to get rid of all gradient related source of mismatch (temperature, mechanical stress, \ldots) to only keep the manufacturing variations. Capacitors split into multiple of unit capacitors with a normal distribution of the unit capacitance $\frac{\Delta C}{C} \approx N(0, \sigma_0^2)$, the mismatch of a single capacitor \(C_i = A_iC_0\) is given by $\frac{\Delta C_i}{C_i} \approx N(0, A_i\sigma_0^2)$ if each unit capacitor variation is independent from the other.
 
 We thus set a limit for the mismatch by the equation~(\ref{eqn:dac-mismatch-error-sizing}) where $N_\sigma$ is the number of standard deviation we consider for the confidence interval, and a LSB error contribution as the maximum error defined in~\cite{Yue2013} weighted by the $C_a/(C_a+\sum_{i \in LSB} C_i)$.
@@ -876,7 +883,7 @@ We thus set a limit for the mismatch by the equation~(\ref{eqn:dac-mismatch-erro
  &+ \frac{N_\sigma \sigma_0 V_{\rm ref}}{\sum_{i \in MSB} A_i - N_\sigma \sigma_0 \sqrt{\sum_{i \in MSB} A_i}} \sum_{i \in MSB} \sqrt{A_i}
 \end{eqnarray}
 
-\textbf{\textcolor{red}{noise estimation}}
+\textbf{\textcolor{black}{noise estimation:}}
 Let's now consider the noise introduced by switches on the DAC\@. Assuming switches as a resistance, the voltage standard deviation of the thermal noise \(\Delta V_i\) on a capacitance \(C_i = A_iC_0\) is given by equation~(\ref{eqn:thermal-noise-mult-of-unit-cap}).
 
 \begin{equation}
@@ -891,10 +898,10 @@ From the equation developed, the output noise on the input of the comparator is 
 	\Delta V_r_{\rm noise} = \frac{\left(\frac{C_a}{C_0} + \sum_{i \in LSB}{A_i}\right)\left( \sum_{i \in MSB}{\sqrt{\frac{k_BT}{A_i}}} \right) + \frac{C_a}{C_0} \left(\sum_{i \in LSB}{\sqrt{\frac{k_BT}{A_i}}} \right)}{\left(\frac{C_a}{C_0} + \sum_{i \in LSB}{A_i}\right)\left(\frac{C_a}{C_0} + \sum_{i \in MSB}{A_i}\right)-{\left(\frac{C_a}{C_0}\right)}^2} \frac{1}{\sqrt{C_0}}
 \end{equation}
 
-\textbf{\textcolor{red}{unit capacitor size}}
-Thence, and the variation $\sigma_0$ known as a function of $C_0$, the value of the unit capacitance required is given by a Newton-Raphson algorithm. The unit capacitor needed to cope with a $N_\sigma = 6$ is about 48 fF. In comparison a classical DAC would have required a unit capacitance of 42 fF for the same error budget. For the OTA of the second stage, the load to be driven is thus 950 fF saving 1.7 pF. The noise on the voltage to be compared $V_r$ is 847 \(\mu V_{\rm rms} \) at 475\(\degree \)K.
+\textbf{\textcolor{black}{unit capacitor size:}}
+From thence, and the variation $\sigma_0$ known as a function of $C_0$, the value of the unit capacitance required is given by a Newton-Raphson algorithm. The unit capacitor needed to cope with a $N_\sigma = 6$ is about 48 fF. In comparison a classical DAC would have required a unit capacitance of 42 fF for the same error budget. For the OTA of the second stage, the load to be driven is thus 950 fF saving 1.7 pF. The noise on the voltage to be compared $V_r$ is 847 \(\mu V_{\rm rms} \) at 475\(\degree \)K.
 
-\textbf{\textcolor{red}{modification for a 6 clock cycle operation}}
+\textbf{\textcolor{black}{modification for a 6 clock cycle operation:}}
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Chapter4/Figs/sar-extra-clock-cycle.ps}
@@ -930,13 +937,13 @@ Unfortunately, both monotonic switching rely on a top sampling technique. To the
 	\subsubsection{Digital Circuit}         % section 5.2.3 
 As the clock frequency increase, or as the temperature degrades the speed of the analog part, the digital constraints on a SAR become challenging. The timing constraint is defined by the time the DAC require to settle to the wished accuracy, the delay of the comparator, and the time the logic need to respond.
 
-\textbf{\textcolor{red}{synchrone}}
+\textbf{\textcolor{black}{synchrone:}}
 In a synchronous SAR, the high demand is assumed on the comparator to latch as fast as necessary to let the digital toggle switches according to the decision made. The clock period is usually defined on the worst speed corner for the lowest power supply voltage and the higher temperature.
 
-\textbf{\textcolor{red}{asynchrone}}
-To the contrary an asynchronous SAR waits for the comparator decision and ``digital'' does not wait for an edge of the clock. For unusually too long decision time, the digital code might be incomplete and results in errors. Forcing the decision in case of metastability did not have the same impact on the digital code representation of the input compared to an erroneous decision. Indeed, the metastability occurs for decision where the inputs of the comparator are close enough to prevent either the noise or mismatch to set the decision value within the allotted time. For a comparator sensing a difference less than a LSB fit the purpose.
+\textbf{\textcolor{black}{asynchrone:}}
+To the contrary an asynchronous SAR waits for the comparator decision and ``digital'' does not wait for an edge of the clock. For unusually too long decision time, the digital code might be incomplete and results in errors. Forcing the decision in case of metastability did not have the same impact on the digital code representation of the input compared to an erroneous decision. Indeed, the metastability occurs for decision where the inputs of the comparator are close enough to prevent either the noise or mismatch to set the decision value within the allotted time. A comparator sensing a difference less than a LSB is sufficient.
 
-\textbf{\textcolor{red}{synchrone versus asynchrone}}
+\textbf{\textcolor{black}{synchrone versus asynchrone:}}
 This first modification in the operation increases the allotted time for the comparator to make a decision: the probability of the metastability is highly reduced for the same comparator while the power consumption can be reduced for the same probability of metastable events.
 
 \figurename~\ref{fig:sar-sync-async} compares the synchronous and the pseudo-asynchronous operation which force the decision in case of metastability. The instants in delimited by blue boxes represents the domain when the decision shall be made to ensure correct operation based on setup and hold violation in the logic. Although, in a synchronous digital scheme the time window is ``constant'', in the proposed version the time window is at least equal or greater. The stringent constraints on the comparator is thus relaxed. 
@@ -964,10 +971,10 @@ In the design of the latch, the delay shall be less than \(T_{clk} -  T_{logic} 
 
 In the case of a SAR ADC clocked at 100 MHz with the proposed digital scheme, the probability of a metastable event to occur is estimated to be less than $10^{-18}$ at 175$\degree C$ (Appendix~\ref{app:comp-metastability}): the typical lifetime for an electronic component is not sufficient to be sure to see a metastable event.
 
-\textbf{\textcolor{red}{sequencer}}
+\textbf{\textcolor{black}{sequencer:}}
 Considering PVT variations and the case of the metastability, an asynchronous digital is implemented. To prevent halt in the conversion, the clock provides a timing slot which at the end a flag is raised to indicate the metastability and force the execution of subsequent cycles as in~\cite{Tung2016}. This ensures at the end of the conversion a digital code of the desired length and easily interfaceable with a synchronous digital.
 
-The sequencer resulting is depicted in \figurename~\ref{fig:sar-async-sequencer} to generate the phase in one hot encoding. In front of the first DFF allow continuous conversion for a start signal hold to zero. Therefore, the digital sequencer can be halted and resume the conversion process without a reset.
+The sequencer resulting is depicted in \figurename~\ref{fig:sar-async-sequencer} to generate the phase in one hot encoding. In front of the first DFF, the logic allows continuous conversion for a START signal hold to zero. Therefore, the digital sequencer can be halted and resume the conversion process without a reset.
 
 \begin{figure}[htp]
 	\centering
@@ -976,7 +983,7 @@ The sequencer resulting is depicted in \figurename~\ref{fig:sar-async-sequencer}
 	\label{fig:sar-async-sequencer}
 \end{figure}
 
-\textbf{\textcolor{red}{comparator clock generation}}
+\textbf{\textcolor{black}{comparator clock generation:}}
 To relax constraints on the comparator, asynchronism is introduced in the clock generation as well as in switches command. Inside the clock generation circuit represented in \figurename~\ref{fig:sar-clock-gen}, the possibility between a synchronous and a generated clock is allowed with the clock mixer. For the sake of implementation, the delay of the inverter at the data input of the DFF shall be long enough to prevent a hold violation.
 
 In a fully synchronous design, the comparator makes decision on falling edge of the primary clock, whereas in a pseudo-synchronous design the reset of comparators is triggered \(T_{nor} + T_{dff} + \(T_{mux} \) after a decision have been made. This allows a nor-rs-latch to store the result of comparison for the full clock cycle.
@@ -990,12 +997,10 @@ In a fully synchronous design, the comparator makes decision on falling edge of 
 
 For cmos cross-coupled inverter based lathes, the reset phase can consume as much energy as during the state of a decision have been made. The modification does not improve the power consumption. Nevertheless the redundancy being an intrinsic property of the DAC, a settling error is corrected by following clock cycles. The redundancy allows to trigger the comparator earlier while the settling is not complete.
 
-\textbf{\textcolor{red}{switches design}}
+\textbf{\textcolor{black}{switches design:}}
 For the selected digital scheme, switches shall connect the input voltages during the sampling clock cycle. Then each capacitor weight is tested from the most significant weight to the least significant one. This is done by connecting \(+V_{\rm ref}\) (\(V_{\rm refp}-V_{\rm refm}\)) on capacitors whose weight is not being under test and to the others \(-V_{\rm ref}\) (\(V_{\rm refm}-V_{\rm refp}\)).
 
-To not introduce settling error the positive reference voltage is connected to capacitors via low-vt pmos transistors, the negative reference voltage by low-vt nmos transistors, and the input via transmission gates whose pmos is 3.5 times bigger than nmos.
-
-As only one switch is active at a time: the transmission gate only during the sampling clock cycle, and either the pmos or the nmos; 4 wires are required. 
+To not introduce settling error the positive reference voltage is connected to capacitors via low-vt pmos transistors, the negative reference voltage by low-vt nmos transistors, and the input via transmission gates whose pmos is 3.5 times bigger than nmos. In addition to that, only one switch is active at a time: the transmission gate only during the sampling clock cycle, and then either the pmos or the nmos.
 
 \begin{figure}[htp]
 	\centering
@@ -1015,6 +1020,12 @@ The common signal is thus a predefined waveform which is reset to one for the sa
 	\caption{switches signal command based on the decision of the comparator}
 	\label{fig:comp-decision-switches}
 \end{figure}
+
+This SAR has the purpose to extract final bits in the conversion for an insignificant fraction of the ADC power consumption. In the analogue domain, the capacitance of the DAC has been reduced by the employ of a split-DAC technique. The energy consumption can be further scaled down by changing the digital switching scheme at a price of a common-mode voltage variation, in turn impacting the comparator.
+
+Considering, the possible error in the decision and variation in the DAC due to manufacturing, a redundancy is introduced. The redundancy is helpful to reach higher sampling rates with a slow comparator. Unfortunately, the redundancy does not reduce the latch metastability and its repercussion on the digital. Henceforth, a pseudo-asynchronous digital gives margin to reduce the probability of a metastable event.
+
+So far, the design of each stage is independent of each other and assumption on the amplifiers are numerous. Simulations of the ADC thus follow.
 
 % Despite the most sensitive bloc of this stage is the capacitive DAC, there is indubitable specificities worth to mention. This section therefore relates constraints respected within this design.
 
@@ -1052,9 +1063,7 @@ The common signal is thus a predefined waveform which is reset to one for the sa
 % The final layout of the analog part is represented in \figurename~\ref{fig:sar_analog_layout}. The analog and the digital have been strongly decoupled, and antenna protection has been highlighted. The analog part occupied an area of 100\(\mu \)m x 194\(\mu \)m while the manually laid out digital with the analog occupy an area of 100\(\mu \)m x 244\(\mu \)m.
 
 \section{Simulation Results}             % section 5.5
-In this section, the term simulation refers first to the Matlab simulation of the ADC\@. The Matlab simulation considers the two key limitations of the OTA, to wit,the finite gain and the unity gain frequency.
-
-A function has been defined for each stage which returns the output code and the residue. In a first state, we estimate reconstruct the transfer function from the ideal bit coefficients. By comparing the ideal transfer function ($V_{\rm out} = V_{\rm in}$) with the one obtained by simulation, we deduce the total error in the conversion process. This error should be limited to $\pm$ LSB/2 whatsoever the condition is.
+A function has been defined for each stage which returns the output code and the residue. In a first state, we estimate/reconstruct the transfer function from the ideal bit coefficients. By comparing the ideal transfer function ($V_{\rm out} = V_{\rm in}$) with the one obtained by simulation, we deduce the total error in the conversion process. This error should be limited to $\pm$ LSB/2 whatsoever the condition is.
 
 By design the first stage integrates over 4 clock cycles with a 1.5-bit quantizer. The resulting output code having 8 steps in its sub-ADC transfer function, we expected this stage to behave as a 3-bit sub-ADC\@. In turn, the second stage performs the conversion of the first stage residue over 5 clock cycles. As the last clock cycle output bits are re-used to be the two first bits of the SAR, the second stage provides only 4 bits while the SAR gives 6 bits. However, the scale of the SAR has been tuned to a non binary ratio to trade accuracy for robustness. All this modifications results in a 3+4+5.3 bits ADC\@. In theory, the ADC should provide 12.3-bits, and as there is no interstage gain between the algorithmic and the SAR, the true maximum value is 11.3-bits. For a 6-clock cycle mode, the resulting maximum resolution is 13.6-bits.
 
@@ -1063,7 +1072,7 @@ In a first start, we have simulated the ADC using Matlab simulations. With the a
 This section discusses results of the architecture on some particular strategy chosen with respect to the resilience. Then, the Static performance of the ADC is presented.
 
 \subsection{Algorithmic Feedback}
-For the design of the FA-MDAC, the feedback coefficient can utterly affect the error made by this switched capacitor structure. The error optimization leads us to the solution of in Section~\ref{sec:algo_gain_stage} where the feedback factor \(f = 1.2\) to generate an output range of \(\pm 0.6 V_{\rm ref}\) with thresholds of \(\pm 0.3 V_{\rm ref}\). Despite this fact, the traditional implementations consider a unit feedback factor with thresholds voltage of \(\pm 0.25 V_{\rm ref}\). The question is thus twofold: what is the resolution improvement over the traditional implementation in the ADC\@ ? and How does each cope with the temperature ?
+For the design of the FA-MDAC, the feedback coefficient can utterly affect the error made by this switched capacitor structure. The error optimization leads us to the solution of in Section~\ref{sec:algo_gain_stage} where the feedback factor \(f = 1.2\) to generate an output range of \(\pm 0.6 V_{\rm ref}\) with thresholds of \(\pm 0.3 V_{\rm ref}\). Despite this fact, the traditional implementations consider a unit feedback factor with thresholds voltage of \(\pm 0.25 V_{\rm ref}\). The question is thus twofold: what is the resolution improvement over the traditional implementation in the ADC\@? and How does each cope with the temperature?
 
 To evaluate the advantage of one set of parameter to the other we setup the following parameters for the OTA model:
 \begin{table}[htp]
@@ -1103,7 +1112,7 @@ Those parameters are sufficient for a 11.8-bits accuracy over the full input ran
 
 \figurename~\ref{fig:algorithmic-feedback-impact} represents the transfer function and the residue of each stage: from the left to the right, the stages are respectively the I\(\Delta\Sigma\), the Algorithmic, and the SAR\@. The SAR does not give any residue and therefore, in-place, the error between the ideal transfer function and the current transfer function is represented. The error is compared to the closed binary resolution LSB in solid red lines. For the results of a conversion performed in 5 clock cycles, the limits are $\pm$ LSB/2 of a 11-bits ADC\@. In a nutshell, the error committed by a feedback factor f=1.2 is greater than the error for a feedback factor f=1 by 20 $\mu$V at 300 K. The performance is equivalent to respectively 11.06-bits and 11.03-bits ADC while we are expecting 11.3-bits.
 
-Using the real OTA designed in Section~\ref{sec:ota-sim-result} at 475 K, the impact of the feedback has a deeper impact. \figurename~\ref{fig:algorithmic-feedback-impact-real-475K} exposes the error in the conversion process at high temperature. To the contrary of expected results, a greater feedback factor has an increased temperature sensitivity. A greater spikes at $\pm$ 0.8 V are displayed in part due to a greater voltage dependence of feedback capacitors having more weight and extra parasitics of switches needed. This results in a loss of 122 steps corresponding to a 11.15-bits rather than the 11.07-bits at high temperature.
+Using the real OTA designed in Section~\ref{sec:ota-sim-result} at 475 K, the feedback has a deeper impact. The OTA modelization has an input capacitance, a second pole with a phase margin altered by the temperature, a gain and a speed variation over the temperature range. \figurename~\ref{fig:algorithmic-feedback-impact-real-475K} exposes the error in the conversion process at high temperature. To the contrary of expected results, a greater feedback factor has an increased temperature sensitivity. A greater spikes at $\pm$ 0.8 V are displayed in part due to a greater voltage dependence of feedback capacitors having more weight and extra parasitics of switches needed. This results in a loss of 122 steps corresponding to a 11.15-bits rather than the 11.07-bits at high temperature.
 
 \begin{figure}[htp]
 	\centering
@@ -1189,7 +1198,7 @@ Let's first consider the sensitivity of the ADC with an oversampling ratio of 5 
 The DC Gain sensitivity of the ADC is depicted by the \figurename~\ref{fig:adc-osr5-gain} for an Unity Gain Frequency of 800 MHz. The resolution admits a limit at 11.2-bits at the transistor level for OTA DC Gain greater than 76 dB. This can be explained by the fact the minimal DC Gain of the OTA shall be 62 dB is not sufficient due to the UGF limitation. Then, the DC Gain error is decreasing to let the UGF limitation the dominating factor. Finally, the Error is dominated UGF and increasing the DC Gain is no more relevant.
 That's said, \figurename~\ref{fig:adc-osr5-ugf} highlights for a DC Gain of 80 dB the minimal Unity Gain Frequency. In our case, the minimum UGF is 6 times the clock frequency.
 
-In the same manner, we replicate the analysis for the ADC with an OSR = 6. The result demonstrates for a UGF 8 times the clock frequency that the gain to reach 13.8-bits is at minimum 100 dB. For a more reasonable improvement compared to its 5-clock cycle counterpart, with a gain of 80 dB and a 600 MHz of Unity Gain Frequency, the reachable resolution is 13.45-bits.
+In the same manner, we replicate the analysis for the ADC with an OSR = 6. The result in \figurename~\ref{fig:adc-osr6-sensitivity} demonstrates for a UGF 8 times the clock frequency that the gain to reach 13.8-bits is at minimum 100 dB. For a more reasonable improvement compared to its 5-clock cycle counterpart, with a gain of 80 dB and a 600 MHz of Unity Gain Frequency, the reachable resolution is 13.45-bits.
 \begin{figure}[htp]
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
@@ -1204,13 +1213,11 @@ In the same manner, we replicate the analysis for the ADC with an OSR = 6. The r
 		\subcaption{UGF Sensitivity (80 dB DC Gain)}
 		\label{fig:adc-osr6-ugf}
 	\end{subfigure}
-	\caption{DC Gain and Unity Gain Frequency Sensitivity of the ADC for an OSR = 5}
+	\caption{DC Gain and Unity Gain Frequency Sensitivity of the ADC for an OSR = 6}
 	\label{fig:adc-osr6-sensitivity}
 \end{figure}
 
-Therefore, based on this high-level spice simulations we deduce the minimum performances of the OTA without slewing.
-
-Keeping these values, we set the Gain for 80 dB and the Unity-Gain-Frequency to 600 MHz. Without offset we get a resolution of 11.25-bits and 13.48-bits for respectively an oversampling ratio of 5 and 6.
+Therefore, based on this high-level spice simulations we deduce the minimum performances of the OTA without slewing. Keeping these values, we set the Gain for 80 dB and the Unity-Gain-Frequency to 600 MHz. Without offset we get a resolution of 11.25-bits and 13.48-bits for respectively an oversampling ratio of 5 and 6.
 
 Then, we force an offset of 40 mV on the I\(\Delta\Sigma\) and the Algorithmic stage, while on the SAR we introduce an offset on the comparator of 10 mV. \figurename~\ref{fig:adc-osr-error-offset} represents the conversion error once the estimation of the offset by averaging output codes is subtracted. Compared errors without offset introduction, the error exhibits a positive slope with respect to the input voltage but is still in the expected resolution bounds.
 
@@ -1232,7 +1239,7 @@ Then, we force an offset of 40 mV on the I\(\Delta\Sigma\) and the Algorithmic s
 	\label{fig:adc-osr-error-offset}
 \end{figure}
 
-For an OSR=5, we also represent the Differential Non-Linearity (DNL) and the Integral-Non-Linearity (INL) of the ADC where the expected resolution is 11.3-bits. So far, we were able to extract the error for an ideal reconstruction of the transfer function which is steps of binary word weighted by real values. As the number of bits produce exceed twelve, we can consider the weighted output code to be ideal. In case we quantize the weighted output code to a 12-bits one, the length of steps and the error are affected. So, we quantize the weighted output code to twelve bits and look at non-linearities of the ADC. Either with offsets or without offset, the non linearity does not exceed a 11-bits LSB\@. And this with only an offset correction based on the averaging of the output codes.
+For an OSR=5, we also represent the Differential Non-Linearity (DNL) and the Integral-Non-Linearity (INL) of the ADC in \figurename~\ref{fig:adc-osr-dnl-inl}. The expected resolution is 11.3-bits. So far, we were able to extract the error for an ideal reconstruction of the transfer function which is steps of binary word weighted by real values. As the number of bits produced exceed twelve, we can consider the weighted output code to be ideal. In case we quantize the weighted output code to a 12-bits one, the length of steps and the error are affected. So, we quantize the weighted output code to twelve bits and look at non-linearities of the ADC\@. Either with offsets or without offset, the non linearity does not exceed a 11-bits LSB\@. And this with only an offset correction based on the averaging of the output codes.
 
 \begin{figure}[htp]
 	\centering
@@ -1248,8 +1255,8 @@ For an OSR=5, we also represent the Differential Non-Linearity (DNL) and the Int
 		\subcaption{with offsets}
 		\label{fig:adc-osr6-error-offset}
 	\end{subfigure}
-	\caption{DNL and INL of the proposed converter under large offset}
-	\label{fig:adc-osr-error-offset}
+	\caption{DNL and INL of the proposed converter under large offsets of 40 mV on first stages and 10 mV on the last}
+	\label{fig:adc-osr-dnl-inl}
 \end{figure}
 
 % \begin{figure}[htp]
@@ -1265,3 +1272,60 @@ For an OSR=5, we also represent the Differential Non-Linearity (DNL) and the Int
 % 	\caption{}
 % 	\label{}
 % \end{figure}
+
+\clearpage
+From simulations, we deduce the specifications for key analogue blocks. In the case of the OTA, these are listed in Table~\ref{tbl:ota-spec-chapter4} while for the comparator, they are in Table~\ref{tbl:comp-spec-chapter4}.
+
+\begin{table}[htp]
+	\centering
+	\caption{OTA specification for a calibration free ADC}
+	\label{tbl:ota-spec-chapter4}
+	\begin{tabular}{@{}ll@{}}
+	\toprule
+	 & OTA \\ \midrule
+	 Temperature {[}$\degree$C{]} & -40 -- 175 \\
+	DC Gain {[}dB{]} & \textgreater 80 \\
+	Unity Gain Frequency {[}MHz{]} & \textgreater 600 \\
+	Input Offset {[}mV{]} & \textless 50 \\
+	Phase Margin [deg] & \textgreater 50 \\
+	Output Current {[}$\mu$A{]} & \textless 400\\
+	Output Voltage Range {[}V{]} & 0.6 -- 1.3 \\
+	Average Power {[}mW{]} & \textless 5 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[htp]
+	\centering
+	\caption{Comparator specification for a calibration of only the offset ADC}
+	\label{tbl:comp-spec-chapter4}
+	\begin{tabular}{@{}llll@{}}
+	\toprule
+	 & Comparator (I$\Delta\Sigma$) & Comparator (Algorithmic) & Comparator (SAR) \\ \midrule
+	Temperature {[}$\degree$C{]} & -40 -- 175 & -40 -- 175 & -40 -- 175 \\
+	Resolution {[}mV{]} & \textless 25 & \textless 50 & 6 \\
+	Delay {[}ns{]} & \textless 2.5 & \textless 2.5 & \textless 7 \\
+	Input Offset {[}mV{]} & \textless 50 & \textless 50 & \textless 10 \\
+	Hysteresis {[}mV{]} & \textless 1 & \textless 1 & \textless 2 \\
+	Differential Kickback {[}mV{]} & to be minimum & to be minimum & to be minimum \\
+	Average Power {[}$\mu$W{]} & to be minimum & to be minimum & to be minimum \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+For the ADC, high-level simulations with verilog-a model of the OTA and comparators estimate static metrics over the temperature range. The resolution variation highly depends on the OTA variation of the settling error. The differential non-linearity depicts no-missing code for respectively 11-bits LSB and 13-bits LSB for an OSR=5 and OSR=6.
+
+\begin{table}[htp]
+	\centering
+	\caption{ADC static results with real OTA and only offset calibration}
+	\begin{tabular}{@{}lllll@{}}
+	\toprule
+	 & \multicolumn{2}{l}{OSR = 5} & \multicolumn{2}{l}{OSR = 6} \\
+	 & min & max & min & max \\ \midrule
+	Temperature {[}$\degree$C{]} & -40 & 175 & -40 & 175 \\
+	Resolution {[}bits{]} & 11.25 & 11.4 & 13.45 & 13.9 \\
+	$\rm F_{snyq}$ {[}MHz{]} & 10 & - & 8.33 & - \\
+	DNL {[}LSB{]} & -0.5 & 0.5 & -0.5 & 0.5 \\
+	INL {[}LSB{]} & -0.5 & 0.78 & 0.23 & 1.5 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+It is important to notice that in OSR=6, a gain error is introduced in the transfer function shifting the INL. With a gain correction the INL is kept in the -LSB/2 -- LSB/2 range.
