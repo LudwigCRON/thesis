@@ -977,7 +977,7 @@ Philippe Laugier &  \\
 \footnotesize Ingénieur, Melexis & Invité \\ 
 Johan Vergauwen &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
-Fran\'cois Piette &  \\  
+Francois Piette &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
 % \usebox{\PHD@supervisor}
 %   \usebox{\PHD@advisor}
