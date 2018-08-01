@@ -962,22 +962,22 @@ préparée à CentraleSupelec\\
 \small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
 Patricia Degreys &  \\ 
-\footnotesize Enseignant-Chercheur, LTCI, Telecom ParisTech & Rapporteur \\ 
+\footnotesize Professeur, LTCI, Telecom ParisTech & Rapporteur \\ 
 Franck Badets &  \\ 
 \footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\ 
 Pieter Rombouts &  \\ 
 \footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Examinateur \\ 
-Souhil MEGHERBI &  \\ 
+Souhil Megherbi&  \\ 
 \footnotesize Professeur, C2N, Université Paris-Saclay & Examinateur \\ 
 Philippe Benabes &   \\ 
 \footnotesize Professeur, GeePs, Université Paris-Saclay & Directeur de Thèse  \\ 
 Pietro Maris Ferreira &    \\ 
-\footnotesize Professeur, GeePs, Université Paris-Saclay & • \\ 
+\footnotesize Enseignant-Chercheur, GeePs, Université Paris-Saclay & Encadrant \\ 
 Philippe Laugier &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
 Johan Vergauwen &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
-Francois Piette &  \\  
+Fran\'cois Piette &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
 % \usebox{\PHD@supervisor}
 %   \usebox{\PHD@advisor}
