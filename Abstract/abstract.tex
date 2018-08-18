@@ -38,7 +38,7 @@ Ayant une contrainte économique d’autant importante, le cout réduit sera iss
 
 \begin{center}
     \centering
-    \captionof{table}{Spécification du convertisseur analogique-numérique}
+    \caption[]{Spécification du convertisseur analogique-numérique}
     \label{tbl:adc-spec-fr}
     \rowcolors{2}{gray!15}{white}
     \begin{tabular}{ll}
@@ -69,7 +69,7 @@ La section~\ref{sec:temperature-analogue} discute les challenges que pose la con
 \begin{center}
     \centering
     \input{Chapter2/Figs/Vector/tradeoffs-fr.pgf}
-    \captionof{figure}{Compromis de conception analogique en fonction de la largeur du canal des transistors et de leur niveau d'inversion}
+    \caption[]{Compromis de conception analogique en fonction de la largeur du canal des transistors et de leur niveau d'inversion}
     \label{fig:tradeoffs-fr}
 \end{center}
 
@@ -90,7 +90,7 @@ Commençant par un convertisseur $\Sigma\Delta$-Incremental, le niveau de bruit 
         \includegraphics[width=\textwidth]{Chapter4/Figs/architecture-full-principle-final.ps}
         b) amélioration
     \end{minipage}
-	\captionof{figure}{Architecture hybride en trois étages et son amélioration pour ajouter un bit supplémentaire en minimisant la surface estime en utilisant les derniers bits d'un convertisseur algorithmique comme premiers bits d'un sar a redistribution de charge}
+	\caption[]{Architecture hybride en trois étages et son amélioration pour ajouter un bit supplémentaire en minimisant la surface estime en utilisant les derniers bits d'un convertisseur algorithmique comme premiers bits d'un sar a redistribution de charge}
 	\label{fig:final-prop-adc-architecture}
 \end{center}
 Fort de ceci, et des limitations en température qu'imposent les courants de fuites, des améliorations furent portes à l'architecture proposée. Dans un premier temps, un comparateur fut ajouté au sein de l'algorithmique. Ce dernier permet d'utiliser les derniers bits fournit aux derniers coups d'horloge d'un échantillon, comme les deux premiers bits issus de la conversion du SAR\@. La répartition des bits est donc 3.4.5.5 au lieu de 3-5-3.5. Le bit supplémentaire fut dans un second temps utilisé pour rendre la SAR moins sensible aux mauvaises décisions venant de l'algorithmique, et d'une génération des tensions de référence par suffisamment précise. En plus de cela, en changeant le radix, la sensibilité due aux courants de fuites est aussi diminuée puisqu'une redondance est introduite et que le pas du LSB est plus grand. Enfin, il fit envisager d'améliorer encore la résolution pour un sur-échantillonnage de 6 coups d'horloge au lieu de 5. L'utilisation d'un coup d'horloge supplémentaire permet d'atteindre la résolution de 13.9-bits.
@@ -137,7 +137,7 @@ Parmi l'ensemble des implémentations possibles décrit dans le début du chapit
         }
         f) consommation
     \end{minipage}
-    \captionof{figure}{Comparateurs conçu pour la température}
+    \caption[]{Comparateurs conçu pour la température}
 \end{center}
 
 Quant à l'amplificateur, si l'on considère un processus en 180 nm, la plupart des publications ont été publiées entre 2001 et 2008. Sur cette période, le Folded-Cascode, les OTA à deux étages, et ceux basées sur du gain-Boosting sa légion avec une préférence pour un Folded Cascode suivit par un étage en source-follower pour améliorer l'excursion de sortie. Pour des raisons de rapidité et de stabilité, le gain-boosting d'un OTA de classe AB fut privilégié. Les choix de conception et les contraintes liées au layout représenté à la \figurename~\ref{fig:ota-fr} sont aussi discutés dans ce chapitre.  En matière de bruit, l'OTA génère un bruit maximum estimé de 198 \(\mu V _{rms} \) correspondant à 82\% du LSB d'un 12-bit sur l'excursion du résidu du premier étage. La consommation en courant n'excédant pas 1.8 ma, la consommation moyenne totale de l'analogique est estimée à 7 mW avec un maximum admis à -40 $\degree$C dans le corner FF de 14 mW.
@@ -145,7 +145,7 @@ Quant à l'amplificateur, si l'on considère un processus en 180 nm, la plupart 
 \begin{center}
     \centering
     \includegraphics[width=0.65\textwidth]{Chapter7/Figs/layout_ota_v2-fr.png}
-    \captionof{figure}{Dessin de l'OTA conçu de dimension \(52 \mu m \times 128 \mu m\) avec une double pair differentielle interdigitee et common-centroid}
+    \caption[]{Dessin de l'OTA conçu de dimension \(52 \mu m \times 128 \mu m\) avec une double pair differentielle interdigitee et common-centroid}
     \label{fig:ota-fr}
 \end{center}
 
@@ -170,7 +170,7 @@ Quant à l'amplificateur, si l'on considère un processus en 180 nm, la plupart 
         }
         c) Mesures
     \end{minipage}
-    \captionof{figure}{auto-oscillateur asynchrone pour la mesure différentielle du délai avec une résolution de 60 ps}
+    \caption[]{Auto-oscillateur asynchrone pour la mesure différentielle du délai avec une résolution de 60 ps}
 	\label{fig:meas_circ_schem-fr}
 \end{center}
 
@@ -188,7 +188,7 @@ Au final, les résultats préliminaires sont encourageants sur les capacités de
         \includegraphics[width=\textwidth]{Abstract/Figs/SchreierFoM-a.pdf}
         b) Schreier
     \end{minipage}
-    \captionof{figure}{Comparaison du convertisseur (grand point rouge) a ceux publiees dans ISSCC et VLSI}
+    \caption[]{Comparaison du convertisseur (grand point rouge) a ceux publiées dans ISSCC et VLSI}
 	\label{fig:fom-fr}
 \end{center}
 

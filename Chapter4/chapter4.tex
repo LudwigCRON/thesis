@@ -5,7 +5,7 @@
 %****************************** Fifth Chapter **********************************
 %*******************************************************************************
 % Temperature Resilient Analog/Digital Converter ==> TRAD Converter
-\chapter{A new mixt ADC topology}
+\chapter{A new mixed ADC topology}
 \label{sec:adc-implementation}
 
 % **************************** Define Graphics Path **************************
@@ -75,7 +75,7 @@ As soon as the OSR is high-enough, the SAR technology will be more efficient tha
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=.9\textwidth]{Chapter4/Figs/study/counting-conversion.ps}
-	\caption{possible candidates leveraging the strength of the \(\Delta \Sigma\) modulation to achieve the expected resolution with the resources needed}
+	\caption{Possible candidates leveraging the strength of the \(\Delta \Sigma\) modulation to achieve the expected resolution with the resources needed}
 	\label{fig:counting-candidates}
 \end{figure}
 
@@ -87,7 +87,7 @@ The forth configuration of these last three is similar to previous ones. The 1-1
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=.9\textwidth]{Chapter4/Figs/study/counting-algo-conversion.ps}
-	\caption{possible candidates leveraging the strength of the \(\Delta \Sigma\) modulation and the fast signal information extraction of the algorithmic with the resources required }
+	\caption{Possible candidates leveraging the strength of the \(\Delta \Sigma\) modulation and the fast signal information extraction of the algorithmic with the resources required }
 	\label{fig:counting-algo-candidates}
 \end{figure}
 
@@ -102,7 +102,7 @@ Previous sections briefly presents the possible candidates and the reasons of th
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=\textwidth]{Chapter4/Figs/architecture-full-principle.ps}
-	\caption{early proposition of the ADC architecture}
+	\caption{Early proposition of the ADC architecture}
 	\label{fig:early-prop-adc-architecture}
 \end{figure}
 
@@ -111,7 +111,7 @@ To provide extra margin, the modification highlighted in \figurename~\ref{fig:fi
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=\textwidth]{Chapter4/Figs/architecture-full-principle-final.ps}
-	\caption{final proposition of the ADC architecture}
+	\caption{Final proposition of the ADC architecture}
 	\label{fig:final-prop-adc-architecture}
 \end{figure}
 
@@ -216,7 +216,7 @@ The switched capacitor integrator is countinous-time integrator whose resistor i
 		\centering
 		\subcaption{transient signal}
 	\end{subfigure}
-	\caption{principle of switched capacitor integrator}
+	\caption{Principle of switched capacitor integrator}
 	\label{fig:sigma-delta-integration}
 \end{figure}
 
@@ -249,7 +249,7 @@ The final representation of the integrator is represented by the \figurename~\re
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Chapter4/Figs/sc-integrator-isd.ps}
-	\caption{switched-capacitor integrator implementation}
+	\caption{Switched-capacitor integrator implementation}
 	\label{fig:isd-sc-integrator}
 \end{figure}
 
@@ -302,7 +302,7 @@ Finally, the bottom switch connecting the bottom plate of the capacitor to the c
 		\subcaption{clock-feedthrough}
 		\label{fig:clock-feedthrough-switches}
 	\end{subfigure}
-	\caption{phenomenon of charge injection and clock-feed-through on the sampling switches}
+	\caption{Phenomenon of charge injection and clock-feed-through on the sampling switches}
 	\label{fig:sample-switches-error-source}
 \end{figure}
 
@@ -320,7 +320,7 @@ This given, The passive adder circuit is represented in \figurename~\ref{fig:sc-
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/isd-passive-adder-comp.ps}
-	\caption{switched capacitor passive adder and comparison to a threshold voltage}
+	\caption{Switched capacitor passive adder and comparison to a threshold voltage}
 	\label{fig:sc-pacth}
 \end{figure}
 
@@ -383,7 +383,7 @@ the switching point for the NOR gate. Such that even for very fast buffers at ve
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/non-overlapp.ps}
-	\caption{two phase non overlapping generator circuit}
+	\caption{Two-phase non overlapping generator circuit}
 	\label{fig:non-ov}
 \end{figure}
 
@@ -409,7 +409,7 @@ As discussed earlier, the simultaneity of turning off switches prevents ambiguit
 		\subcaption{crossing over temperature}
 		\label{fig:dig-driver-crossing}
 	\end{subfigure}
-	\caption{digital driver to ensure PMOS and NMOS command signal $S_p/S_m$ transition crossing around half the power supply voltage}
+	\caption{Digital driver to ensure PMOS and NMOS command signal $S_p/S_m$ transition crossing around half the power supply voltage}
 	\label{fig:dig-driver}
 \end{figure}
 
@@ -420,7 +420,7 @@ Analog constraints undergo large variation with process alteration and increasin
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/comp-timing-isd.ps}
-	\caption{comparator relaxed constraints by appropriate scheduling}
+	\caption{Comparator relaxed constraints by appropriate scheduling}
 	\label{fig:comp-timing}
 \end{figure}
 
@@ -692,7 +692,7 @@ The first modification introduced concerns the sampling of the input and the res
 		\subcaption{odd clock cycles}
 		\label{fig:algo-p3}
 	\end{subfigure}
-	\caption{proposed sequencing to relax Flip-Around MDAC timing constraints}
+	\caption{Proposed sequencing to relax Flip-Around MDAC timing constraints}
 	\label{fig:algo-seq-proposed}
 \end{figure}
 
@@ -721,7 +721,7 @@ This operation sequence, compared to the conventional sequence, looses a clock c
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/isd-algo-residue-sampling.ps}
-	\caption{sampling instant of the I\(\Delta \Sigma \) residue}
+	\caption{Sampling instant of the I\(\Delta \Sigma \) residue}
 	\label{fig:digital-sampling}
 \end{figure}
 
@@ -733,7 +733,7 @@ In the same fashion done for the first-stage Incremental-\(\Delta\Sigma \), the 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/algo-passive-adder-comp.ps}
-	\caption{threshold change in the conversion process}
+	\caption{Threshold change in the conversion process}
 	\label{fig:thresholds-generator}
 \end{figure}
 
@@ -918,7 +918,7 @@ Since this modification adds two floating points, voltages \(V_{mid}<1:0> \)are 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/sar-dac-full.ps}
-	\caption{final DAC schematic for the SAR}
+	\caption{Final DAC schematic for the SAR}
 	\label{fig:sar-dac-full}
 \end{figure}
 
@@ -937,13 +937,13 @@ Unfortunately, both monotonic switching rely on a top sampling technique. To the
 	\subsubsection{Digital Circuit}         % section 5.2.3 
 As the clock frequency increase, or as the temperature degrades the speed of the analog part, the digital constraints on a SAR become challenging. The timing constraint is defined by the time the DAC require to settle to the wished accuracy, the delay of the comparator, and the time the logic need to respond.
 
-\textbf{\textcolor{black}{synchrone:}}
+\textbf{\textcolor{black}{synchronous:}}
 In a synchronous SAR, the high demand is assumed on the comparator to latch as fast as necessary to let the digital toggle switches according to the decision made. The clock period is usually defined on the worst speed corner for the lowest power supply voltage and the higher temperature.
 
-\textbf{\textcolor{black}{asynchrone:}}
+\textbf{\textcolor{black}{asynchronous:}}
 To the contrary an asynchronous SAR waits for the comparator decision and ``digital'' does not wait for an edge of the clock. For unusually too long decision time, the digital code might be incomplete and results in errors. Forcing the decision in case of metastability did not have the same impact on the digital code representation of the input compared to an erroneous decision. Indeed, the metastability occurs for decision where the inputs of the comparator are close enough to prevent either the noise or mismatch to set the decision value within the allotted time. A comparator sensing a difference less than a LSB is sufficient.
 
-\textbf{\textcolor{black}{synchrone versus asynchrone:}}
+\textbf{\textcolor{black}{synchronous versus asynchronous:}}
 This first modification in the operation increases the allotted time for the comparator to make a decision: the probability of the metastability is highly reduced for the same comparator while the power consumption can be reduced for the same probability of metastable events.
 
 \figurename~\ref{fig:sar-sync-async} compares the synchronous and the pseudo-asynchronous operation which force the decision in case of metastability. The instants in delimited by blue boxes represents the domain when the decision shall be made to ensure correct operation based on setup and hold violation in the logic. Although, in a synchronous digital scheme the time window is ``constant'', in the proposed version the time window is at least equal or greater. The stringent constraints on the comparator is thus relaxed. 
@@ -960,7 +960,7 @@ The probability to generate an erroneous decision depends on the input voltage a
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Chapter4/Figs/sar-comp-constraint.ps}
-	\caption{comparator constraint relaxed by the use of pseudo-synchronous digital scheme}
+	\caption{Comparator constraint relaxed by the use of pseudo-synchronous digital scheme}
 	\label{fig:sar-sync-async}
 \end{figure}
 
@@ -979,7 +979,7 @@ The sequencer resulting is depicted in \figurename~\ref{fig:sar-async-sequencer}
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=\textwidth]{Chapter4/Figs/sar-sequencer.ps}
-	\caption{synchronous sequencer to force decision in case of metastability}
+	\caption{Synchronous sequencer to force decision in case of metastability}
 	\label{fig:sar-async-sequencer}
 \end{figure}
 
@@ -991,7 +991,7 @@ In a fully synchronous design, the comparator makes decision on falling edge of 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Chapter4/Figs/sar-clock-generator.ps}
-	\caption{comparator clock generation to select a pseudo-synchronous operation or fully synchronous behaviour}
+	\caption{Comparator clock generation to select a pseudo-synchronous operation or fully synchronous behaviour}
 	\label{fig:sar-clock-gen}
 \end{figure}
 
@@ -1005,7 +1005,7 @@ To not introduce settling error the positive reference voltage is connected to c
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=\textwidth]{Chapter4/Figs/sar-switches-command-simp.ps}
-	\caption{switches signal command based on the decision of the comparator}
+	\caption{Switches signal command to connect only one voltage at a time on the connected capacitor}
 	\label{fig:switches-command}
 \end{figure}
 
@@ -1017,7 +1017,7 @@ The common signal is thus a predefined waveform which is reset to one for the sa
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.78\textwidth]{Chapter4/Figs/comp-decisin-switches.ps}
-	\caption{switches signal command based on the decision of the comparator}
+	\caption{Switches signal command based on the decision of the comparator}
 	\label{fig:comp-decision-switches}
 \end{figure}
 

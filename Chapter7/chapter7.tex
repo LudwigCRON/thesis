@@ -218,7 +218,8 @@ To reduce the power consumption of amplifiers and reduce analog design constrain
 \end{figure}
 
 Figure~\ref{fig:ota_over_year} represents the repartition over years of usual topologies for technology over 65 nm. For the sake of clarity, only four topologies have been selected. Furthermore, for a given year, the results are stacked such that the total number of publications and the number of publications using one topology is represented.
-For the 0.18 \(\mu \)m CMOS process, most of the publication have been published between 2001 and 2008. Over this period, the Folded-Cascode (FC), Two-Stage (TS), and Gain-Boosting (GB) were mainstream with a large preference for folded cascode amplifier either alone or followed by a source follower stage to enlarge the output swing. \nomenclature[z]{OTA}{Operational Transconductance Amplifier}
+For the 0.18 \(\mu \)m CMOS process, most of the publication have been published between 2001 and 2008. Over this period, the Folded-Cascode (FC), Two-Stage (TS), and Gain-Boosting (GB) were mainstream with a large preference for folded cascode amplifier either alone or followed by a source follower stage to enlarge the output swing.
+
 Traditionally, folded-cascode OTA have been preferred for high-speed switched capacitor applications~\cite{Olivera1999, Adut2003} because of their high DC gain and GBW\@. This architecture candidate is proven to operate under low voltage condition even for larger process node size: down to 0.7 V~\cite{Sauerbrey2002, Ahn2005}.
 \nomenclature[z]{GBW}{Gain-BandWidth product}
 \nomenclature[z]{UGF}{Unity-Gain-Frequency}
@@ -434,7 +435,7 @@ In the \figurename~\ref{fig:sim-comp}c, the differential kickback is computed at
     \resizebox {0.9\textwidth} {!} { 
         \input{Chapter7/Figs/comp.pgf}
     }
-    \caption{delay, offset, kickback and power consumption of designed comparators over temperature after layout parasitic extraction}
+    \caption{Delay, Offset, Kickback and Power consumption of designed comparators over temperature after layout parasitic extraction}
     \label{fig:sim-comp}
 \end{figure}
 
@@ -488,7 +489,7 @@ This leads to the minimum gain required for this amplifier. This minimum is the 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=.75\textwidth]{Chapter7/Figs/ota_spec.pdf}
-    \caption{trade-off speed versus gain of the amplifier for the SC-Integrator of the I\(\Delta\Sigma \)}
+    \caption{Trade-off speed versus gain of the amplifier for the SC-Integrator of the I\(\Delta\Sigma \)}
     \label{fig:ota_spec_tradeoffs}
 \end{figure}
 
@@ -669,7 +670,7 @@ Considering a SC-CMFB, it is commonly assumed that the clock used is the same fo
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.5\textwidth]{Chapter7/Figs/sc-cmfb.ps}
-    \caption{standard SC CMFB circuit implemented}
+    \caption{Standard SC CMFB circuit implemented}
     \label{fig:sc-cmfb}
 \end{figure}
 
@@ -703,7 +704,7 @@ A folded cascode amplifier is an architecture sensitive to current mismatch at t
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.6\textwidth]{Chapter7/Figs/folded-mismatch-gradient.ps}
-    \caption{error generated on the output current based on mismatch on current in the biasing}
+    \caption{Error generated on the output current based on mismatch on current in the biasing}
     \label{fig:folded-node-mismatch}
 \end{figure}
 
@@ -718,7 +719,7 @@ To reduce \textcolor{blue}{\(\Delta I_3\)}, the layout is drawn with mechanical 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.85\textwidth]{Chapter7/Figs/common-centroi-vs-interdigitated.ps}
-    \caption{comparaison of mismatch for common-centroid and interdigitated layout of a differential pair}
+    \caption{Comparaison of mismatch for common-centroid and interdigitated layout of a differential pair}
     \label{fig:common-centroid-vs-interdigitated}
 \end{figure}
 
@@ -773,7 +774,7 @@ Performances metrics of the OTA depends of its application. In our case, the met
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.75\textwidth]{Chapter7/Figs/ota_testbench.eps}
-    \caption{test bench schematic for metrics extraction}
+    \caption{Test bench schematic for metrics extraction}
     \label{fig:ota_testbench}
 \end{figure}
 
@@ -820,7 +821,7 @@ Then, the differential input voltage is a square wave signal from \(\pm\) 500 mV
         \subcaption{\(6\sigma \) Unity Gain Frequency \(C_L = 1 pF \)}
         \label{fig:ota_ugf_1pF_temp_corners}
     \end{subfigure}
-    \caption{post-layout results of the designed OTA}
+    \caption{Post-layout results of the designed OTA: DC Gain and Unity Gain Frequency across process variations}
     \label{fig:ota_result}
 \end{figure}
 
@@ -844,7 +845,7 @@ Indeed, this correlates with settling error at 8 ns, for which the error at \(6\
         \subcaption{\(6\sigma \) Settling Error at 8 ns \(C_L = 400 fF \)}
         \label{fig:ota_error_1pF_temp_corners}
     \end{subfigure}
-    \caption{post-layout results of the designed OTA}
+    \caption{Post-layout results of the designed OTA: Settling error in 8 ns across process variations}
     \label{fig:ota_result-2}
 \end{figure}
 
@@ -868,7 +869,7 @@ For a \(3\sigma \) design, such topology ensures a good response for a reduce po
         \subcaption{\(6\sigma \) Current Consumption}
         \label{fig:ota_pow_temp_corners}
     \end{subfigure}
-    \caption{post-layout results of the designed OTA}
+    \caption{Post-layout results of the designed OTA: Phase Margin and Current Consumption}
     \label{fig:ota_result-3}
 \end{figure}
 
@@ -890,7 +891,7 @@ The settling error being strictly positive after an absolute value, a gamma dist
         \subcaption{working samples}
         \label{fig:ota_working_samples}
     \end{subfigure}
-    \caption{settling error distribution and estimation of working samples}
+    \caption{Settling error distribution and estimation of working samples}
     \label{fig:ota_dist_sample}
 \end{figure}
 
@@ -914,7 +915,7 @@ Then, a noise analysis is performed at 175\(\degree \)C to estimate the degradat
         \subcaption{Noise over temperature}
         \label{fig:noise_spectral_density}
     \end{subfigure}
-    \caption{noise power spectral density at 175\(\degree \)C over corners and its distribution over temperature}
+    \caption{Noise power spectral density at 175\(\degree \)C over corners and its distribution over temperature}
     \label{fig:ota_noise_psd}
 \end{figure}
 \clearpage

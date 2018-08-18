@@ -30,7 +30,7 @@ DOE\_COMP evaluates two different comparator topologies by the mean of dedicated
         \includegraphics[width=\textwidth]{Chapter5/Figs/comp_test/test_offset_conv_bloc.ps}
         \subcaption{Pattern C}
     \end{subfigure}
-    \caption{representation of test patterns which will be describe in following section}
+    \caption{Representation of test patterns which will be describe in following section}
     \label{fig:test-chip-comp-patterns}
 \end{figure}
 
@@ -45,8 +45,8 @@ To supply DOE\_COMP, one power supply is connected to the comparators while anot
 As both topologies of comparators are tested, we thus separate the power supplies of comparators of different topology to limit the interference in results. As presented in table~\ref{tbl:test-chip-comp-pattern}, there are 12 pads for supply connections: VDDA<6:1> and VDD<6:1>. Therefore we are able to measure both the comparator power consumption and the test circuit consumption without interference of one over another. For the sake of simplicity, there is ground pad for the all comparators, and one ground for remaining circuits in DOE\_COMP. These two forms a star connection to have the same reference between comparators and test circuits.
 
 \begin{table}[htp]
-    \label{tbl:test-chip-comp-pattern}
     \caption{test pattern implemented to assess each comparator topology}
+    \label{tbl:test-chip-comp-pattern}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{@{}lclcc@{}}
     \toprule
@@ -57,7 +57,8 @@ As both topologies of comparators are tested, we thus separate the power supplie
     Pattern B & Strong Arm &  & VDDA\textless{}3\textgreater{} & VDD\textless{}3\textgreater{} \\
      & Double-Tail & \multirow{-2}{*}{\begin{tabular}[c]{@{}l@{}}Measure the offset by using a feedback loop\end{tabular}} & VDDA\textless{}4\textgreater{} & VDD\textless{}4\textgreater{} \\
     Pattern C & Strong Arm &  & VDDA\textless{}1\textgreater{} &  \\
-     & Double-Tail & \multirow{-2}{*}{\begin{tabular}[c]{@{}l@{}}Measure the offset\\ by using the output CDF\footnotemark\\for a given input voltages\end{tabular}} & \multicolumn{1}{l}{VDDA\textless{}2\textgreater{}} & \multirow{-2}{*}{VDD\textless{}1\textgreater{}} \\ \bottomrule
+     & Double-Tail & \multirow{-2}{*}{\begin{tabular}[c]{@{}l@{}}Measure the offset\\ by using the output CDF\footnotemark\\for a given input voltages\end{tabular}} & \multicolumn{1}{l}{  VDDA\textless{}2\textgreater{}} & \multirow{-2}{*}{VDD\textless{}1\textgreater{}} \\
+     & & & & \\ \bottomrule
     \end{tabular}%
     }
 \end{table}
@@ -76,7 +77,7 @@ As represented in \figurename~\ref{fig:conv_offset}, this solution consists in c
 \begin{figure}[htp]
     \centering
     \includegraphics[width=.8\textwidth]{Chapter5/Figs/comp_test/offset_conv_principle.ps}
-    \caption{typical principle to measure the offset of comparators based on the variation of the differential input voltage}
+    \caption{Typical principle to measure the offset of comparators based on the variation of the differential input voltage}
     \label{fig:conv_offset}
 \end{figure}
 
@@ -94,7 +95,7 @@ For a comparator without hysteresis, the probability to output a one for each $\
 \begin{figure}[htp]
     \centering
     \includegraphics[width=.3\textwidth]{Chapter5/Figs/comp_test/offset_conv_principle_hyst.ps}
-    \caption{measurement of the hysteresis by sweeping back and forth the input voltages of comparators}
+    \caption{Measurement of the hysteresis by sweeping back and forth the input voltages of comparators}
     \label{fig:conv_offset_hyst}
 \end{figure}
 
@@ -134,7 +135,7 @@ As represented in \figurename~\ref{fig:comp_offset_layout} b, the output of 16 c
     \centering
     \includegraphics[width=0.8\textwidth]{Chapter5/Figs/comp_test/configuration-patternc.ps}
     \label{fig:test-comp-pattern-c-config}
-    \caption{configuration signal to validate the configuration and counter value reading}
+    \caption{Configuration signal to validate the configuration and counter value reading}
 \end{figure}
 
 \subsubsection{Simulation Results}
@@ -154,7 +155,7 @@ In order to verify that the probability model chosen is correct, the input file 
         \adjincludegraphics[trim={{0.675\width} 0 0 0},clip,width=\textwidth]{Chapter5/Figs/comp_test/offset_conv_comp_ref_res.png}
         \subcaption{Hysteresis}
     \end{subfigure}
-    \caption{extracted offset and standard variation of the offset for the comparator of reference at all positions}
+    \caption{Extracted offset and standard variation of the offset for the comparator of reference at all positions}
     \label{fig:offset_conv_verif}
 \end{figure}
 
@@ -177,7 +178,7 @@ The results for the temperature variation are presented in the \figurename~\ref{
         \adjincludegraphics[trim={{0.675\width} 0 0 0},clip,width=\textwidth]{Chapter5/Figs/comp_test/offset_conv_comp_dtl_res.png}
         \subcaption{Hysteresis}
     \end{subfigure}
-    \caption{extracted offset and standard variation of the offset for the slowest double tail}
+    \caption{Extracted offset and standard variation of the offset for the slowest double tail}
     \label{fig:offset_conv_dtl}
 \end{figure}
 
@@ -201,7 +202,7 @@ Nevertheless, the main disadvantages of this method are the slow convergence (fe
         \includegraphics[width=\textwidth]{Chapter5/Figs/comp_test/fb_comp_offset_ref_res.png}
         \subcaption{transient voltage}
     \end{subfigure}
-    \caption{test bench for the offset simulation which including pads and wire bonding with the noisy transient simulation for a comparator of reference}
+    \caption{Test bench for the offset simulation which including pads and wire bonding with the noisy transient simulation for a comparator of reference}
     \label{fig:tb_fb_comp_offset}
 \end{figure}
 
@@ -235,7 +236,7 @@ Since neither the kickback nor the hysteresis is modelled in the comparator of r
         \includegraphics[width=\textwidth]{Chapter5/Figs/comp_test/comparator_offset_feedback_trans_real-zoom.png}
         \subcaption{Zoom on the kickback and hysteresis effect}
     \end{subfigure}
-    \caption{hysteresis and kickback effect on the offset feedback circuit at 27$\degree$C}
+    \caption{Hysteresis and kickback effect on the offset feedback circuit at 27$\degree$C}
     \label{fig:comp_hyst}
 \end{figure}
 
