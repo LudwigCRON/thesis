@@ -14,7 +14,7 @@
 
 Each block has been considered as an IP so far. In this regard, their performances are cross-checked by measurements over the temperature range of operation: from -40$\degree$C to 175$\degree$C.
 
-This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}. The first test chip called DOE\_COMP assess comparators. Their are two version of it to characterize fast comparators needed for the two first stages of our ADC, and one for the slow version of them used in the last stage of our ADC. The second test chip evaluates only the comparator of the last stage in its environment. Called DOE\_SAR, its goal is results of the static performance of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
+This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}. The first test chip called DOE\_COMP assess comparators. There are two versions of it to characterize fast comparators needed for the two first stages of our ADC, and one for the slow version of them used in the last stage of our ADC. The second test chip evaluates only the comparator of the last stage in its environment. Called DOE\_SAR, its goal is results of the static performance of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
 
 % DOE_COMP a  (circuit) (nom pattern) (date de fabrication) (date des tests)
 %   delay
@@ -40,31 +40,31 @@ This chapter presents the four different test chips designed during the thesis. 
 \end{table}
 
 
-The inner chip temperature measurement is therefore crucial for the comparison between simulation results and measures. Being a common components inside every test chips, for the sake of clarity, the chapter begins with its description.
+The inner chip temperature measurement is therefore crucial for the comparison between simulation results and measures. Being a common components inside every test chip, for the sake of clarity, the chapter begins with its description.
 %After a brief review of common technique to validate an ADC, their application for the unusual SAR operation is presented. Finally, ongoing validation plan of the ADC is bestowed.
 
 \section{Internal Temperature Measurement (for all test chips)}
 Due to the heat dissipation from the silicon to the ambient air, and the self-heating of components, the temperature inside the chip will be greater than the ambient temperature. In order to compare measurement with the simulation results, the temperature inside the chip should be measured.
 
-As presented in section~\ref{sec:bandgap} in the \figurename~\ref{fig:bandgap}, the bandgap energy of the silicon decreases with the temperature. As the fermi energy being a fraction of the bandgap energy, the temperature affects the fermi energy as well with an almost similar variation. Based on the latter, the threshold voltage tracks the variation coming from the bandgap energy due to the temperature. In consequence, the simplest temperature tracker is a diode whose threshold voltage varies in accordance with these explanations.
+As presented in section~\ref{sec:bandgap} in the \figurename~\ref{fig:bandgap}, the band-gap energy of the silicon decreases with the temperature. As the Fermi energy being a fraction of the band-gap energy, the temperature affects the Fermi energy as well with an almost similar variation. Based on the latter, the threshold voltage tracks the variation coming from the band-gap energy due to the temperature. In consequence, the simplest temperature tracker is a diode whose threshold voltage varies in accordance with these explanations.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.8\textwidth]{Chapter5/Figs/temp_test/temperature_sensor_configuration.ps}
-    \caption{Two possible configurations based on a single PNP\@: brokaw bandgap or diode mode to sense the internal temperature}
+    \caption{Two possible configurations based on a single PNP\@: brokaw band-gap or diode mode to sense the internal temperature}
     \label{fig:temp_sensor_bipolar}
 \end{figure}
 
-The temperature measurement circuit consists in measuring the voltage across a diode with a constante forward current as depicted in \figurename~\ref{fig:temp_sensor_bipolar}. With a bipolar transistor in diode mode, the voltage across the emitter and the collector follows the Shockley-diode equation and is almost linear with the temperature as in equation~(\ref{eq:diode_temp}). 
+The temperature measurement circuit consists in measuring the voltage across a diode with a constant forward current as depicted in \figurename~\ref{fig:temp_sensor_bipolar}. With a bipolar transistor in diode mode, the voltage across the emitter and the collector follows the Shockley-diode equation and is almost linear with the temperature as in equation~(\ref{eq:diode_temp}). 
 \begin{equation}
     \label{eq:diode_temp}
     V(T) = n \frac{k_BT}{q}\ln\left(\frac{I_b}{I_s}+1 \right)
 \end{equation}
 where $n$ is the number of diodes in parallel, $I_b$ the forward biasing current, and $I_s$ the specific current of the diode.
 
-In practice the biasing current can be either a bench top source meter or a simple resistor. For the sake of simplicity, a resistor has been selected. For a power supply of 1.8 V, simulation performed demonstrates good results for a biasing resistance $R = 33 k\Omega$. Represented in \figurename~\ref{fig:vdiode}, the diode voltage variation is between 220 mV and 350 mV across process corners for a temperature from -40\(\degree\)C to 175\(\degree\)C. The resolution achieved is about less than 1 mK/mV. And \figurename~\ref{fig:diode_sens_temp} represents the non linearity of the solution with a resistor. If differential measurement is preferred one could connect in the Browkaw configuration. Nevertheless, the differential value is highly nonlinear and drop from 16 mV to almost 0 at high temperature. The latter is not selected for our test for its lower resolution.
+In practice the biasing current can be either a bench top source meter or a simple resistor. For the sake of simplicity, a resistor has been selected. For a power supply of 1.8 V, simulation performed demonstrates good results for a biasing resistance $R = 33 k\Omega$. Represented in \figurename~\ref{fig:vdiode}, the diode voltage variation is between 220 mV and 350 mV across process corners for a temperature from -40\(\degree\)C to 175\(\degree\)C. The resolution achieved is about less than 1 mK/mV. And \figurename~\ref{fig:diode_sens_temp} represents the non linearity of the solution with a resistor. If the differential measurement is preferred one could connect into the Browkaw configuration. Nevertheless, the differential value is highly nonlinear and drop from 16 mV to almost 0 at high temperature. The latter is not selected for our test for its lower resolution.
 
-As the specific current and the current injected to forward bias the diode depends on the process and the temperature, and due to the non-linearity of the bandgap energy, a calibration is performed before any other test. The voltage is measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table is associated.
+As the specific current and the current injected to forward bias the diode depends on the process and the temperature, and due to the non-linearity of the band-gap energy, a calibration is performed before any other test. The voltage is measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table is associated.
 
 \begin{figure}[htp]
     \centering

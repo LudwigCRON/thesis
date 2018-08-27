@@ -446,7 +446,7 @@ Over such a large temperature range, physical phenomena due to temperature varia
 \label{sec:bandgap}
 In solid-state physics, the energy band gap is the energy required to supercharge an electron from the valence band to the conduction band. Any extra energy will change the thermodynamic equilibrium of the solid. Therefore, the electrons' state repartition in the valence and conduction band varies with the temperature according to the Fermi-Dirac distribution. Thus, the band gap energy changes with respect to the temperature. These intrinsic properties are widely used for temperature sensing, voltage and current references, and temperature compensation circuits.
 
-Even if, the fitting equations of low-temperature data have been greatly discussed~\cite{Varshni1967,Allen1976,Manoogian1979,Donnell1991}, the trends of the bandgap energy required over temperature is modeled easily by the Varshni equation~(\ref{eqn:Varshni}) in~\cite{Varshni1967}
+Even if, the fitting equations of low-temperature data have been greatly discussed~\cite{Varshni1967,Allen1976,Manoogian1979,Donnell1991}, the trends of the bandgap energy required over temperature is modelled easily by the Varshni equation~(\ref{eqn:Varshni}) in~\cite{Varshni1967}
 \begin{equation}
 \label{eqn:Varshni}
 E_g(T) = E_g(T_0) - \alpha \frac{T^2}{T+\beta}
@@ -490,7 +490,7 @@ particles become the dominant limit to mobility. In this regime, decreasing temp
 
 At low temperatures, the interface charges have two conflicting dependences. Reducing temperature reduces the carriers’ thermal velocity, which increases the impact of interface charges. However, the reduced thermal velocity also reduces the screening effect\cite{Jeon1989}, and this reduction in screening dominates the temperature dependence (\(\mu_{int} \varpropto T^{-1} \)). For a temperature greater than 200 K, the mobility is decreasing with the temperature increasing.
 
-In the BSIM model of transistor, the mobility change over temperature is modeled as in the equation~(\ref{eqn:mobility_bsim}).
+In the BSIM model of transistor, the mobility change over temperature is modelled as in the equation~(\ref{eqn:mobility_bsim}).
 
 \begin{equation}
 \label{eqn:mobility_bsim}
@@ -508,7 +508,7 @@ One assumption is that the mean free time of carriers between collision is const
 \end{equation}
 where \(\nu_s \) is the saturation velocity (\(10^7 \) cm/s for Si at 300 K), and \(\xi_{sat}\) is a constant equal to \(7.10^3 \) V/cm for electrons and \(2.10^4 \) V/cm for holes.
 
-Although saturation velocity has been found to be a dominant temperature dependent parameter as far back as 1970~\cite{Fowler1970} using device as longer as 10 \(\mu \)m. In the BSIM4 device model, the impact of temperature on velocity saturation \(\nu_{sat} \) is modeled by~\cite{Chain1997} as:
+Although saturation velocity has been found to be a dominant temperature dependent parameter as far back as 1970~\cite{Fowler1970} using device as longer as 10 \(\mu \)m. In the BSIM4 device model, the impact of temperature on velocity saturation \(\nu_{sat} \) is modelled by~\cite{Chain1997} as:
 \begin{equation}
 \label{eqn:vsat_T}
 \nu_{sat}(T) = \nu_{sat}(T_0) - \alpha_\nu \left(\frac{T}{T_0}-1\right)
@@ -573,12 +573,12 @@ Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_f
 	\label{fig:electron_fermi_si}
 \end{figure}
 
-For practical design, the variation over temperature of the threshold voltage is modeled in the BSIM model as:
+For practical design, the variation over temperature of the threshold voltage is modelled in the BSIM model as:
 
 \begin{equation}
 V_{th}(T) = V_{th0} + \alpha (T - T_0)
 \end{equation}
-where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}b, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
+where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
 
 \begin{figure}[!ht]
 	\centering
