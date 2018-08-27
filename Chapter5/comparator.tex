@@ -123,23 +123,23 @@ The analogue part of the conventional test circuit is represented in the \figure
         \includegraphics[width=\textwidth]{Chapter5/Figs/comp_test/comparator_digital_offset_layout.png}
         \subcaption{Digital Bloc and signal selection}
     \end{subfigure}
-    \caption{Comparator test chip overview with 20 comparators to test the delay, the offset of the both comparator topology. One extra delay test circuit is for diagnostic purpose}
+    \caption{Comparator test chip overview with 20 comparators to test the delay, the offset of the both comparator topologies. One extra delay test circuit is for diagnostic purpose}
     \label{fig:comp_offset_layout}
 \end{figure}
 
 The interleaved repartition into even index for strong arm and odd index for double tail, in \figurename~\ref{fig:comp_offset_layout} a, prevents the performance degradation of one comparator in favor of the other by having the same voltage drops for both topologies.
 
-As represented in \figurename~\ref{fig:comp_offset_layout} b, the output of 16 comparators enter the digital bloc which selects which one is counted. To configure which comparator is selected, 4 bits are transferred through SIN with respect to its clock SCLK\@. Then 16 bits are transferred in order to select which comparators are taking decisions which control the ENCLOCK signals. The last bit is validated by a STRF pulse which reply by sending the output of the internal counter of 1s.
+As represented in \figurename~\ref{fig:comp_offset_layout} b, the outputs of 16 comparators enter the digital bloc which selects which one is counted. To configure which comparator is selected, 4 bits are transferred through SIN with respect to its clock SCLK\@. Then 16 bits are transferred in order to select which comparators are taking decisions which control the ENCLOCK signals. The last bit is validated by a STRF pulse which reply by sending the output of the internal counter of 1s.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.8\textwidth]{Chapter5/Figs/comp_test/configuration-patternc.ps}
     \label{fig:test-comp-pattern-c-config}
-    \caption{Configuration signal to validate the configuration and counter value reading}
+    \caption{Configuration signal to validate the configuration and the counter value reading}
 \end{figure}
 
 \subsubsection{Simulation Results}
-In order to verify that the probability model chosen is correct, the input file of the post-processing script is obtained by simulation the test bench with a comparator of Reference. While one the input voltage is set to the common mode voltage, the other is a triangle waveform from $V_{cm}-20 mV$ to $V_{cm}+20 mV$ by step of 0.5 mV. The expected offset and the expected standard deviation of the offset are respectively 5 mV and 1 mV with an hysteresis of 1 mV. The simulation at 27$\degree$C, gives the results presented in the \figurename~\ref{fig:offset_conv_verif}.
+In order to verify that the probability model chosen is correct, the input file of the post-processing script is obtained by simulation of the test bench with a comparator of Reference. While one the input voltage is set to the common mode voltage, the other is a triangle waveform from $V_{cm}-20 mV$ to $V_{cm}+20 mV$ by step of 0.5 mV. The expected offset and the expected standard deviation of the offset are respectively 5 mV and 1 mV with an hysteresis of 1 mV. The simulation at 27$\degree$C, gives the results presented in the \figurename~\ref{fig:offset_conv_verif}.
 
 \begin{figure}[htp]
     \centering
@@ -159,7 +159,7 @@ In order to verify that the probability model chosen is correct, the input file 
     \label{fig:offset_conv_verif}
 \end{figure}
 
-In simulation, the average offset is as represented in \figurename~\ref{fig:offset_conv_verif} a. The estimation for each comparator gives 5 mV as expected. And since there is only the noise which impact the slope of the rising probability of one, the standard variation should be equal too. In the \figurename~\ref{fig:offset_conv_verif} b, the estimation of the standard variation is around this value. Therefore, the methodology applied extracts correctly the information of the offset for the comparator of reference.
+In simulation, the average offset is as represented in \figurename~\ref{fig:offset_conv_verif} a. The estimation for each comparator gives 5 mV as expected. And since there is only the noise which impact the slope of the rising probability of one, the standard variation should be equal too. In the \figurename~\ref{fig:offset_conv_verif} b, the estimation of the standard deviation is around this value. Therefore, the methodology applied extracts correctly the information of the offset for the comparator of reference.
 
 Then, the comparators are changed for a Double-Tail comparator as done in other tests. First, the impact of the temperature is studied for 5 temperatures linearly distributed in the -50$\degree$C -- +175$\degree$C range. Nothing is changed between the simulation of the reference comparator and this test.
 The results for the temperature variation are presented in the \figurename~\ref{fig:offset_conv_dtl} which represents the offset variation, its standard deviation, and the hysteresis with respect to the temperature for the slowest version of the Double Tail. A Gaussian variation of parameters due to mismatch around this corner is performed.
@@ -182,7 +182,7 @@ The results for the temperature variation are presented in the \figurename~\ref{
     \label{fig:offset_conv_dtl}
 \end{figure}
 
-The proposed circuit is able to operate even for a comparator which is really slow and over temperature. The variation with respect to the temperature behaves as expected. The standard variation of the offset corresponds to the results found in section~\ref{sec:latches_sim} while the mean of the offset is centred on 0.
+The proposed circuit is able to operate even for a comparator which is really slow and over temperature. The variation with respect to the temperature behaves as expected. The standard deviation of the offset corresponds to the results found in section~\ref{sec:latches_sim}, while the mean of the offset is centred on 0.
 
 \subsection{Test Pattern B: Feedback Offset Measurement Circuit}
 \subsubsection{Principle}
@@ -206,18 +206,18 @@ Nevertheless, the main disadvantages of this method are the slow convergence (fe
     \label{fig:tb_fb_comp_offset}
 \end{figure}
 
-The \figurename~\ref{fig:tb_fb_comp_offset} a represents the schematic view of the test while the \figurename~\ref{fig:tb_fb_comp_offset} b depicts the signal seen over the simulation of a comparator with 5 mV offset and 1 mV rms noise. This test circuit has only one mode and is always on. By beginning with a reference voltage $V_{\rm inp}$ at 0 V, the offset voltage after few milliseconds will be at zero volt too. Then, the reference voltage steps up to the desired common-mode voltage. Therefore, the comparator will detect the difference between the two, and its memorised output will be 1. So, the charges pump circuit in the voltage generation bloc raise the OFB\_OFFSET voltage. With one transistor in saturation while the other is blocked, the current to load the capacitor is approximately the current defined by the $I_b$ over a full clock period of CLK. This pursues until the offset voltage is greater than the reference voltage. In this case, the current that charges the load capacitor is $–I_b$. Thence, the offset voltage start to oscillate around the real input referred offset of the comparator.
+The \figurename~\ref{fig:tb_fb_comp_offset} a represents the schematic view of the test while the \figurename~\ref{fig:tb_fb_comp_offset} b depicts the signal seen over the simulation of a comparator with 5 mV offset and 1 mV rms noise. This test circuit has only one mode and is always on. By beginning with a reference voltage $V_{\rm inp}$ at 0 V, the offset voltage after few milliseconds will be at zero volt too. Then, the reference voltage steps up to the desired common-mode voltage. Therefore, the comparator will detect the difference between the two, and its memorised output will be 1. So, the charge pump circuit in the voltage generation bloc raises the OFB\_OFFSET voltage. With one transistor in saturation while the other is blocked, the current to load the capacitor is approximately the current defined by the $I_b$ over a full clock period of CLK. This pursues until the offset voltage is greater than the reference voltage. In this case, the current that charges the load capacitor is $–I_b$. Thence, the offset voltage start to oscillate around the real input referred offset of the comparator.
 
 \subsubsection{Bloc Description}
-As represented in \figurename~\ref{fig:tb_fb_comp_offset} a, this circuit takes as input two current of reference which control the slewing of the feedback voltage OFFSET\@. In addition to that, a voltage of reference called $V_{\rm inp}$ corresponds to the common-mode voltage at which we expect to test. The clock provided to the comparator control make the comparator start a decision at its rising edge, while the comparator is reset when the clock is low. An SR-latch memorizes the output of the comparator under test before the reset. From the decision, the charge pump charges/or discharges an internal capacitor of 1.8 pF. The voltage generated OFFSET is used as the second input voltage of the comparator, and is connected to an output pad itself connected to an external capacitor to limit oscillations. Concerning the power supply, only one VDD and GND pins are needed. The voltage of the power supply is 1.8 V.
+As represented in \figurename~\ref{fig:tb_fb_comp_offset} a, this circuit takes as input two current of reference which control the slewing of the feedback voltage OFFSET\@. In addition to that, a voltage of reference called $V_{\rm inp}$ corresponds to the common-mode voltage at which we expect to test. The clock provided to the comparator control makes the comparator start a decision at its rising edge, while the comparator is reset when the clock is low. An SR-latch memorizes the output of the comparator under test before the reset. From the decision, the charge pump charges/or discharges an internal capacitor of 1.8 pF. The voltage generated OFFSET is used as the second input voltage of the comparator, and is connected to an output pad itself connected to an external capacitor to limit oscillations. Concerning the power supply, only one VDD and GND pins are needed. The voltage of the power supply is 1.8 V.
 
 \subsubsection{source of perturbations}
 In this circuit the external source of perturbations is the current source. Let us suppose the comparator operate in the same condition it will in the ADC\@, to wit $V_{DD}$ = 1.8 V and $F_{CLK}$ = 100 MHz. The comparator makes a decision every 10 ns. Due to the latence in the feedback loop, the variation of the offset voltage $\Delta$V is thus defined by the slewing: $\Delta V = \frac{I_b}{C_L F_{CLK}}$.
 
-In a first approximation, the error committed by the circuit with a $C_L = C_{Lint} = 1.8 pF$, $I_b = 500 nA$ is 1.38 mV around the real value. In order to match the requirement of the 500 $\mu$V around the offset, the minimal capacitance should be at least 5.3 pF. This can be easily achieved by connecting an I/O pad directly to the probe of the measurement device and adding an external capacitor out of the chip of 2.2 pF: $C_L = C_{Lint} + C_{probe} + C_{Lext}$. This limiting the oscillations, but not annihilating them, we are interested in only the average value of the differential input.
+In a first approximation, the error committed by the circuit with a $C_L = C_{Lint} = 1.8 pF$, $I_b = 500 nA$ is 1.38 mV around the real value. In order to match the requirement of the 500 $\mu$V around the offset, the minimal capacitance should be at least 5.3 pF. This can be easily achieved by connecting an I/O pad directly to the probe of the measurement device and adding an external capacitor out of the chip of 2.2 pF: $C_L = C_{Lint} + C_{probe} + C_{Lext}$. This limiting the oscillations, but not annihilating them, we are only interested in the average value of the differential input.
 
-Concerning phenomena from the comparator, the hysteresis will impact the desired voltage measurement. Indeed, having a different threshold voltage due to previous state of the comparator, the measured offset voltage will be oscillating between the two thresholds of the hysteresis. 
-If the slope of the generated offset is very slow such that the variation peak-peak between two clock rising edge is less than the hysteresis, this phenomena is detected. If not, the average value still provides the information of the offset which is close to the average of the hysteresis threshold value.
+Concerning phenomena from the comparator, the hysteresis will impact the desired voltage measurement. Indeed, having a different threshold voltage due to a previous state of the comparator, the measured offset voltage will be oscillating between the two thresholds of the hysteresis. 
+If the slope of the generated offset is very slow such that the variation peak-peak between two clock rising edge is less than the hysteresis, these phenomena are detected. If not, the average value still provides the information of the offset which is close to the average of the hysteresis threshold value.
 
 Another phenomenon occurs due to the comparator decision: the kickback. The single-ended kickback is important since it will drop the voltage across the load capacitor, even if, the amplifier is always charging the capacitor. Therefore, the size of the capacitor is an important decision.
 With a single-ended kickback of 500 mV over a 100 fF capacitor, by applying a rule of three, the kickback seen on a 1.8 pF plus an I/O pad will be 16 mV. The amplifier limiting the drop, this results in a 14.7 mV voltage drop on the offset voltage.

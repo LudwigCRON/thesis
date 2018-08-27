@@ -8,7 +8,7 @@ This section investigates the impact of the DC Gain of an OTA inside the SC-Inte
 
 The assumption made is a unity gain frequency of the OTA is such wide that the error on the settling of the integrator is only due to the OTA DC Gain.
 
-Moreover, process mismatch are disregard and the passive-adder with comparators are supposed to be ideal.
+Moreover, process mismatch is disregarded and the passive-adder with comparators are supposed to be ideal.
 
 \begin{figure}[htp]
     \centering
@@ -32,14 +32,14 @@ By recurrence, the residue of this stage being the output of the integrator, the
     V_{out}[n] = V_{out}[0] {\left(\frac{1+\frac{1}{A}}{1+\frac{1+C_S/C_I}{A}}\right)}^n + \frac{C_S}{C_I}\frac{1}{1+\frac{1+C_S/C_I}{A}}\sum_{i=1}^{n} {(V_{in}-b[n-1]V_{ref}) {\left(\frac{1+\frac{1}{A}}{1+\frac{1+C_S/C_I}{A}}\right)}^i}
 \end{equation}
 
-The incremental mode resetting at each new sample, the initial output value is zero. Therefore, the residue only depends on the the transfer of charges from the sampling to the integration capacitor. The maximum of error is governed by the threshold voltage of the 1.5-bits quantizer following our architecture.
+The incremental mode resetting at each new sample, the initial output value is zero. Therefore, the residue only depends on the transfer of charges from the sampling to the integration capacitor. The maximum of error is governed by the threshold voltage of the 1.5-bits quantizer following our architecture.
 
-The error commit by a limiting gain is thus
+The error committed by a finite gain is thus
 \begin{equation}
     V_{error}[n] = \frac{C_S}{C_I}\sum_{i=1}^{n} {(V_{in}-b[n-1]V_{ref}) \left[\left(\frac{{\left(1+\frac{1}{A}\right)}^i}{{\left(1+\frac{1+C_S/C_I}{A}\right)}^{i+1}}\right)} - 1\right]
 \end{equation}
 
-To consider the ADC does not need calibration, we could assume that the error is below half LSB of the desired accuracy. In this case, the residue display the maximum of the error at the transition between two adjacent codes. As the input range is \(2 V_{ref} \), a transition for a 1.5-bit quantizer whose threshold voltage are \(\pm V_{ref}/2\) occurs at \(V_{ref}/(2\times OSR) (1+2k) \) where \(k \) is a signed integer.
+To consider the ADC does not need calibration, we could assume that the error is below half LSB of the desired accuracy. In this case, the residue displays the maximum of the error at the transition between two adjacent codes. As the input range is \(2 V_{ref} \), a transition for a 1.5-bit quantizer whose threshold voltage are \(\pm V_{ref}/2\) occurs at \(V_{ref}/(2\times OSR) (1+2k) \) where \(k \) is a signed integer.
 
 \begin{equation}
     \frac{V_{error}[n]}{V_{LSB}} = 2^{NBits} \frac{C_S}{C_I} \left(
@@ -51,7 +51,7 @@ We could also assume this this equivalent to say the integral non linearity fits
 
 \textbf{Best straight-line INL} provides information about offset (intercept) and gain (slope) error, plus the position of the transfer function (discussed below). It determines, in the form of a straight line, the closest approximation to the ADC's actual transfer function. The exact position of the line is not clearly defined, but this approach yields the best repeatability, and it serves as a true representation of linearity.
 
-\textbf{End-point INL} passes the straight line through end points of the converter's transfer function, thereby defining a precise position for the line. Thus, the straight line for an N-bit ADC is defined by its zero (all zeros) and its full-scale (all ones) outputs.
+\textbf{End-point INL} passes the straight line through endpoints of the converter's transfer function, thereby defining a precise position for the line. Thus, the straight line for an N-bit ADC is defined by its zero (all zeros) and its full-scale (all ones) outputs.
 The best straight-line approach is generally preferred, because it produces better results. The INL specification is measured after both static offset and gain errors have been nullified, and can be described as follows:
 
 Let consider the case of the maximum error compared to a straight line passing by end-points of the transfer function:
@@ -78,6 +78,6 @@ and replacing \(V_{out}(1) \) and \(V_{out}(0)\) by their value leads to
     INL = \max \left| ec + V_{error\max } [n] + V_{error}[n, ec] - ec (1 - 2 V_{error\max }[n])  \right|
 \end{equation}
 
-which admit a maximum of \(4 V_{error\max }[n] \)
+which admits a maximum of \(4 V_{error\max }[n] \)
 
-Therefore to prevent a calibration with respect to the INL the DC gain constraint on the OTA is increased by 2-bits.
+Therefore, to prevent a calibration with respect to the INL the DC gain constraint on the OTA is increased by 2-bits.
