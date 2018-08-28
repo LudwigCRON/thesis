@@ -14,7 +14,7 @@
 
 Each block has been considered as an IP so far. In this regard, their performances are cross-checked by measurements over the temperature range of operation: from -40$\degree$C to 175$\degree$C.
 
-This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}. The first test chip called DOE\_COMP assess comparators. There are two versions of it to characterize fast comparators needed for the two first stages of our ADC, and one for the slow version of them used in the last stage of our ADC. The second test chip evaluates only the comparator of the last stage in its environment. Called DOE\_SAR, its goal is results of the static performance of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
+This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}. The first test chip called DOE\_COMP assess comparators. There are two versions of it to characterize the fast comparators needed for the two first stages of our ADC, and for the slow version of them used in the last stage of our ADC. The second test chip evaluates the converter last stage (SAR), and the comparator of in its environment. Called DOE\_SAR, its goal is the measurement of the static performances of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
 
 % DOE_COMP a  (circuit) (nom pattern) (date de fabrication) (date des tests)
 %   delay
@@ -40,7 +40,7 @@ This chapter presents the four different test chips designed during the thesis. 
 \end{table}
 
 
-The inner chip temperature measurement is therefore crucial for the comparison between simulation results and measures. Being a common components inside every test chip, for the sake of clarity, the chapter begins with its description.
+The inner chip temperature measurement is therefore crucial for the comparison between simulation results and measures. Being a common component inside every test chips, for the sake of clarity, the chapter begins with its description.
 %After a brief review of common technique to validate an ADC, their application for the unusual SAR operation is presented. Finally, ongoing validation plan of the ADC is bestowed.
 
 \section{Internal Temperature Measurement (for all test chips)}
@@ -62,9 +62,9 @@ The temperature measurement circuit consists in measuring the voltage across a d
 \end{equation}
 where $n$ is the number of diodes in parallel, $I_b$ the forward biasing current, and $I_s$ the specific current of the diode.
 
-In practice the biasing current can be either a bench top source meter or a simple resistor. For the sake of simplicity, a resistor has been selected. For a power supply of 1.8 V, simulation performed demonstrates good results for a biasing resistance $R = 33 k\Omega$. Represented in \figurename~\ref{fig:vdiode}, the diode voltage variation is between 220 mV and 350 mV across process corners for a temperature from -40\(\degree\)C to 175\(\degree\)C. The resolution achieved is about less than 1 mK/mV. And \figurename~\ref{fig:diode_sens_temp} represents the non linearity of the solution with a resistor. If the differential measurement is preferred one could connect into the Browkaw configuration. Nevertheless, the differential value is highly nonlinear and drop from 16 mV to almost 0 at high temperature. The latter is not selected for our test for its lower resolution.
+In practice the biasing current can be either a bench top source meter or a simple resistor. For the sake of simplicity, a resistor has been selected. For a power supply of 1.8 V, simulation performed demonstrates good results for a biasing resistance $R = 33 k\Omega$. Represented in \figurename~\ref{fig:vdiode}, the diode voltage variation is between 220 mV and 350 mV across process corners for a temperature from -40\(\degree\)C to 175\(\degree\)C. The resolution achieved is about less than 1 mK/mV. And \figurename~\ref{fig:diode_sens_temp} represents the non linearity of the solution with a resistor. If the differential measurement is preferred one could connect into the Browkaw configuration. Nevertheless, the differential value is highly nonlinear and drops from 16 mV to almost 0 at high temperature. The latter is not selected for our test for its lower resolution.
 
-As the specific current and the current injected to forward bias the diode depends on the process and the temperature, and due to the non-linearity of the band-gap energy, a calibration is performed before any other test. The voltage is measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table is associated.
+As the specific current and the current injected to forward bias the diode depends on the process and the temperature, and due to the non-linearity of the bandgap energy, a calibration should be performed before any other test. The voltage would be measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table has to be associated.
 
 \begin{figure}[htp]
     \centering
@@ -90,13 +90,14 @@ A parametric analysis varying the temperature over the range in 15 points gives 
 \section{Validation of Comparators in DOE\_COMP circuits}
 \input{Chapter5/comparator}
 
-\section{Performance of the SAR in DOE\_SAR circuits}
+\clearpage
+\section{Performance measurement of the SAR with DOE\_SAR circuits}
 \input{Chapter5/valid_sar}
 
 \section{Full ADC validation}
 Towards a future evaluation of the ADC, this test chip is the last in the thesis and has not been tested yet. Nevertheless, this test chip has the ambition to assess each sub-ADC and the complete ADC at full speed. In this regard, the conception and preliminary simulation results are discussed.
 
-The on-going chip design is represented in \figurename~\ref{fig:top-chip}. There are two ADC analog parts of which one is designed for sub-ADC test, whereas the second is designed to evaluate the ADC in itself. The one designed for sub-ADCs characterization is also designed for its evaluation as a complete ADC built of these sub-ADCs. In the analog domain, there are two analog buffers for the inspection of the analog signal, to wit, the residue of each stage. Between the analog cores, the digital drive them and generate non-overlapping phase needed to control switches in the analog. Moreover, the digital block contains a configuration link to define what is under evaluation and how the buffers should be interconnected to the ADC\@. Finally, an ADC is sensitive to clock jitter and duty-cycle. To minimize this, an LVDS clock receiver has been designed for the ADC\@.
+The on-going chip design is represented in \figurename~\ref{fig:top-chip}. There are two ADC analog parts. One is designed for sub-ADC test whereas the second is designed to evaluate the ADC in itself. The one designed for sub-ADC characterization is also designed for evaluation of itself as a complete ADC built of these sub-ADCs. In the analog domain, there are two analog buffers for the inspection of analog signal, to wit, the residue of the each stage. Between the analog cores, the digital drives them and generates non-overlapping clock phases needed to control switches in the analog. Moreover, the digital block contains a configuration link to define what is under evaluation and how the buffers should be interconnected to the ADC\@. Finally, an ADC is sensitive to clock jitter and duty-cycle. To minimize this, an LVDS clock receiver has been designed for the ADC\@.
 
 \begin{figure}[htp]
     \centering
@@ -119,7 +120,7 @@ The number inside bracket correspond to a single voltage reference associated wi
 Even if they are connected together on the PCB, the connection will be on a ground plane for the analogue and another one for the digital. At least, the digital and the analogue can share the same ground plane if there is a slit to reduce the switching noise of the digital on the analogue ground.
 Concerning the analogue buffer to replicate the residue voltage, they operate at 3.5 V provided by an analogue power supply.
 
-In simulation, the average power consumption of the first stage is 3.7 mW, the second stage is 3.9 mW, and of the last stage is 0.8 mW. The measurement can be realized with a Keithley-2000 series appropriate in the sub micro-amps range accuracy up to 3 A. One should pay a particular attention to the digital pad connected to the digital power supply which increase the power consumption of the digital part. For the analogue part, the maximum power consumption is expected to be less than 16 mW.
+In simulation, the average power consumption of the first stage is 3.7 mW, the second stage is 3.9 mW, and of the last stage is 0.8 mW. The measurement can be realized with a Keithley-2000 series appropriate in the sub micro-amps range accuracy up to 3 A. One should pay a particular attention to the digital pad connected to the digital power supply which increases the power consumption of the digital part. For the analogue part, the maximum power consumption is expected to be less than 16 mW.
 
 \subsection{Sub-ADC validation}
 While the ADC validation plan given in Appendix~\ref{sec:validation} has the purpose of performance characterization, the Sub-ADC validation does not serve the same purpose. The Sub-ADC validation allows the detection of analogue limitation over temperature. In this regard, each stage shall be tested independently from the other.
@@ -138,7 +139,7 @@ The evaluation of the Sub-ADC consists in injecting the input voltage to be test
 
 Even if the analog residue is planned to be between 0.65 V and 1.15 V for a differential $\pm V_{ref}/2$, we should not neglect the mismatch engendering offsets. So, the switches are CMOS to allow an extended input voltage range without adding extra errors due to a limited excursion of transistors.
 
-Concerning the settling time, the maximum capacitive load an analog muxer will feed is arguably the capacitive load the SAR DAC represents. With its 950 fF in typical case and 1 pF as an edge case, we expect a settling not exceeding 40\% of the clock period to allow a large duty cycle variation. To reach an accuracy of 14-bits, the time allotted for the settling is assessed to be at minimum 9.5 times the time constant of the approximated first order RC-filter. The allotted settling time being 40\% of the clock period, we deduce a time constant of 421 ps. In turn, the maximum on-resistance of the analog muxer is 607$\Omega$ whatsoever the PVT condition is. To ensure this, the low-vth nmos transistors have a W/L = 4$\mu m$/0.18$\mu m$ and pmos transistors are 3 times bigger.
+Concerning the settling time, the maximum capacitive load an analog muxer is the capacitive load the SAR DAC represents. With its 950 fF in typical case and 1 pF as an edge case, we expect a settling not exceeding 40\% of the clock period to allow a large duty cycle variation. To reach an accuracy of 14-bits, the time allotted for the settling is assessed to be at minimum 9.5 times the time constant of the approximated first order RC-filter. The allotted settling time being 40\% of the clock period, we deduce a time constant of 421 ps. In turn, the maximum on-resistance of the analog muxer is 607$\Omega$ whatsoever the PVT condition is. To ensure this, the low-vth nmos transistors have a W/L = 4$\mu m$/0.18$\mu m$ and pmos transistors are 3 times bigger.
     
 In addition to that, the parasitic capacitance of the CMOS switches injects charges on the input capacitance of the sub-ADC under test as well. The minimum input capacitance is the combination of the sampling and feedback capacitors of the algorithmic stage with 200 fF. Based on simulations in the worst corner for the parasitic capacitance of the MOS transistors, the charge injection coming from nmos transistors is estimated to be few nanovolts as there are completely absorbed by the pmos parasitic capacitance. While the charge injection coming from the pmos transistors is estimated to reach 8 mV in the worst case. 
 
@@ -158,7 +159,7 @@ The principle of this test consists in performing a conversion for each step by 
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=0.8\textwidth]{Chapter5/Figs/adc_chip/static-test-principle.ps}
+    \includegraphics[width=0.75\textwidth]{Chapter5/Figs/adc_chip/static-test-principle.ps}
     \caption{Principle of the static error estimation test with a measurement of the analogue residue}
     \label{fig:adc-static-test}
 \end{figure}
@@ -166,8 +167,6 @@ The principle of this test consists in performing a conversion for each step by 
 Concerning the impact of the input capacitance of the buffer, transmission gates isolate them while a transistor connects their input voltages to the ground. Then, the transistors connecting to the ground are released while the transmission gates connect the residue to the input of buffers, as depicted by the \figurename~\ref{fig:adc-static-test-buffers-clocking}. From a digital point of view, the digital circuit driving switches in the analog core of the ADC is halt when the new\_sample signal is enabled and we are in the static test mode. So then, the buffers replicate the residue voltage stored by either the integration capacitor of the I\(\Delta \Sigma\), or one of the sampling capacitor of the Algorithmic.
 
 To estimate the static error of the sub-ADC under test, the input voltage estimated is subtracted from the voltage reconstitution done and the added value of the residue. The linearity of the curve would indicate a reduced linearity range of the amplifier. And the maximum error in this linearity range would give the effective gain of the amplifier.
-
-Concerning the impact of the input capacitance of the buffer, transmission gates isolate them while a transistor connects their input voltages to the ground. Then, the transistors connecting to the ground are released while the transmission gates connect the residue to the input of buffers, as depicted by the \figurename~\ref{fig:adc-static-test-buffers-clocking}.
 
 \begin{figure}[htp]
     \centering
@@ -185,6 +184,8 @@ Concerning the impact of the input capacitance of the buffer, transmission gates
     \caption{Principle of the static error estimation test with a measurement of the analogue residue}
     \label{fig:adc-static-test-buffers-clocking}
 \end{figure}
+
+Concerning the impact of the input capacitance of the buffer, transmission gates isolate them while a transistor connects their input voltages to the ground. Then, the transistors connecting to the ground are released while the transmission gates connect the residue to the input of buffers, as depicted by the \figurename~\ref{fig:adc-static-test-buffers-clocking}.
 
 To estimate the error, the voltage reconstitution should be done by affecting a weight for each bit of 1/OSR and by adding the value of the residue. By subtracting this voltage to the input voltage applied at the input the static error is given as a function of the input voltage. The linearity of the curve would indicate a reduced linearity range of the amplifier. And the maximum error in this linearity range would give the effective gain of the amplifier.
 
@@ -206,9 +207,9 @@ To estimate the residue of the first stage, the I\(\Delta \Sigma\) should operat
 To estimate the residue of the second stage, the Algorithmic re-sample its last clock cycle residue such that it operates as an algorithmic with an oversampling ratio of respectively 10 or 12 clock cycles according to the sign of the cycle6 signal. Then, the residue at the end of the tenth/twelves clock cycle is passed to the SAR\@. The final resolution of the residue estimation is thus 9-bits in 5 clock cycles and 11-bits in the 6 clock cycle mode. In the digital, only one every other sample start with the loading state. And from an estimation point of view, only the second output code of the algorithmic and the related output code of the SAR are of interest.
 
 \subsection{Test Configuration}
-This test chip is a merge of a version with each stage independently testable and with a version with only full ADC\@. The target of this chip is to implement the modification on the ADC only version to test each stage independently. Since performances can be altered, a second ADC without the modification is placed alongside.
+This test chip contains two ADCs: one with each stage independently testable and one with internally connected stages to produce a full ADC\@. The target of this chip is to implement the modification on the ADC only version to test each stage independently. Since performances can be altered, a second ADC without the modification is placed alongside.
 
-The test configuration is sent on CFG\_RX with the clock CFG\_CLK alongside in the order depicted by \figurename~\ref{fig:adc-test-config-link}. Built around a shift register, the bits sent on the RX line are also output on the TX line. So, these can be checked for debug purpose. To store the configuration word, a single pulse on the CFG\_VALID is sent with the last bit. To ensure the chip has been correctly set-up, we increase the duration of the validation pulse to be at least two clock cycles. In this case, the value stored in the configuration register is copied back into the shift register. To be more precise, the rewrite of the shift register occurs when CFG\_VALID fall down. Therefore, the CFG\_VALID pulse can be long, the data sent back is correct. Whatever is sent on CFG\_TX when CFG\_VALID is 1 is disregarded.
+The test configuration is sent on CFG\_RX with the clock CFG\_CLK alongside in the order depicted by \figurename~\ref{fig:adc-test-config-link}. Built around a shift register, the bits sent on the RX line are also output on the TX line. So, these can be checked for debug purpose. To store the configuration word, a single pulse on the CFG\_VALID is sent with the last bit. To ensure the chip has been correctly set-up, we increase the duration of the validation pulse to be at least two clock cycles. In this case, the values stored in the configuration register are copied back into the shift register. To be more precise, the rewrite of the shift register occurs when CFG\_VALID fall down. Therefore, the CFG\_VALID pulse can be long, the data sent back are correct. Whatever is sent on CFG\_TX when CFG\_VALID is 1 is disregarded.
 
 \begin{figure}[htp]
     \centering
@@ -243,10 +244,10 @@ Finally, a synchronizer block is in charge of triggering the start of a new samp
 \end{itemize}
 
 \clearpage
-\section{Preliminary ADC Schematic Results}
-In this section we present preliminary results of the analog core of the ADC\@. The simulations performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the chapter~\ref{sec:analog-building-bloc} at the schematic level.
+\section{Preliminary ADC Schematic Simulation Results}
+In this section we present preliminary simulation results of the analog core of the ADC\@. The simulations performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the chapter~\ref{sec:analog-building-bloc} at the schematic level.
 
-the DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behaviour of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. This corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
+The DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behaviour of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. This corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
 As depicted by \figurename~\ref{fig:tb_adc-top}, all signals and power supplies are connected by the wire bondings model to the chip. A verilog bloc sent the test configuration to DOE\_ADC\@. For instance, to test only the ADC in 6 clock cycle mode the pattern sent is 1000010010100. While for the ADC with an OSR = 5, we send 1000000010100. In addition to that, a verilog-ams bloc store in a file the output codes and the voltages $V_{\rm inp}/V_{\rm inm}$. These permit the evaluation of the ADC (DNL, INL, SNR, ENOB, ...).
 
 % detail the test bench
@@ -297,9 +298,9 @@ To extract the information on the resolution, we reconstruct the input signal fr
     \label{fig:adc-res-schematic-temp-tt}
 \end{figure}
 
-The ADC exhibits an encouraging stable behaviour over temperature. The error committed on the residue of the first stage has the deepest impact on the final resolution. Heavily relying on the performance of the OTA, and a gain higher than the 11.2-bits of resolution, the ADC in 5 clock cycle mode does not suffer from the temperature. To the contrary, in the 6 clock cycle mode, the OTA gain in a typical corner drop from 86 dB to 78 dB. In consequence, the best case error of the OTA on the residue drop from a 14-bits resolution to a 13.3-bits one. Therefore, the resolution drops too from 100$\degree$C. The error committed on the first stage residue being less than an LSB of the sub-ADCs remaining, the ADC does experience a more severe degradation of its resolution.
+The ADC exhibits an encouraging stable behavior over temperature. The error committed on the residue of the first stage has the deepest impact on the final resolution. Heavily relying on the performance of the OTA, and a gain higher than the 11.2-bits of resolution, the ADC in 5 clock cycle mode does not suffer from the temperature. To the contrary, in the 6 clock cycle mode, the OTA gain in a typical corner drop from 86 dB to 78 dB. In consequence, the best case error of the OTA on the residue drop from a 14-bits resolution to a 13.3-bits one. Therefore, the resolution also drops from 100$\degree$C. The error committed on the first stage residue being less than an LSB of the sub-ADCs remaining, the ADC does experience a more severe degradation of its resolution.
 
-With the process variation, the OTA undergoes a severe degradation of its gain and settling speed. The results of the resolution due to the process variation is depicted by \figurename~\ref{fig:adc-res-schematic-temp-corners} for the ADC operating at 6 clock cycles per sample.
+With the process variation, the OTA undergoes a severe degradation of its gain and its settling speed. This OTA degradation has repercussions on the resolution of the ADC. The results of the resolution due to the process variation is depicted by \figurename~\ref{fig:adc-res-schematic-temp-corners} for the ADC operating at 6 clock cycles per sample.
 
 \begin{figure}[htp]
     \centering
@@ -310,7 +311,7 @@ With the process variation, the OTA undergoes a severe degradation of its gain a
 
 The results over the corners of the process display a drop of 0.67-bits. This drop is a third of experimentation in the work of Ericson over the same temperature range with a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behaviour in simulation with coming experimental data.
 
-At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a Nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode. The corresponding Walden Figure of Merit is 131 fJ/conv for an area of 0.12 $\rm mm^2$. Similarly, in 5 clock cycle mode, the Walden FoM is given to be 382 fJ/conv for a target of 390 fJ/conv. The design is in the middle of publications in ISSCC and VLSI as depicted by \figurename~\ref{fig:walden-fom-comparison-designed}.
+At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a Nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode, the corresponding Walden Figure of Merit is 131 fJ/conv for an area of 0.12 $\rm mm^2$. Similarly, in 5 clock cycle mode, the Walden FoM is given to be 382 fJ/conv for a target of 390 fJ/conv. The design is in the middle of publications in ISSCC and VLSI as depicted by \figurename~\ref{fig:walden-fom-comparison-designed}.
 
 \begin{figure}[htp]
     \centering
