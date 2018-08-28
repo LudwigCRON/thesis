@@ -459,7 +459,9 @@ E_g(T) = E_g(T_0) - \alpha \frac{T^2}{T+\beta}
 \begin{figure}[!ht]
 	\centering
 	%\includegraphics[width=0.6\textwidth]{bandgap}
-	\input{Chapter2/Figs/Vector/bandgap.pgf}
+	\resizebox{0.5\textwidth}{!}{
+		\input{Chapter2/Figs/Vector/bandgap.pgf}
+	}
 	\caption{Band Gap Energy of the Silicon }
 	\label{fig:bandgap}
 \end{figure}
@@ -559,26 +561,29 @@ The MOSFET threshold voltage is given in the equation~(\ref{eqn:thresold_fb_ferm
 V_{th} = V_{FB} + 2 \Phi_F + \gamma \sqrt{2 \Phi_F}
 \end{equation}
 \nomenclature[A-vth]{$V_{th}$}{transistor threshold voltage}
-Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_fermi_dT})~\cite{Filanovsky2001}. The flat band voltage depends on the dopant concentration of the substrate, of the gate, and the intrinsic carrier concentration of the silicon. The fermi energy also change over temperature as represented in \figurename~\ref{fig:electron_fermi_si}.
+Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_fermi_dT})~\cite{Filanovsky2001}. 
 \begin{equation}
 \label{eqn:thresold_fb_fermi_dT}
 \frac{\partial V_{th}}{\partial T} = \frac{\partial V_{FB}}{\partial T} + \left( 2  + \frac{\gamma}{\sqrt{2 \Phi_F}} \right) \frac{\partial \Phi_F}{\partial T}
 \end{equation}
 
+The flat band voltage depends on the dopant concentration of the substrate, of the gate, and the intrinsic carrier concentration of the silicon. The fermi energy also change over temperature as represented in \figurename~\ref{fig:electron_fermi_si}.
+
 \begin{figure}[!ht]
 	\centering
 	%\includegraphics[width=0.6\textwidth]{fermi}
-	\input{Chapter2/Figs/Vector/fermi.pgf}
+	\resizebox{0.5\textwidth}{!} {
+		\input{Chapter2/Figs/Vector/fermi.pgf}
+	}
 	\caption{Fermi energy normalized over the temperature range of interest without (b-) and with (k-) impurities in the substrate}
 	\label{fig:electron_fermi_si}
 \end{figure}
 
 For practical design, the variation over temperature of the threshold voltage is modelled in the BSIM model as:
-
 \begin{equation}
 V_{th}(T) = V_{th0} + \alpha (T - T_0)
 \end{equation}
-where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
+where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. 
 
 \begin{figure}[!ht]
 	\centering
@@ -601,18 +606,52 @@ where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{
 	\label{fig:vth_nel}
 \end{figure}
 
+The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
+
+
 \subsubsection{Leakage Current}        % section 2.7
-\textcolor{red}{TO BE REDONE}
-In semiconductor devices, leakage is a quantum phenomenon where mobile charge carriers tunnel through an insulating region.
+In semiconductor devices, leakage is a quantum phenomenon where mobile charge carriers tunnel through an insulating region. It also comes from the free charges displacement in a region subjected to an electric field. These leakages are represented in \figurename~\ref{fig:soi-mos-leakage} for a NMOS and PMOS transistor with a partially depleted SOI technology.
 
-As a result, the off-state current of a transistor gradually became a limiting factor for down-scaling the threshold voltage since it determines the power consumption of a chip in its idle state. It could not be ignored longer and new physical models had to be applied to correctly describe the device behaviour in the so-called sub-threshold or weak-inversion regime~\cite{Cheng21997,Enz1995,Joardar1998}.
+\begin{figure}[htp]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{Chapter2/Figs/Vector/soi-nmos-leakage.ps}
+		\caption{NMOS}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{Chapter2/Figs/Vector/soi-pmos-leakage.ps}
+		\caption{PMOS}
+	\end{subfigure}
+	\caption{Substrate leakage current in SOI transistors}
+	\label{fig:soi-mos-leakage}
+\end{figure}
 
-Part of the leakage are described in this weak-inversion as:
+The \textcolor{red}{off-state current} of a transistor gradually became a limiting factor for down-scaling the threshold voltage since it determines the power consumption of a chip in its idle state. In a CMOS cell at high temperature, these off-state current of NMOS transistor is pump from the useful current of PMOS transistor. It could not be ignored longer and new physical models had to be applied to correctly describe the device behaviour in the so-called sub-threshold or weak-inversion regime~\cite{Cheng21997,Enz1995,Joardar1998}. This weak-inversion current contributes as:
 \begin{equation}
 \label{eqn:ids_leakage}
 I_{ds}(V_{gs}, V_{bs}, V_{ds}, T) = \mu_{eff} C_{ox} \frac{W}{L} {\left(\frac{k_B T}{q}\right)}^2 [n(V_{bs})-1] e^{q(V_{gs}-V_{th})/nk_B T} \left(1-e^{-qV_{ds}/k_B T} \right)
 \end{equation}
 where n is the slope factor, \(\mu_{eff} \) the mobility of carriers as given in Section~\ref{sec:mobility}. The leakage current due to the off state of a transistor is therefore increasing exponentially with the temperature. This is arguably the most challenging constraint on high temperature design.
+
+In addition to that, an without considering contact losses and recombination, charges also diffuse in the substrate. This \textcolor{blue}{substrate-current} depends on the electric field imposed by the MOSFET use case. In the case of a NMOS transistor as in \figurename~\ref{fig:soi-mos-leakage}a, the leakage current flow is either in one of the following configuration:
+\begin{itemize}
+	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flow in the intrinsic pn junction at the source but a reverse leakage current exists in the pn-junction at the drain.
+	\item[--] $V_{\rm S} < V_{\rm B} < V_{\rm D}$: the reverse current in the pn-junction at the drain is smaller, and a forward leakage current occurs in the pn-jonction at the source.
+	\item[--] $V_{\rm S} < V_{\rm D} < V_{\rm B}$: both pn-junction at the source and at the drain are forward biased. The current flows from the bulk to the each contact.
+\end{itemize}
+
+while for the PMOS transistor,
+\begin{itemize}
+	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flow in the intrinsic pn junction at the source but a forward leakage current exists in the pn-junction at the drain.
+	\item[--] $V_{\rm S} < V_{\rm B} < V_{\rm D}$: the reverse current in the pn-junction at the source increases, and a forward leakage current occurs in the pn-jonction at the drain decrease.
+	\item[--] $V_{\rm S} < V_{\rm D} < V_{\rm B}$: both pn-junction at the source and at the drain are reverse biased. The current flows from each contact to the bulk.
+\end{itemize}
+
+Based on the Shockley equation, the forward and reverse current of the diode is defined by equation~(\ref{eqn:shockley-diode-leakage}) where $L_n (L_p)$ represente the equivalent height of the n-block (p-block), while $D_n (D_p)$ is the diffusion coefficients of this block, and $n_i$ is the intrinsic carrier concentation.
+\begin{equation}
+\label{eqn:shockley-diode-leakage}
+I_{\rm db/sb} = q\left(\frac{D_n}{L_n}\frac{n_i^2}{N_a}+\frac{D_p}{L_p}\frac{n_i^2}{N_d}\right) \exp\left(\frac{qV_{\rm db/sb}}{k_BT} - 1\right)
+\end{equation}
 
 \subsection{\(g_m/I_{D} \)-based design over temperature} % section 2.8
 \label{sec:analog-insight}

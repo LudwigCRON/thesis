@@ -76,7 +76,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.624662in,y=0.409236in,,top]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 250\)}%
+\pgftext[x=0.624662in,y=0.409236in,,top]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 250\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -98,7 +98,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=1.331774in,y=0.409236in,,top]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 300\)}%
+\pgftext[x=1.331774in,y=0.409236in,,top]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 300\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -120,7 +120,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.038886in,y=0.409236in,,top]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 350\)}%
+\pgftext[x=2.038886in,y=0.409236in,,top]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 350\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -142,7 +142,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.745998in,y=0.409236in,,top]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 400\)}%
+\pgftext[x=2.745998in,y=0.409236in,,top]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 400\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -164,10 +164,10 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=3.453111in,y=0.409236in,,top]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 450\)}%
+\pgftext[x=3.453111in,y=0.409236in,,top]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 450\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.215664in,y=0.231025in,,top]{\fontsize{9.000000}{10.800000}\selectfont Temperature [K]}%
+\pgftext[x=2.215664in,y=0.231025in,,top]{\fontsize{10.000000}{12.00000}\selectfont Temperature [K]}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -189,7 +189,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=0.458630in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.07\)}%
+\pgftext[x=0.280525in,y=0.458630in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.07\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -211,7 +211,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=0.783732in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.08\)}%
+\pgftext[x=0.280525in,y=0.783732in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.08\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -233,7 +233,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=1.108834in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.09\)}%
+\pgftext[x=0.280525in,y=1.108834in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.09\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -255,7 +255,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=1.433936in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.10\)}%
+\pgftext[x=0.280525in,y=1.433936in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.10\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -277,7 +277,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=1.759038in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.11\)}%
+\pgftext[x=0.280525in,y=1.759038in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.11\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -299,7 +299,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=2.084140in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.12\)}%
+\pgftext[x=0.280525in,y=2.084140in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.12\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -321,7 +321,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=2.409242in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.13\)}%
+\pgftext[x=0.280525in,y=2.409242in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.13\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -343,10 +343,10 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.280525in,y=2.734344in,left,base]{\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.14\)}%
+\pgftext[x=0.280525in,y=2.734344in,left,base]{\fontsize{12.000000}{14.000000}\selectfont \(\displaystyle 1.14\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.224969in,y=1.644315in,,bottom,rotate=90.000000]{\fontsize{9.000000}{10.800000}\selectfont Energy [eV]}%
+\pgftext[x=0.224969in,y=1.644315in,,bottom,rotate=90.000000]{\fontsize{10.000000}{12.00000}\selectfont Energy [eV]}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{0.624662in}{0.506458in}}{\pgfqpoint{3.182005in}{2.275714in}} %
@@ -470,7 +470,7 @@
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.038886in,y=2.196989in,left,base]{\fontsize{9.000000}{10.800000}\selectfont 400 ppm/K}%
+\pgftext[x=2.038886in,y=2.196989in,left,base]{\fontsize{12.000000}{14.00000}\selectfont 400 ppm/K}%
 \end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%

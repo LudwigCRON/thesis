@@ -45,10 +45,10 @@ if __name__ == "__main__":
     ax = plt.gca()
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    plt.xticks(np.arange(3), ('Weak','Moderate','Strong'))
+    plt.xticks(np.arange(3), ('Faible','Modéré','Forte'))
     plt.yticks(np.arange(3), ('', '', ''))
-    plt.xlabel("Inversion Region")
-    plt.ylabel("Channel Length $L$")
+    plt.xlabel("Région d'inversion")
+    plt.ylabel("Longueur de grille $L$")
     # arrows
     Ars = 0.5
     Arx = 1
