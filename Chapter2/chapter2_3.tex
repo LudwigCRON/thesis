@@ -507,7 +507,7 @@ In the BSIM model of transistor, the mobility change over temperature is modelle
 \subsubsection{Velocity Saturation}    % section 2.4
 As presented in the Section~\ref{sec:mobility}, the mobility and the velocity of carriers are linked to each other as \(\nu \approx \mu \xi \); where \(\nu \) is the velocity, \(\mu \) the mobility, and \(\xi \) the electric field.
 
-One assumption is that the mean free time of carriers between collision is constant, which holds for low values of \(\xi \). But for high electric fields, the additional velocity component will result in a shorter average time between lattice scatterings, thus the mobility is no longer constant. An increase in energy no longer cause carrier velocity to increase; instead, the additional energy is lost to phonon generation through lattice interactions. The mobility will finally saturate for high electric fields, and it may be approximated by the following empirical expression: 
+One assumption is that the mean free time of carriers between collisions is constant, which holds for low values of \(\xi \). But for high electric fields, the additional velocity component will result in a shorter average time between lattice scatterings, thus the mobility is no longer constant. An increase in energy no longer causes carrier velocity to increase; instead, the additional energy is lost to phonon generation through lattice interactions. The mobility will finally saturate for high electric fields, and it may be approximated by the following empirical expression: 
 \begin{equation}
 \label{eqn:vsat}
 \nu = \frac{\nu_s}{1 + \left(\frac{\xi}{\xi_{sat}}\right)}
@@ -544,7 +544,7 @@ J_{DS} = \mu \frac{\epsilon_{ox} \cdot \xi_{DS}}{L} \left(V_{GS}-V_{th}\right)
 \label{eqn:JDS}
 \end{equation}
 
-Depending on transistor bias, \(J_{DS}\) is drift-dominated under the condition \(\xi_{DS} > \xi_{sat}\); but it is diffusion-dominated under the condition \(\xi_{DS} < \xi_{sat}\). In contrast to the bias dependency, \(J_{DS}\) have opposite temperature dependence while it is drift- and \allowbreak diffusion-dominated due to mobility scattering limitation. In fact, drift-dominated \(J_{DS}\) decreases, but diffusion-dominated \(J_{DS}\) increases as temperature increases.
+Depending on transistor bias, \(J_{DS}\) is drift-dominated under the condition \(\xi_{DS} > \xi_{sat}\); but it is diffusion-dominated under the condition \(\xi_{DS} < \xi_{sat}\). In contrast to the bias dependency, \(J_{DS}\) has opposite temperature dependence while it is drift- and \allowbreak diffusion-dominated due to mobility scattering limitation. In fact, drift-dominated \(J_{DS}\) decreases, but diffusion-dominated \(J_{DS}\) increases as temperature increases.
 \nomenclature[A-xi]{$\xi$}{electric field}
 
 \begin{figure}[!ht]
@@ -571,7 +571,7 @@ Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_f
 \frac{\partial V_{th}}{\partial T} = \frac{\partial V_{FB}}{\partial T} + \left( 2  + \frac{\gamma}{\sqrt{2 \Phi_F}} \right) \frac{\partial \Phi_F}{\partial T}
 \end{equation}
 
-The flat band voltage depends on the dopant concentration of the substrate, of the gate, and the intrinsic carrier concentration of the silicon. The fermi energy also change over temperature as represented in \figurename~\ref{fig:electron_fermi_si}.
+The flat band voltage depends on the dopant concentration of the substrate, of the gate, and the intrinsic carrier concentration of the silicon. The fermi energy also changes over temperature as represented in \figurename~\ref{fig:electron_fermi_si}.
 
 \begin{figure}[!ht]
 	\centering
@@ -610,7 +610,7 @@ where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{
 	\label{fig:vth_nel}
 \end{figure}
 
-The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}, the bigger the channel length is, less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
+The slope depends on the transistor channel length L and the bulk-source voltage applied. For a voltage \(V_{bs} = 0 \) as done in the \figurename~\ref{fig:vth_nel_L}, the bigger the channel length is, the less sensitive is the threshold voltage. This offer the possibility to the designer to adjust the sensitivity of the threshold voltage to temperature by either decreasing the transistor channel length or by body biasing~\cite{Kumar2008}.
 
 
 \subsubsection{Leakage Current}        % section 2.7
@@ -637,21 +637,21 @@ I_{ds}(V_{gs}, V_{bs}, V_{ds}, T) = \mu_{eff} C_{ox} \frac{W}{L} {\left(\frac{k_
 \end{equation}
 where n is the slope factor, \(\mu_{eff} \) the mobility of carriers as given in Section~\ref{sec:mobility}. The leakage current due to the off state of a transistor is therefore increasing exponentially with the temperature. This is arguably the most challenging constraint on high temperature design.
 
-In addition to that, an without considering contact losses and recombination, charges also diffuse in the substrate. This \textcolor{blue}{substrate-current} depends on the electric field imposed by the MOSFET use case. In the case of a NMOS transistor as in \figurename~\ref{fig:soi-mos-leakage}a, the leakage current flow is either in one of the following configuration:
+In addition to that, and without considering contact losses and recombination, charges also diffuse in the substrate. This \textcolor{blue}{substrate-current} depends on the electric field imposed by the MOSFET use case. In the case of a NMOS transistor as in \figurename~\ref{fig:soi-mos-leakage}a, the leakage current flow is either in one of the following configuration:
 \begin{itemize}
-	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flow in the intrinsic pn junction at the source but a reverse leakage current exists in the pn-junction at the drain.
+	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flows in the intrinsic pn junction at the source but a reverse leakage current exists in the pn-junction at the drain.
 	\item[--] $V_{\rm S} < V_{\rm B} < V_{\rm D}$: the reverse current in the pn-junction at the drain is smaller, and a forward leakage current occurs in the pn-jonction at the source.
 	\item[--] $V_{\rm S} < V_{\rm D} < V_{\rm B}$: both pn-junction at the source and at the drain are forward biased. The current flows from the bulk to the each contact.
 \end{itemize}
 
 while for the PMOS transistor,
 \begin{itemize}
-	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flow in the intrinsic pn junction at the source but a forward leakage current exists in the pn-junction at the drain.
+	\item[--] $V_{\rm B} = V_{\rm S} < V_{\rm D}$: no charges flows in the intrinsic pn junction at the source but a forward leakage current exists in the pn-junction at the drain.
 	\item[--] $V_{\rm S} < V_{\rm B} < V_{\rm D}$: the reverse current in the pn-junction at the source increases, and a forward leakage current occurs in the pn-jonction at the drain decrease.
 	\item[--] $V_{\rm S} < V_{\rm D} < V_{\rm B}$: both pn-junction at the source and at the drain are reverse biased. The current flows from each contact to the bulk.
 \end{itemize}
 
-Based on the Shockley equation, the forward and reverse current of the diode is defined by equation~(\ref{eqn:shockley-diode-leakage}) where $L_n (L_p)$ represente the equivalent height of the n-block (p-block), while $D_n (D_p)$ is the diffusion coefficients of this block, and $n_i$ is the intrinsic carrier concentation.
+Based on the Shockley equation, the forward and reverse current of the diode is defined by equation~(\ref{eqn:shockley-diode-leakage}) where $L_n (L_p)$ represents the equivalent height of the n-block (p-block), while $D_n (D_p)$ is the diffusion coefficients of this block, and $n_i$ is the intrinsic carrier concentation.
 \begin{equation}
 \label{eqn:shockley-diode-leakage}
 I_{\rm db/sb} = q\left(\frac{D_n}{L_n}\frac{n_i^2}{N_a}+\frac{D_p}{L_p}\frac{n_i^2}{N_d}\right) \exp\left(\frac{qV_{\rm db/sb}}{k_BT} - 1\right)
@@ -667,7 +667,7 @@ The analysis of the variations of each circuit's characteristics, as noise figur
 
 \subsubsection{High-Frequency design over temperature}
 \label{sec:des_speed}
-In the design of high-speed integrated circuit, PLL and RF-Amplifiers are few applications among many using transistors at the limit of their speed with an important criterion on the in-band noise. Usually with a low-impedance and at the largest transconductance possible, a transistor acts as a current source or current sink to either charge or discharge the capacitive load. In such circumstances, a very high frequency signal encounters a primary limitation known as slew rate, i.e. a limited speed as long as a transistor is not able to source or sink the maximum current needed by the load; and a second one which is the current-gain-bandwidth of a single transistor, known as the transition frequency \(f_T \).  This \(f_T \) is the frequency at which the current gain drops to 0 dB.
+In the design of high-speed integrated circuits, PLL and RF-Amplifiers are few applications among many using transistors at the limit of their speed with an important criterion on the in-band noise. Usually with a low-impedance and at the largest transconductance possible, a transistor acts as a current source or current sink to either charge or discharge the capacitive load. In such circumstances, a very high frequency signal encounters a primary limitation known as slew rate, i.e. a limited speed as long as a transistor is not able to source or sink the maximum current needed by the load; and a second one which is the current-gain-bandwidth of a single transistor, known as the transition frequency \(f_T \).  This \(f_T \) is the frequency at which the current gain drops to 0 dB.
 \nomenclature[A-Z]{MOS}{Metal-Oxide-Semiconductor}
 \nomenclature[A-Z]{FET}{Field-Effect-Transistor}
 
@@ -699,7 +699,7 @@ From the \figurename~\ref{fig:ft_nel}, we deduce that:
 	\item[--] increasing bias current increases transition frequency (square root dependence)
 	\item[--] Keeping bias current constant, decreasing length increases transition frequency (\(\propto L^{-3/2}\)).
 	\item[--] the transition frequency decreases with increasing temperature.
-	\item[--] as smaller the L is, less sensitive the transition frequency is with respect to the temperature
+	\item[--] as smaller the L is, the less sensitive the transition frequency is with respect to the temperature
 \end{itemize}
 \nomenclature[A-W]{W}{transistor gate width}
 \nomenclature[A-L]{L}{transistor gate length}
@@ -707,7 +707,7 @@ Therefore, for high speed design, the transistor sizing shall be minimum to decr
 
 \subsubsection{Signal amplification over temperature}
 \label{sec:des_accuracy}
-The design for instrumentation, or the design of a high-resolution ADC, requires very high gain amplifiers. In order to efficiently design such amplifiers, the voltage gain temperature influence should known in advance to correctly choose the biasing point.
+The design for instrumentation, or the design of a high-resolution ADC, requires very high gain amplifiers. In order to efficiently design such amplifiers, the voltage gain temperature influence should be known in advance to correctly choose the biasing point.
 
 \figurename~\ref{fig:Av_nel} represents the intrinsic gain of a single \emph{nel} transistor: the product of its transconductance \(g_m \) and its output impedance \(1/g_{ds} \). For \(L = L_{\min} \), the gain falls with the increasing drain-source current, from the weak inversion to the strong inversion. A longer channel length maintains the gain higher over an extended drain-source current range.
 \begin{figure}[!ht]
@@ -731,7 +731,7 @@ The design for instrumentation, or the design of a high-resolution ADC, requires
 	\label{fig:Av_nel}
 \end{figure}
 
-The sensitivity of the intrinsic gain to temperature is depicted by \figurename~\ref{fig:sAv_nel} for different channel length in both weak inversion and in strong inversion. In weak inversion, the gain is increasing with temperature while in strong inversion the gain is decreasing. The channel length only shifts the biasing current at which the derivative of the gain with respect to the temperature change its sign. This trip point current is higher with small channel length compared to longer ones.
+The sensitivity of the intrinsic gain to temperature is depicted by \figurename~\ref{fig:sAv_nel} for different channel length in both weak inversion and in strong inversion. In weak inversion, the gain is increasing with temperature while in strong inversion the gain is decreasing. The channel length only shifts the biasing current at which the derivative of the gain with respect to the temperature changes its sign. This trip point current is higher with small channel length compared to longer ones.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
@@ -754,12 +754,12 @@ The sensitivity of the intrinsic gain to temperature is depicted by \figurename~
 	\label{fig:sAv_nel}
 \end{figure}
 
-The intrinsic gain temperature sensitivity is depicted by \figurename~\ref{fig:sAv_nel} for different channel length in both weak inversion and in strong inversion. In weak inversion, the gain is increasing with temperature while in strong inversion the gain is decreasing. The channel length only shift the biasing current at which the derivative of the gain with respect to the temperature change its sign. This trip point current is higher with small channel length compared to longer ones.
+The intrinsic gain temperature sensitivity is depicted by \figurename~\ref{fig:sAv_nel} for different channel length in both weak inversion and in strong inversion. In weak inversion, the gain is increasing with temperature while in strong inversion the gain is decreasing. The channel length only shifts the biasing current at which the derivative of the gain with respect to the temperature change its sign. This trip point current is higher with small channel length compared to longer ones.
 
-Therefore, a design for high accuracy should be done in weak inversion. The weak inversion gives the maximum of the intrinsic gain and reduce the temperature sensitivity. A first trade-off between the gain and the speed occurs.
+Therefore, a design for high accuracy should be done in weak inversion. The weak inversion gives the maximum of the intrinsic gain and reduces the temperature sensitivity. A first trade-off between the gain and the speed occurs.
 
 \subsubsection{Low-Power Design Consideration}
-As the opposite of speed, the design for low-power reduces the current consumption to its maximum. Therefore, the speed is limited. Moreover, a particular attention is paid to the minimize the leakage currents. From the equation~(\ref{eqn:ids_leakage}), the designer should decrease the gate-source voltage, the drain-source voltage (power supply voltage), and increase the transistor channel length (L). Therefore, transistor should be biased in a diffusion dominated region where the transition frequency is low. Besides, transition frequency degradation with respect to the temperature is limited to approximately 2000 ppm/\(\degree \)C according to \figurename~\ref{fig:ft_nel_sensitivity}. Moreover, the increase of the channel length limits the decrease of the threshold voltage as represented by \figurename~\ref{fig:vth_nel_L}.
+As the opposite of speed, the design for low-power reduces the current consumption to its maximum. Therefore, the speed is limited. Moreover, a particular attention is paid to the minimize the leakage currents. From the equation~(\ref{eqn:ids_leakage}), the designer should decrease the gate-source voltage, the drain-source voltage (power supply voltage), and increase the transistor channel length (L). Therefore, the transistors should be biased in a diffusion dominated region where the transition frequency is low. Besides, the transition frequency degradation with respect to the temperature is limited to approximately 2000 ppm/\(\degree \)C according to \figurename~\ref{fig:ft_nel_sensitivity}. Moreover, the increase of the channel length limits the decrease of the threshold voltage as represented by \figurename~\ref{fig:vth_nel_L}.
 
 \subsubsection{Low-Signal-Distortion over temperature}
 A single MOSFET transistor is a transconductance amplifier by itself. The linearity can be considered as the input gate voltage range for which the current changes is minimum. Defined that way, the sensitivity of the current with respect to the input gate voltage is related to the \(g_m/I_D \) ratio~\cite{Ou2018a,Ou2017a}.
@@ -787,7 +787,7 @@ A single MOSFET transistor is a transconductance amplifier by itself. The linear
 	\label{fig:gm_id}
 \end{figure}
 
-In \figurename~\ref{fig:gm_nel_T}, the temperature lower the \(g_m/I_D\) ratio and keep it small over an extended \(V_{gs}\) for \(L = L_{\min}\). In other term, the temperature is beneficial and improves the linearity range. As represented in \figurename~\ref{fig:gm_nel_L}, the channel length has a reduced impact compared to the temperature. Moreover, the temperature has almost the same impact whatever the channel length is for small \(V_{ds}\).
+In \figurename~\ref{fig:gm_nel_T}, the temperature lowers the \(g_m/I_D\) ratio and keeps it small over an extended \(V_{gs}\) for \(L = L_{\min}\). In other term, the temperature is beneficial and improves the linearity range. As represented in \figurename~\ref{fig:gm_nel_L}, the channel length has a reduced impact compared to the temperature. Moreover, the temperature has almost the same impact whatever the channel length is for small \(V_{ds}\).
 
 \subsubsection{Tradeoffs for a temperature-driven design}
 Nowadays ADC target ever more high speed and higher resolution. Pushing design constraints in a precise corner in the possible design set. As discussed in Section~\ref{sec:des_speed}, the speed of a single common-source transistor is severely reduced by the temperature. 
@@ -804,17 +804,20 @@ Depending on the system constraints, one solution is preferred over another. For
 	\label{fig:tradeoffs}
 \end{figure}
 
+The design of high-resolution and high-speed OTA is the bottleneck of high-performance ADCs: the accuracy in switched capacitor circuits is essentially based on the gain and the speed of the OTA\@. Based on this analysis, the temperature affect the speeds of transistors, and it cannot be prevented. While the gain could be stable over temperature, this can only be ensured for transistors in weak inversion. In this mode, the a single transistor of the technology cannot exceed 200 MHz.
+Therefore, biasing circuitry would be in weak-moderate inversion region with large-L. And high-speed differential pairs should be in moderate-strong inversion region with small-L.
+
 \clearpage
 \section{High Temperature ADCs}     % section 2.6
 \label{sec:high-temp-adc}
-Until now, only standard topology and recent progress among them have been reported. High-speed and medium to high resolution converters are an extended topic. With the temperature constraints previously explained, this topic is fairly reduced since only few papers address this challenge. This subsection discuss work published to cope with high temperature in ADCs.
+Until now, only standard topologies and recent progress among them have been reported. High-speed and medium to high resolution converters are an extended topic. With the temperature constraints previously explained, this topic is fairly reduced since only few papers address this challenge. This subsection discuss work published to cope with high temperature in ADCs.
 
-From a high-level point of view, solutions with fewer sensitive components over wide temperature range are preferred. As the temperature deeply impact the analog electronics more than a synchronous digital, SAR without amplifier or \(\Delta\Sigma \) ADCs are less demanding on analog accuracy. Thus, they are popular architectures among many for harsh environment applications.
+From a high-level point of view, solutions with fewer sensitive components over wide temperature range are preferred. As the temperature deeply impacts the analog electronics more than a synchronous digital, SAR without amplifier or \(\Delta\Sigma \) ADCs are less demanding on analog accuracy. Thus, they are popular architectures among many for harsh environment applications.
 
 \subsection{SAR}
-Even though SAR have a limited number of active components, the resolution of SAR exhibits a limiting factor temperature dependent. Indeed, the temperature increase raises the leakage current exponentially which also discharge capacitors faster. For a DAC based on poly-resistors having the lowest thermal variations, the leakage currents alter the voltage across them. Over wide temperature range, SAR ADC are only used as a small sub-ADC or as a low-resolution ADC\@. % while in commercial range http://cds.linear.com/docs/en/datasheet/250032fb.pdf up to 32-bits
+Even though SAR have a limited number of active components, the resolution of SAR exhibits a limiting factor temperature dependent. Indeed, the temperature increase raises the leakage current exponentially which also discharge capacitors faster. For a DAC based on poly-resistors having the lowest thermal variations, the leakage currents alter the voltage across them. Over a wide temperature range, SAR ADC are only used as a small sub-ADC or as a low-resolution ADC\@. % while in commercial range http://cds.linear.com/docs/en/datasheet/250032fb.pdf up to 32-bits
 
-In the work of Rahman~\textit{et al.}~\cite{Rahman2017}, the ADC consists in an 8-bits R-2R poly-resistor DAC driven by a binary search algorithm logic from 25\(\degree \)C to 300\(\degree \)C. Poly-resistors have been chosen for their lowest temperature coefficient in the technology while the comparator and the logic is implemented in a SiC FET transistors. The large-bandgap of SiC reduces the leakage currents. Despite this, the resolution of is limited to 8-bits which reveal how important is the leakage currents. Experimental results highlight the fact that ADCs have a better linearity at high temperatures when the dominant factor are switches non-linearity.
+In the work of Rahman~\textit{et al.}~\cite{Rahman2017}, the ADC consists in an 8-bits R-2R poly-resistor DAC driven by a binary search algorithm logic from 25\(\degree \)C to 300\(\degree \)C. Poly-resistors have been chosen for their lowest temperature coefficient in the technology while the comparator and the logic is implemented in a SiC FET transistors. The large-bandgap of SiC reduces the leakage currents. Despite this, the resolution is limited to 8-bits which reveal how important is the leakage currents. Experimental results highlight the fact that ADCs have a better linearity at high temperatures when the dominant factor are switches non-linearity.
 
 Recently, an overview of an analysis of latched-comparators performance, considering process variability and temperature variation from -40\(\degree \)C to 175\(\degree \)C was presented. Fonseca ~\textit{et al.}~\cite{Fonseca2018} have extended such analysis to the metastability and performance metrics variation of SAR ADCs. Besides the known advantages of the Double-Tail comparator, Fonseca's work has demonstrated that such a comparator has a serious drawback under harsh environments. Finally, post-layout results have been presented. Once the SAR ADC is calibrated and operated at a frequency of around 100 MHz, the ADC performance can be maintained in a wide temperature range. Both SA- and DT-SAR ADC achieve an ENOB of 9.8 bits, which is reduced to 9.6 bits in high-temperature operation.
 
@@ -822,10 +825,10 @@ Recently, an overview of an analysis of latched-comparators performance, conside
 \(\Delta\Sigma \) modulator is known to be resilient to analog circuit impairment by transferring the complexity to the digital domain. Nevertheless, the leakage current turns out to be the main contributor to significant voltage drop in switched capacitor circuit. Due to this reason, a fully differential ADC lower the impact on the accuracy to the leakage difference of the positive and negative branch~\cite{Davis2003}.For low-OSR modulator, experiments have demonstrated that single-stage modulator are more resistant to high-temperature than MASH cascaded one. The latter underwent severe drift of the amplifier output common-mode voltage up to 255\(\degree \)C degrading overall performance of MASH solutions. The $\Delta\Sigma$ modulation reaches high resolution for a large temperature range. Such results were demonstrated either in a bulk technology~\cite{Davis2003} or in an SOI technology~\cite{Ericson2004}.
 
 \subsection{Pipelined}
-Keeping aside these architectures, a pipelined based on Flip-Around MDAC has been proved to work under stringent temperature range from -180\(\degree \)C to 120\(\degree \)C in a bulk technology~\cite{Yao2010}. At negative temperatures, the amplifier is prone to a transconductance reduction and a reduced gain owed to the threshold voltage increased. Large W/L transistors reduce the threshold shift while it improves the matching property. As expected, the pipelined architecture with a 5 MHz sampling frequency in~\cite{Yao2010} is faster in comparison to $\Delta\Sigma$ ADCs for a resolution of 12-bits.
+Keeping aside these architectures, a pipelined based on Flip-Around MDAC has been proved to work under stringent temperature range from -180\(\degree \)C to 120\(\degree \)C in a bulk technology~\cite{Yao2010}. At negative temperatures, the amplifier is prone to a transconductance reduction and a reduced gain owed to the threshold voltage increased. Large W/L transistors reduce the threshold shift while they improve the matching property. As expected, the pipelined architecture with a 5 MHz sampling frequency in~\cite{Yao2010} is faster in comparison to $\Delta\Sigma$ ADCs for a resolution of 12-bits.
 
 \subsection{Mixed Architecture}
-In the implementation of a CMOS temperature sensor in the -40\(\degree \)C to 125\(\degree \)C range, Souri~\textit{et al.} present an second-order Zoom-ADC~\cite{Souri2014}. A capacitive SAR ADC performs a coarse conversion to determine a rough estimate followed by a fine conversion by a second order Incremental-\(\Delta\Sigma \) converter. The SAR first proposal allows one to remove the sample and hold introducing large error as the temperature increase. Using well-known robust sub-ADCs, only single temperature point calibration effectively trims inaccuracy over the wide temperature range. This ADC achieves a resolution of 16-bits, and a power consumption drastically low of 8.6 $\mu$W.
+In the implementation of a CMOS temperature sensor in the -40\(\degree \)C to 125\(\degree \)C range, Souri~\textit{et al.} present a second-order Zoom-ADC~\cite{Souri2014}. A capacitive SAR ADC performs a coarse conversion to determine a rough estimate followed by a fine conversion by a second order Incremental-\(\Delta\Sigma \) converter. The SAR first proposal allows one to remove the sample and hold introducing large error as the temperature increase. Using well-known robust sub-ADCs, only single temperature point calibration effectively trims inaccuracy over the wide temperature range. This ADC achieves a resolution of 16-bits, and a power consumption drastically low of 8.6 $\mu$W.
 
 The table~\ref{table:algo_comparison_table} compares performance of converters in prior art. 
 \begin{table}[htp]

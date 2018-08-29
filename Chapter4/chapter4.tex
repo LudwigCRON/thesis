@@ -16,9 +16,9 @@
 \fi
 
 \section{Architectural Study}
-Our goal is to implement a low-OSR ADC for high-speed conversion at 20 MSamples/s and a high-resolution within the smallest silicon area possible. Based on 40 years literature in the ADC domain, only one kind of ADC is not sufficient to match the different desires within 5-clock cycles. A cascade of sub-ADCs seems more promising. Within 5 clock cycles per sample, sub-ADC do not give enough bits as well as the SAR, the algorithmic, the folding, or the counting. And a full-flash converter will exceed the 15 mW budget we fixed for the ADC\@.
+The goal of this research project is to define and to implement a low-OSR ADC for high-speed conversion at 20 MSamples/s with a high-resolution within the smallest silicon area possible. Based on 40 years literature in the ADC domain, only one kind of ADC is not sufficient to match the different desires within 5-clock cycles. A cascade of sub-ADCs seems more promising. Within 5 clock cycles per sample, sub-ADC do not give enough bits as well as the SAR, the algorithmic, the folding, or the counting. And a full-flash converter would exceed the 15 mW budget we fixed for the ADC\@.
 
-Aware of the large resolution drop at high temperature, and with a high-sensitivity to process variations, A true pipelined ADC cannot be used as is considering the area, and the power consumption. Over an extended temperature range from -40\(\degree \)C to +175\(\degree \)C, an ADC having each stage of a different kind would allow us to mix strength and weakness of each one, to reduce the area overhead and the power consumption.
+Aware of the large resolution drop at high temperature, and with a high-sensitivity to process variations, a true pipelined ADC cannot be used as is considering the area, and the power consumption. Over an extended temperature range from -40\(\degree \)C to +175\(\degree \)C, an ADC having each stage of a different kind would allow us to mix strength and weakness of each one, to reduce the area overhead and the power consumption.
 
 We propose in this section some candidate topologies for the realization of a high performance ADC\@. The main functional characteristics of these stages are gathered at the Table~\ref{tbl:stage-charac}.
 
@@ -39,7 +39,7 @@ We propose in this section some candidate topologies for the realization of a hi
 
 \footnotetext{at the price of extra area and power consumption to sample and hold or to buffer}
 
-All kinds of stages cannot be connected together due to topological constraints. To list some of them, Flash and SAR stages should always be the last stage as they produce no residue. If the SAR is not the last-stage, an extra amplification with high gain is required at the output of the SAR\@. When counting stages are cascaded, a sample and hold stage is required between them. And considering the sensitivity to non-idealities and noise filtering, counting stages shall be used before algorithmic ones.
+All kinds of stages cannot be connected together due to topological constraints. To list some of them, Flash and SAR stages should always be the last stage as they produce no residue. If the SAR is not the last-stage, an extra amplification with high gain is required at the output of the SAR\@. When counting stages are cascaded, a sample and hold stage is required between them. And considering the sensitivity to non-idealities and noise filtering, counting stages should be used before algorithmic ones.
 
 As a rule of thumb, to reduce the area, the topology of the ADC should minimize the total amount of components. In consequence, the resources required for each kind of stage are gathered at the next table where N is the number of digital levels produced by the stage.
 
@@ -49,7 +49,7 @@ As a rule of thumb, to reduce the area, the topology of the ADC should minimize 
 	\label{tbl:stages-ressources}
 	\begin{tabular}{@{}lcccc@{}}
 	\toprule
-	(For Single-Ended implementation  & Comparators & OTA & Capacitors& Switches       \\ \midrule
+	(For Single-Ended implementation)  & Comparators & OTA & Capacitors& Switches       \\ \midrule
 	Pipelined                                                      & $N-1$         & 1   & 2                                                                   & $5+N$            \\
 \begin{tabular}[c]{@{}l@{}}First Order\\ Counting\end{tabular} & $N-1$         & 1   & 2                                                                   & $4+N$            \\
 	Algorithmic                                                    & $N-1$         & 1   & 2 / 3                                                               & $5+N$ / $4+2(N-1)$ \\
@@ -69,7 +69,7 @@ Among the three configurations of the \figurename~\ref{fig:counting-candidates},
 
 The last stage could also be a Flash or a SAR\@. Only using 3 OTAs, the power consumption is more reasonable. The second configuration, with a flash at the end, is able to achieve a 13.5-bits resolution with the employ of 13 comparators. The power and area of 1 OTA are now allocated to 5 extra comparators. Willing a fully differential implementation of the design, the choice in favor of this configuration is not justified.
 
-As soon as the OSR is high-enough, the SAR technology will be more efficient that the FLASH in terms of area and consumption. And this last configuration is the most promising out of those three. The power budget of 15 mW at 20 Msamples/s sounds reachable based on an architecture quiet similar: in~\cite{Liu2017} a 1-1-1 MASH CT-\(\Delta\Sigma\) consumes 19.7 mW at 50 Msamples/s in a 40 nm technology supplied at only 1.2 V for a resolution of 11-bits.
+As soon as the OSR is high-enough, the SAR technology will be more efficient that the FLASH in terms of area and consumption. And this last configuration is the most promising out of those three. The power budget of 15 mW at 20 Msamples/s sounds reachable based on an architecture quite similar: in~\cite{Liu2017} a 1-1-1 MASH CT-\(\Delta\Sigma\) consumes 19.7 mW at 50 Msamples/s in a 40 nm technology supplied at only 1.2 V for a resolution of 11-bits.
 
 \begin{figure}[htp]
 	\centering
@@ -79,7 +79,7 @@ As soon as the OSR is high-enough, the SAR technology will be more efficient tha
 \end{figure}
 
 \subsection{Extended-Range with extra stage}
-The topologies in this section are composed with two kinds of stages counting and algorithmic. A final stage of a third kind such as a SAR is proposed. Algorithmic stages are the most sensitive to non-idealities. This is why they always follow and not precede the counting stages.
+The topologies in this section are composed with two kinds of stages: counting and algorithmic. A final stage of a third kind such as a SAR is proposed. Algorithmic stages are the most sensitive to non-idealities. This is why they always follow and not precede the counting stages.
 
 The forth configuration of these last three is similar to previous ones. The 1-1 MASH at the input is the least sensitive to non-idealities while the noise shaping is still effective at low-OSR\@. Despite this, the algorithmic copes clumsily with transistor non-linearity. And a 2-bit flash is sufficient to make a 13.5-bit ADC with in total 9 comparators. Therefore, this solution is expected a larger silicon footprint than the third possible configuration.
 
@@ -90,7 +90,7 @@ The forth configuration of these last three is similar to previous ones. The 1-1
 	\label{fig:counting-algo-candidates}
 \end{figure}
 
-The fifth proposal gets rid of a stage and 3 comparators to achieve the same resolution. Unfortunately, the analog defects have a deeper impact due to the presence of two consecutive algorithmic stages. The last proposal replaces the final stage for a SAR having only one comparator. The advantages is three fold: first, the SAR scale well with the technology while it consumes very few. Second, the number of OTA is reduced to only two for the sake of power consumption saving. And third, this architecture is less sensitive to analog non-linearity.
+The fifth proposal gets rid of a stage and 3 comparators to achieve the same resolution. Unfortunately, the analog defects have a deeper impact due to the presence of two consecutive algorithmic stages. The last proposal replaces the final stage for a SAR having only one comparator. The advantages are three fold: first, the SAR scales well with the technology while it consumes very few. Second, the number of OTA is reduced to only two for the sake of power consumption saving. And third, this architecture is less sensitive to analog non-linearity.
 
 Among the six different configurations which have been proposed, the last configuration uses three different architectures to reduce the footprint, the power consumption while preserving a reachable resolution greater than 12-bits. In consequence, the latter is selected for the design of the new harsh environment ADC\@.
 
@@ -114,7 +114,7 @@ To provide extra margin, the modification highlighted in \figurename~\ref{fig:fi
 	\label{fig:final-prop-adc-architecture}
 \end{figure}
 
-The change of the bits distribution into 4-bits from the second stage, and 6-bits for the last stage allows us to extract 1 extra bit. This section discusses in detail the implementation of the selected architecture depicted in \figurename~\ref{fig:final-prop-adc-architecture}.
+The change of the bits distribution into 4-bits from the second stage, and 6-bits for the last stage allows us to extract 1 extra bit. The next section discusses in detail the implementation of the selected architecture depicted in \figurename~\ref{fig:final-prop-adc-architecture}.
 
 \section{Sub-ADC Analysis}
 \subsection{Incremental-\(\Delta\Sigma \)} % section 5.1
