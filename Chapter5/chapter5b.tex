@@ -64,7 +64,7 @@ where $n$ is the number of diodes in parallel, $I_b$ the forward biasing current
 
 In practice the biasing current can be either a bench top source meter or a simple resistor. For the sake of simplicity, a resistor has been selected. For a power supply of 1.8 V, simulation performed demonstrates good results for a biasing resistance $R = 33 k\Omega$. Represented in \figurename~\ref{fig:vdiode}, the diode voltage variation is between 220 mV and 350 mV across process corners for a temperature from -40\(\degree\)C to 175\(\degree\)C. The resolution achieved is about less than 1 mK/mV. And \figurename~\ref{fig:diode_sens_temp} represents the non linearity of the solution with a resistor. If the differential measurement is preferred one could connect into the Browkaw configuration. Nevertheless, the differential value is highly nonlinear and drops from 16 mV to almost 0 at high temperature. The latter is not selected for our test for its lower resolution.
 
-As the specific current and the current injected to forward bias the diode depends on the process and the temperature, and due to the non-linearity of the bandgap energy, a calibration should be performed before any other test. The voltage would be measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table has to be associated.
+As the specific current and the current injected to forward bias the diode depend on the process and the temperature, and due to the non-linearity of the bandgap energy, a calibration should be performed before any other test. The voltage would be measured in a controlled temperature environment by steps of 5\(\degree\)C in the temperature range. This operation serves to calibrate the measure and to create a calibration table for the chip tested. For each sample of the chip, a calibration table has to be associated.
 
 \begin{figure}[htp]
     \centering
@@ -95,7 +95,7 @@ A parametric analysis varying the temperature over the range in 15 points gives 
 \input{Chapter5/valid_sar}
 
 \section{Full ADC validation}
-Towards a future evaluation of the ADC, this test chip is the last in the thesis and has not been tested yet. Nevertheless, this test chip has the ambition to assess each sub-ADC and the complete ADC at full speed. In this regard, the conception and preliminary simulation results are discussed.
+Towards a future evaluation of the ADC, this test chip is the last in the thesis and has not been tested yet. Nevertheless, this test chip has the ambition to assess each sub-ADC and the complete ADC at full speed. In this regard, the conception and preliminary simulation results are discussed. After the thesis, it is planned I finish the ADC validation.
 
 The on-going chip design is represented in \figurename~\ref{fig:top-chip}. There are two ADC analog parts. One is designed for sub-ADC test whereas the second is designed to evaluate the ADC in itself. The one designed for sub-ADC characterization is also designed for evaluation of itself as a complete ADC built of these sub-ADCs. In the analog domain, there are two analog buffers for the inspection of analog signal, to wit, the residue of the each stage. Between the analog cores, the digital drives them and generates non-overlapping clock phases needed to control switches in the analog. Moreover, the digital block contains a configuration link to define what is under evaluation and how the buffers should be interconnected to the ADC\@. Finally, an ADC is sensitive to clock jitter and duty-cycle. To minimize this, an LVDS clock receiver has been designed for the ADC\@.
 
@@ -116,7 +116,7 @@ In order to measure the power consumption of each stage, there is a single power
     \item VDD1V8<3:1>
     \item GND1V8<3:1>
 \end{itemize}
-The number inside bracket correspond to a single voltage reference associated with the stage that this number reference: VDDA1V8<1> is connected to the ADC with stage under test selections, while VDDA1V8<2> is connected to the ADC without selections, and VDDA1V8<3> to the LVDS circuit for the clock. The order is kept for the digital power supply voltage VDD1V8 and the ground as well.
+The number inside bracket corresponds to a single voltage reference associated with the stage that this number reference: VDDA1V8<1> is connected to the ADC with stage under test selections, while VDDA1V8<2> is connected to the ADC without selections, and VDDA1V8<3> to the LVDS circuit for the clock. The order is kept for the digital power supply voltage VDD1V8 and the ground as well.
 Even if they are connected together on the PCB, the connection will be on a ground plane for the analogue and another one for the digital. At least, the digital and the analogue can share the same ground plane if there is a slit to reduce the switching noise of the digital on the analogue ground.
 Concerning the analogue buffer to replicate the residue voltage, they operate at 3.5 V provided by an analogue power supply.
 
@@ -164,7 +164,7 @@ The principle of this test consists in performing a conversion for each step by 
     \label{fig:adc-static-test}
 \end{figure}
 
-Concerning the impact of the input capacitance of the buffer, transmission gates isolate them while a transistor connects their input voltages to the ground. Then, the transistors connecting to the ground are released while the transmission gates connect the residue to the input of buffers, as depicted by the \figurename~\ref{fig:adc-static-test-buffers-clocking}. From a digital point of view, the digital circuit driving switches in the analog core of the ADC is halt when the new\_sample signal is enabled and we are in the static test mode. So then, the buffers replicate the residue voltage stored by either the integration capacitor of the I\(\Delta \Sigma\), or one of the sampling capacitor of the Algorithmic.
+Concerning the impact of the input capacitance of the buffer, transmission gates isolate them while a transistor connects their input voltages to the ground. Then, the transistors connecting to the ground are released while the transmission gates connect the residue to the input of buffers, as depicted by the \figurename~\ref{fig:adc-static-test-buffers-clocking}. From a digital point of view, the digital circuit driving switches in the analog core of the ADC is halted when the new\_sample signal is enabled and we are in the static test mode. So then, the buffers replicate the residue voltage stored by either the integration capacitor of the I\(\Delta \Sigma\), or one of the sampling capacitor of the Algorithmic.
 
 To estimate the static error of the sub-ADC under test, the input voltage estimated is subtracted from the voltage reconstitution done and the added value of the residue. The linearity of the curve would indicate a reduced linearity range of the amplifier. And the maximum error in this linearity range would give the effective gain of the amplifier.
 
@@ -196,15 +196,15 @@ To estimate the error, the voltage reconstitution should be done by affecting a 
     \label{fig:adc-static-test-leakage}
 \end{figure}
 
-One precaution, in this test holds in the design of switches to reset the amplifier and the integrator. As depicted in the \figurename~\ref{fig:adc-static-test-leakage}, for a differential residue voltage, a non-ideal off-resistance of the reset switches lead a leakage current discharging the integration capacitor. The load capacitor of the residue being at least 200 fF, the maximum leakage current allowed for 1 LSB drop after 20 $\mu$s is 2.44 pA. This equivalent to say, that the leakage impedance is 100 G$\Omega$. Over temperature, the criterion cannot be ensured but only limited. Considering the settling time of the reset, the best comprise is Wn=Wp=2 $\mu$m and Ln=Lp=0.18 $\mu$m for the switches of the reset.
+One precaution, in this test holds in the design of switches to reset the amplifier and the integrator. As depicted in the \figurename~\ref{fig:adc-static-test-leakage}, for a differential residue voltage, a non-ideal off-resistance of the reset switches lead a leakage current discharging the integration capacitor. The load capacitor of the residue being at least 200 fF, the maximum leakage current allowed for 1 LSB drop after 20 $\mu$s is 2.44 pA. This is equivalent to say, that the leakage impedance is 100 G$\Omega$. Over temperature, the criterion cannot be ensured but only limited. Considering the settling time of the reset, the best comprise is Wn=Wp=2 $\mu$m and Ln=Lp=0.18 $\mu$m for the switches of the reset.
 By the way, the analogue residue measure should be done once during the conversion to estimate the offset of the buffers, and once the conversion is done the fastest possible. Either a precise ADC of 14-bits giving the results in less than 5 us or a high-precision voltmeter is necessary.
 
     \subsubsection{Dynamic Error Estimation}
 The goal of this test is to give the impact of time slots for the settling and to determine the error caused by a slow amplifier. In order to shrink the test time, The input stimulus applied will be a differential staircase ramp from -1 V to +1V around 0.9 V for a power supply of 1.8 V. A step represents the accuracy with which the code level transition is extracted. In order to measure the worst case the ADC could encounter, the precision should be of the resolution of the ADC: less than 488 $\mu$V in 5 clock cycle mode while the steps are set to 122 $\mu$V in 6 clock cycle mode.
 
-To estimate the residue of the first stage, the I\(\Delta \Sigma\) should operate as a standard \(\Delta \Sigma\) modulator running over 4101 clock cycle (4102 if cycle6 = 1). The signal start shall be kept to 1 for all the duration of the 4101 clock cycles. From a digital point of view, the reset switch is disabled and the output bits are still output every 5 clock cycles (6 if cycle6 = 1). These output codes are read on the rising edge of the clock CLK\_RESULT\@. These shall be stored either in a FIFO of the test device reading and configuring the test setup of the motherboard, and then in a file for post-processing. For each voltage in the test, 821 output codes are concatenated and bits are summed.
+To estimate the residue of the first stage, the I\(\Delta \Sigma\) should operate as a standard \(\Delta \Sigma\) modulator running over 4101 clock cycle (4102 if cycle6 = 1). The signal start shall be kept to 1 for all the duration of the residue estimation: 5 clock cycles to generate the residue, and 4096 clock cycles to reach a 12-bit resolution on the residue. So, the signal start is hold to 1 for 4101 clock cycles. From a digital point of view, the reset switch is disabled and the output bits are still output every 5 clock cycles (6 if cycle6 = 1). These output codes are read on the rising edge of the clock CLK\_RESULT\@. These shall be stored either in a FIFO of the test device reading and configuring the test setup of the motherboard, and then in a file for post-processing. For each voltage in the test, 821 output codes are concatenated and bits are summed.
 
-To estimate the residue of the second stage, the Algorithmic re-sample its last clock cycle residue such that it operates as an algorithmic with an oversampling ratio of respectively 10 or 12 clock cycles according to the sign of the cycle6 signal. Then, the residue at the end of the tenth/twelves clock cycle is passed to the SAR\@. The final resolution of the residue estimation is thus 9-bits in 5 clock cycles and 11-bits in the 6 clock cycle mode. In the digital, only one every other sample start with the loading state. And from an estimation point of view, only the second output code of the algorithmic and the related output code of the SAR are of interest.
+To estimate the residue of the second stage, the Algorithmic re-samples its last clock cycle residue such that it operates as an algorithmic with an oversampling ratio of respectively 10 or 12 clock cycles according to the sign of the cycle6 signal. Then, the residue at the end of the tenth/twelves clock cycle is passed to the SAR\@. The final resolution of the residue estimation is thus 9-bits in 5 clock cycles and 11-bits in the 6 clock cycle mode. In the digital, only one every other sample start with the loading state. And from an estimation point of view, only the second output code of the algorithmic and the related output code of the SAR are of interest.
 
 \subsection{Test Configuration}
 This test chip contains two ADCs: one with each stage independently testable and one with internally connected stages to produce a full ADC\@. The target of this chip is to implement the modification on the ADC only version to test each stage independently. Since performances can be altered, a second ADC without the modification is placed alongside.
@@ -248,7 +248,7 @@ Finally, a synchronizer block is in charge of triggering the start of a new samp
 In this section we present preliminary simulation results of the analog core of the ADC\@. The simulations performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the chapter~\ref{sec:analog-building-bloc} at the schematic level.
 
 The DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behaviour of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. This corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
-As depicted by \figurename~\ref{fig:tb_adc-top}, all signals and power supplies are connected by the wire bondings model to the chip. A verilog bloc sent the test configuration to DOE\_ADC\@. For instance, to test only the ADC in 6 clock cycle mode the pattern sent is 1000010010100. While for the ADC with an OSR = 5, we send 1000000010100. In addition to that, a verilog-ams bloc store in a file the output codes and the voltages $V_{\rm inp}/V_{\rm inm}$. These permit the evaluation of the ADC (DNL, INL, SNR, ENOB, ...).
+As depicted by \figurename~\ref{fig:tb_adc-top}, all signals and power supplies are connected by the wire bondings model to the chip. A verilog bloc sends the test configuration to DOE\_ADC\@. For instance, to test only the ADC in 6 clock cycle mode the pattern sent is 1000010010100. While for the ADC with an OSR = 5, we send 1000000010100. In addition to that, a verilog-ams bloc stores in a file the output codes and the voltages $V_{\rm inp}/V_{\rm inm}$. These permit the evaluation of the ADC (DNL, INL, SNR, ENOB, ...).
 
 % detail the test bench
 \begin{figure}[htp]
@@ -328,3 +328,37 @@ In order to represent the effort of integration, \figurename~\ref{fig:walden-are
     \caption{Walden FoM versus the area of a single channel ADC published in ISSCC and VLSI from 1997 to 2018 in comparison with the proposed one}
     \label{fig:walden-area-fom-comparison-designed}
 \end{figure}
+
+In this work, a low-OSR 3-stage hybrid ADC is employed to improve the sampling rate, and the resolution without sacrificing the silicon area. This work also proposed a temperature aware design of the building blocks to reduce the performance drop with increasing temperature. After design, the performance acchieved are listed in Table~\ref{tbl:adc-spec-comp}.
+
+\begin{table}[htp]
+	\centering
+	\caption{Specification of target ADC}
+	\label{tbl:adc-spec-comp}
+	\rowcolors{2}{gray!15}{white}
+	\begin{tabular}{llll}
+		\toprule
+		& Criterion    & OSR=5 & OSR=6                                                                                                                                               \\ \midrule
+		Operating Temperature            & \multicolumn{3}{1}{-40 $\degree$ C -- +175 $\degree$ C}                                                                                               \\
+		Supply Voltage                   & 1.8 V $\pm$ 10 \%  & \multicolumn{2}{1}{1.8 V +10 \% - 5 \%}                                                                                                                           \\
+		Differential Input Voltage Range & \multicolumn{3}{1}{$\pm$ 1V}                                                                                                                                       \\
+		Area                             & \textless 0.5 \(\rm mm^2\) & \multicolumn{2}{1}{0.114 \(\rm mm^2\)}                                                                                                                                     \\
+		Conversion Speed [MSamples/s]                 & \multicolumn{2}{1}{20} & 16.66                                                                                                                                              \\
+		Maximum Clock Frequency          & \multicolumn{3}{1}{100 MHz}\\
+		Clock Duty-Cycle                 & 40 -- 60 \% & \multicolumn{2}{1}{To Be Defined}                                                                                                                                                \\
+		Latency                          & \textless 500 ns  & 150 ns & 180 ns                                                                                                                                                   \\
+		Resolution                       & $\geq$ 12-bits  & 11-bits & 13-bits                                                                                        \\
+		\rowcolor{white}\multirow{-1}{*}{SNDR }   & min 74 dB for $F_s$ \textless 5 MHz & \multicolumn{2}{1}{To Be Defined}\\
+		\rowcolor{white}                      & min 68 dB for 5 MHz \textless $F_s$  \textless 10 MHz, & \multicolumn{2}{1}{To Be Defined}\\
+		\rowcolor{white}						& min 62 dB for $F_s$  \textgreater 10 MHz & \multicolumn{2}{1}{To Be Defined} \\
+		SFDR (Full-Scale)                & min 68 dB & \multicolumn{2}{1}{To Be Defined}                                                                                             \\
+		DNL                              & \textless LSB/2 & &                                                                                      \\
+		INL                              & \textless LSB/2 best-fit method & &                                                                                  \\
+		Offset Error                     & \textless 4 LSB   & &                                                                                                                                           \\
+		Gain Error                       & \textless 4 LSB   & &                                                                                                                                         \\
+		Adjacent ADC mismatch Error      & \textless 4 LSB   & &                                                                                                                                          \\
+		Energy, $E_s = P/F_s$ [nJ/sample] & 0.75  & 0.45 & 0.54   \\ \bottomrule                                                                                                                                       
+	\end{tabular}
+\end{table}
+
+Although this work demonstrates encouraging results, lot of topics has not been addressed yet. For instance, the reference voltage generation, the sample-and-hold, the tolerance to duty-cycle variation, the calibration, etc. These are only few among many.

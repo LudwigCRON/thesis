@@ -1,10 +1,10 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: ota_cfc_buf_high_swing_gb.ps
 %%Creator: XCircuit v3.9 rev73
-%%CreationDate: Wed May 30 15:11:21 2018
+%%CreationDate: Thu Aug 30 11:14:58 2018
 %%Pages: 1
-%%BoundingBox: 68 68 957 289
-%%DocumentNeededResources: font Helvetica Times-Roman Symbol 
+%%BoundingBox: 68 68 940 314
+%%DocumentNeededResources: font Helvetica Helvetica-Oblique Times-Roman Symbol 
 %%EndComments
 %%BeginProlog
 %
@@ -295,7 +295,7 @@ endgate
 /pgsave save def bop
 % 32.00 8.00 gridspace
 1.0000 inchscale
-2.6000 setlinewidth 728 216 translate
+2.6000 setlinewidth 672 224 translate
 
 1.000 0.000 0 64 analog::nmos2
 1.000 0.000 -64 256 analog::nmos2
@@ -343,8 +343,8 @@ polygon
 1.000 180.000 320 320 generic::circle
 (inp) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 -336 248 label
 (inm) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 272 248 label
-(outp) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 448 248 label
-(outm) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 -536 240 label
+(outp) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 392 280 label
+(outm) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 -480 280 label
 (x) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 176 144 label
 (y) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 -216 144 label
 (w) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 64 400 label
@@ -426,8 +426,8 @@ sce
 (CMFB) {/Helvetica cf} 2 16 0.000 0.600 1320 248 label
 1 2.000 960 320 952 328 936 328 936 312 952 312 960 320 6 polygon
 1 2.000 576 320 568 328 552 328 552 312 568 312 576 320 6 polygon
-(outp) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 864 304 label
-(outm) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 480 304 label
+(outp) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 880 352 label
+(outm) {ss} (V) {/Helvetica cf} 4 16 0.000 1.000 496 344 label
 1 2.000 384 512 1088 512 2 polygon
 1 2.000 384 0 1024 0 2 polygon
 (m) {ss} (buf) {/Helvetica cf} 4 16 0.000 1.000 776 240 label
@@ -472,6 +472,13 @@ sce
 (VDDA1V8) {/Helvetica cf} 2 16 0.000 0.600 320 528 label
 (GNDA1V8) {/Helvetica cf} 2 16 0.000 0.600 320 -24 label
 (BIASN1) {/Helvetica cf} 2 16 0.000 0.600 200 56 label
+4 0.500 -480 560 -480 -32 480 -32 480 560 4 polygon
+4 0.500 480 560 480 -32 1272 -32 1272 560 4 polygon
+4 0.500 1312 416 1312 80 1824 80 1824 416 4 polygon
+(Complementary Folded Cascode) {/Helvetica-Oblique cf} 2 16 0.000 1.000 -288 
+576 label
+(Buffers) {/Helvetica-Oblique cf} 2 16 0.000 1.000 800 576 label
+(Common-Mode Control) {/Helvetica-Oblique cf} 2 16 0.000 1.000 1352 424 label
 pgsave restore showpage
 
 %%Trailer
