@@ -15,6 +15,7 @@ In order to derive offset and delay equations, the small signal model of the str
 \caption{Strong Arm Small Signal Model}
 \label{fig:annexe_sa_small_signal}
 \end{figure}
+\nomenclature{KCL}{Kirchhoff's Current Law}
 
 The application of KCL at nodes \(v_a\) and \(v_b\) gives respectively
 \begin{align}
@@ -29,7 +30,7 @@ while KCL on output nodes lead to
     sC_{Lm} v_{outm} &= -(g_{m4}+g_{m6})v_{outp} + g_{m4}v_{b}
 \end{align}
 
-Replacing \(v_{a} \) and \(v_{b} \) in these equation by their expression in~\ref{eqn:annexe_va_vb} gives us
+Replacing \(v_{a} \) and \(v_{b} \) in these equations by their expression in~\ref{eqn:annexe_va_vb} gives us
 \begin{align}
     sC_{Lp} v_{outp} &= -(g_{m5}+g_{m7})v_{outm} + \frac{g_{m5}}{1+s\frac{C_{cm}}{g_{m5}}}v_{outm} - \frac{g_{m3}}{1+s\frac{C_{cm}}{g_{m5}}}v_{inm} \\
     sC_{Lm} v_{outm} &= -(g_{m4}+g_{m6})v_{outp} + \frac{g_{m4}}{1+s\frac{C_{cp}}{g_{m4}}}v_{outp} - \frac{g_{m2}}{1+s\frac{C_{cp}}{g_{m4}}}v_{inp}
@@ -55,8 +56,8 @@ The input referred offset could be defined as the differential input voltage whe
 \end{align}
 
 \section{Strong Arm Montanaro Version}
-The transistor introduced by Montanaro in~\cite{Montanaro1996} keep a the voltage defined at drain of differential pair transistors even if the differential input is extremely large.
-Unfortunately, this extra ``resistor'' implemented by a mosfet alter the decision in both the offset and the delay required to make a decision.
+The transistor introduced by Montanaro in~\cite{Montanaro1996} keeps the voltage at drain of differential pair transistors defined even if the differential input is extremely large.
+Unfortunately, this extra ``resistor'' implemented by a mosfet alters the decision in both the offset and the delay required to make a decision.
 
 The small signal model is represented in 
 
@@ -86,7 +87,7 @@ From each of these, \[
     \frac{v_b}{r_{23}} = \frac{v_{a}}{r_{23}^2\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)} + \frac{g_{m4}v_{outp} - g_{m2}v_{inp}}{r_{23}\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)}
 \end{cases}
 \]
-which put in one the other gives us \[
+which puts in one the other gives us \[
 \begin{cases}
     \left(sC_{cm}+g_{m5}+\frac{1}{r_{23}}\right)v_a = \frac{v_{a}}{r_{23}^2\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)} + \frac{g_{m4}v_{outp} - g_{m2}v_{inp}}{r_{23}\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)} + g_{m5}v_{outm} - g_{m3}v_{inm}  \\
     \left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)v_b = \frac{v_{b}}{r_{23}^2\left(sC_{cm}+g_{m5}+\frac{1}{r_{23}}\right)} + \frac{g_{m5}v_{outm} - g_{m3}v_{inm}}{r_{23}\left(sC_{cm}+g_{m5}+\frac{1}{r_{23}}\right)} + g_{m4}v_{outp} - g_{m2}v_{inp}
@@ -123,7 +124,7 @@ Finally, the offset can be found by setting \(v_{outd} = 0\) which gives us
 \end{align}
 \normalsize
 
-Despite the extra complexity this engender, the static offset (for s=0) is greater than the static offset of the traditional version for large \(r_{23}\). Indeed, the \(\gamma\) factor acts share the same equation than a cascode. This boosting the mismatch error with the output common mode voltage. Others errors are also boosted if \small \[ \left(g_{m5}g_{m3}r_{23}^2\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)+g_{m4}g_{m2}r_{23}^2\left(sC_{cm}+g_{m5}+\frac{1}{r_{23}}\right)-r_{23}\left(g_{m4}g_{m3}+g_{m5}g_{m2} \right) \right) < g_{m2}+g_{m3}.\]
+Despite the extra complexity this engenders, the static offset (for s=0) is greater than the static offset of the traditional version for large \(r_{23}\). Indeed, the \(\gamma\) factor acts share the same equation than a cascode. This boosting the mismatch error with the output common mode voltage. Others errors are also boosted if \small \[ \left(g_{m5}g_{m3}r_{23}^2\left(sC_{cp}+g_{m4}+\frac{1}{r_{23}}\right)+g_{m4}g_{m2}r_{23}^2\left(sC_{cm}+g_{m5}+\frac{1}{r_{23}}\right)-r_{23}\left(g_{m4}g_{m3}+g_{m5}g_{m2} \right) \right) < g_{m2}+g_{m3}.\]
 \normalsize
 
 In term of delay, the differential output is expressed in function of the differential input as
@@ -135,7 +136,7 @@ In term of delay, the differential output is expressed in function of the differ
 \end{align}
 \normalsize
 
-which decompose as a gain factor and a time constant for the generation: the time constant is given to be
+which decomposes as a gain factor and a time constant for the generation. The time constant is given to be
 \begin{align}
 \tau &\approx \frac{\left(C_{Lp}+C_{Lm}\right)\gamma_0+g_{m4}^2r_{23}^2C_{cm}+g_{m5}^2r_{23}^2C_{cp}}{-(g_{m4}+g_{m5}+g_{m6}+g_{m7})\gamma_0+g_{m4}^2 r_{23}^2 \left(g_{m5}+\frac{1}{r_{23}} \right) +g_{m5}^2 r_{23}^2 \left(g_{m4}+\frac{1}{r_{23}} \right) - 2g_{m4}g_{m5}r_{23}}
 \end{align}
@@ -152,7 +153,7 @@ for which the limit for large \(r_{23}\) gives
     \lim_{r_{23}\to+\infty} \tau = \frac{C_L+2C_c}{-(2g_{m}+g_{m6}+g_{m7})+2g_{m}}
 \]
 
-In a way, even a very large resistance almost reach the same performance at the exception of parasitics introduced at nodes which increase \(C_c\) capacitance over the conventional circuit. Otherwise, extra \(g_{m}^2r_{23}\) in the denominator further reduce the time constant. In addition, the pmos transistors in the regeneration are those improving most the speed.
+In a way, even a very large resistance almost reaches the same performance at the exception of parasitics introduced at nodes which increases \(C_c\) capacitance over the conventional circuit. Otherwise, extra \(g_{m}^2r_{23}\) in the denominator further reduces the time constant. In addition, the pmos transistors in the regeneration are those improving most the speed.
 
 This indicates a trade-off between the delay and the offset for this architecture which is not the case of the version introduced in~\cite{Verbruggen2008}.
 

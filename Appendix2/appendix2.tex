@@ -66,7 +66,7 @@ where the slope is
 
 For the sake of clarity, let us normalize voltages and codes between 0 and 1. As in a first order Incremental-\(\Delta\Sigma \) the estimation is the average of output bits the normalized estimation of the output code is given to be \(ec = \frac{1}{OSR}\sum_{i=1}^{OSR} b[i] \). 
 
-We deduce that the output estimation is the sum of ec and the residue weighted by \(1/(2 OSR)\).  Considering \(V_{out}(1) \) and \(V_{out}(0) \) at a transition between two `extra' codes, their are respectively given by \(1-V_{error\max}[n] \) and \(V_{error\max}[n] \).
+We deduce that the output estimation is the sum of $ec$ and the residue weighted by \(1/(2 OSR)\).  Considering \(V_{out}(1) \) and \(V_{out}(0) \) at a transition between two `extra' codes, their are respectively given by \(1-V_{error\max}[n] \) and \(V_{error\max}[n] \).
 
 the INL being
 \begin{equation}
@@ -80,4 +80,4 @@ and replacing \(V_{out}(1) \) and \(V_{out}(0)\) by their value leads to
 
 which admits a maximum of \(4 V_{error\max }[n] \)
 
-Therefore, to prevent a calibration with respect to the INL the DC gain constraint on the OTA is increased by 2-bits.
+Therefore, to prevent a calibration with respect to the INL, the DC gain constraint on the OTA is increased by 2-bits.

@@ -4,7 +4,7 @@ Classical methods are now mainstream in the industry and can be found in applica
 
 Since the ADC IP bloc is differential others metrics are of interest such as:
 \begin{itemize}
-    \item Common mode and differential input impedance1
+    \item Common mode and differential input impedance
     \item maximum common-mode signal
     \item maximum operating common-mode signal
     \item common-mode rejection ratio
@@ -29,7 +29,7 @@ These are not discussed in this section.
 
 \subsection{IEEE recommendations}
     \subsubsection{Static Metric}
-Among static metrics extraction methods, the histogram based is widely adapted. A histogram is collected by driving the analogue inputs of the ADC with a known signal. Each bin value of the histogram corresponds to how many times the associated code of this bin is counted. The offset of the ADC can be estimated as the average code of all if the input signals applied have a zero mean. The offset error is thus, the difference between the average output code and the ideal output code. The gain error defined as the ratio of the actual transfer function slope over the ideal one can be seen in the histogram as a discrepancy between the first and the last bins weight and their ideal weight. For instance, a slope coefficient lower than the ideal one (negative gain error) will display an histogram close to the ideal one shrink into fewer bins and extreme bin values higher than expected as depicted by the \figurename~\ref{fig:gain-error-hist}.
+Among static metrics extraction methods, the histogram based is widely adapted. An histogram is collected by driving the analogue inputs of the ADC with a known signal. Each bin value of the histogram corresponds to how many times the associated code of this bin is counted. The offset of the ADC can be estimated as the average code of all if the input signals applied have a zero mean. The offset error is thus, the difference between the average output code and the ideal output code. The gain error defined as the ratio of the actual transfer function slope over the ideal one can be seen in the histogram as a discrepancy between the first and the last bins weight and their ideal weight. For instance, a slope coefficient lower than the ideal one (negative gain error) will display an histogram close to the ideal one shrink into fewer bins and extreme bin values higher than expected as depicted by the \figurename~\ref{fig:gain-error-hist}.
 
 \begin{figure}[htp]
     \centering
@@ -38,9 +38,9 @@ Among static metrics extraction methods, the histogram based is widely adapted. 
     \label{fig:gain-error-hist}
 \end{figure}
 
-The input signal can be a ramp, a sine wave, or small signal variation around an even increasing offset, the DNL and INL can be extracted by subtracting the actual ADC histogram to the ideal ADC histogram. In a practical implementation, the input stimulus might not be perfectly linear and might degrade the DNL estimation. As a common practice, the stimulus linearity is 2 to 3 bits higher than the ADC under test. The INL is usually defined as the cumulative sum of the DNL\@. To limit the number of records, a ramp is usually preferred. A sine wave can be applied to reduce the test time but the number of records should be selected as described at the page 41 of~\cite{IEEESTD1241-2010}.
+The input signal can be a ramp, a sine wave, or small signal variation around an even increasing offset, the DNL and INL can be extracted by subtracting the actual ADC histogram to the ideal ADC histogram. In a practical implementation, the input stimulus might not be perfectly linear and might degrade the DNL estimation. As a common practice, the stimulus linearity must be 2 to 3 bits higher than the ADC under test. The INL is usually defined as the cumulative sum of the DNL\@. To limit the number of records, a ramp is usually preferred. A sine wave can be applied to reduce the test time but the number of records should be selected as described at the page 41 of~\cite{IEEESTD1241-2010}.
 
-A major flaw of this testing method concerns potential missing codes. Since the histogram is a counter of code occurrence, the occurrence of a missing code is attributed to the closest adjacent code. So an incorrect amount of occurrences is detectable but this implies that we are not able to detect a missing code. To avoid these issues, the ADC should also be tested for SINAD performance to confirm that non-monotonic behaviour is not significant.
+A major flaw of this testing method concerns non-monotonicity of the transfer function. Since the histogram is a counter of code occurrence, the occurrence of code $i$ inferior to a code $j$ after the an occurance of the code $j$ is not detected. To avoid these issues, the ADC should also be tested for SINAD performance to confirm that non-monotonic behavior is not significant.
 
 By applying a signal on the ADC inputs, the output codes should ideally represents the input signal applied. Therefore, a fitting of output codes with the ideally expected results is sufficient to extract the gain and the offset of the ADC under test. The input signal can be either a ramp or a sine wave, and a least mean square algorithm is able to extract errors on the gain and the offset.
 Unfortunately, this method is input dependant, and does not extract other metrics. A classical post-processing of output codes is necessary to extract dynamic characteristic and non-linearity (histogram, FFT). Its advantage over the method in the previous clause is that it is less sensitive to noise and more thoroughly eliminates spectral leakage.
