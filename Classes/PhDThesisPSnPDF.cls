@@ -961,8 +961,10 @@ préparée à CentraleSupelec\\
 
 \small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-Patricia Degreys &  \\ 
-\footnotesize Professeur, LTCI, Telecom ParisTech & Rapporteur \\ 
+% Patricia Degreys &  \\ 
+% \footnotesize Professeur, LTCI, Telecom ParisTech & Rapporteur \\ 
+Dominique Dallet &  \\ 
+\footnotesize Professeur, Bordeaux INP & Rapporteur \\ 
 Franck Badets &  \\ 
 \footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\ 
 Pieter Rombouts &  \\ 
@@ -979,6 +981,8 @@ Johan Vergauwen &  \\
 \footnotesize Ingénieur, Melexis & Invité \\ 
 Francois Piette &  \\  
 \footnotesize Ingénieur, Melexis & Invité \\ 
+Filipe Vinci Dos Santos &  \\  
+\footnotesize Docteur & Invité \\ 
 % \usebox{\PHD@supervisor}
 %   \usebox{\PHD@advisor}
 \end{tabular*} 

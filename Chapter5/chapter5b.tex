@@ -14,7 +14,7 @@
 
 Each block has been considered as an IP so far. In this regard, their performances are cross-checked by measurements over the temperature range of operation: from -40$\degree$C to 175$\degree$C.
 
-This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}. The first test chip called DOE\_COMP assess comparators. There are two versions of it to characterize the fast comparators needed for the two first stages of our ADC, and for the slow version of them used in the last stage of our ADC. The second test chip evaluates the converter last stage (SAR), and the comparator of in its environment. Called DOE\_SAR, its goal is the measurement of the static performances of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
+This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}, and represented in \figurename~\ref{fig:testchips-layout}. The first test chip called DOE\_COMP assess comparators. There are two versions of it to characterize the fast comparators needed for the two first stages of our ADC, and for the slow version of them used in the last stage of our ADC. The second test chip evaluates the converter last stage (SAR), and the comparator of in its environment. Called DOE\_SAR, its goal is the measurement of the static performances of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
 
 % DOE_COMP a  (circuit) (nom pattern) (date de fabrication) (date des tests)
 %   delay
@@ -38,6 +38,24 @@ This chapter presents the four different test chips designed during the thesis. 
     DOE\_ADC            & -                   & -                   & -                     \\ \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}[b]{0.33\textwidth}
+        \includegraphics[width=\textwidth]{Chapter5/Figs/layout_doe004_comp_small.jpg}
+        \subcaption{DOE\_COMP $1.35 \times 1.35 \rm mm^2$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \includegraphics[width=\textwidth]{Chapter5/Figs/layout_doe005_sar_small.jpg}
+        \subcaption{DOE\_SAR $1.35 \times 1.35 \rm mm^2$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \includegraphics[width=\textwidth]{Chapter5/Figs/layout_adc_small.png}
+        \subcaption{DOE\_ADC $1.8 \times 1.7 \rm mm^2$}
+    \end{subfigure}
+    \caption{Layout of the three test chip designed over the thesis to assess respectively the comparators, the SAR, and the ADC}
+    \label{fig:testchips-layout}
+\end{figure}
 
 
 The inner chip temperature measurement is therefore crucial for the comparison between simulation results and measures. Being a common component inside every test chips, for the sake of clarity, the chapter begins with its description.
