@@ -9,7 +9,7 @@ Comparator metastability is ideally a deterministic process for initial $\Delta 
   Unfortunately, the distribution of the differential input voltage and the noise~\cite{noise_comp_sepke_2009} influence the distribution of the time delay. In consequence the likelihood of metastability is also affected. In this section we analyse both the differential input voltage distribution and the temperature impact on the metastability probability of comparators.
 
 \section{Input signal distribution dependency}
-The input probability distribution depends on the shape of the input voltage waveform. In this paper, we assume a laplace distribution over the full scale input range $V_{FS}$. In this case, the probability of comparator metastability is given by (\ref{eqn:prob_time_delay}) for a Gaussian distribution of the delay at a given $\Delta V_{in}$.
+The input probability distribution depends on the shape of the input voltage waveform. In this paper, we assume a Laplace distribution over the full scale input range $V_{FS}$. In this case, the probability of comparator metastability is given by (\ref{eqn:prob_time_delay}) for a Gaussian distribution of the delay at a given $\Delta V_{in}$.
 
 %\begin{equation}
 %P(t > T_{AVL}) = \frac{2V_{MET}}{V_{FS}} = \frac{2V_{logic}}{V_{FS}} exp\left(\frac{-T_{AVL}}{\tau_{reg}}\right) \label{eq:prob_met1}
@@ -34,7 +34,7 @@ Considering that $t_{lin}$  itself is a gaussian distributed random variable~\ci
 \label{eqn:error_prob_met}
 \end{align}
 
-In this equation, $P(\Delta V_{in})$ represents the probability to get a specific value of $\Delta V_{in}$. In our case this is given by a laplace distribution of probability.
+In this equation, $P(\Delta V_{in})$ represents the probability to get a specific value of $\Delta V_{in}$. In our case this is given by a Laplace distribution of probability.
 
 Those general equation can be applied to other system based around a comparator by just changing the equation of the time delay ($\mu_{t}$ and $\sigma_{t}$).
 

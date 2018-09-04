@@ -23,7 +23,7 @@
 \begin{mdframed}[linecolor=Prune,linewidth=1]
 \vspace{-.25cm}
 \paragraph*{Titre:} 
-Analyse d'une nouvelle topologie fiable de convertisseur analogique-numerique pour \newline l'environnement automobile
+Analyse d'une nouvelle topologie fiable de convertisseur analogique-numérique pour \newline l'environnement automobile
 % \begin{small}
 \vspace{-.25cm}
 \paragraph*{Mots clés:} 
@@ -203,6 +203,31 @@ L'objectif premier de ces travaux de recherche fut donc d'augmenter la stabilit�
 \clearpage
 \begin{mdframed}[linecolor=Prune,linewidth=1]
 \vspace{-.25cm}
+\paragraph*{Titre:} Analyse d’une nouvelle topologie fiable de convertisseur analogique-numérique pour \newline l'environnement automobile
+
+\begin{small}
+\vspace{-.25cm}
+\paragraph*{Mot clés:} 
+
+\vspace{-.5cm}
+\begin{multicols}{2}
+\paragraph*{Résumé:} 
+La tendance du secteur automobile à développer des capteurs et actuateurs intelligents, l'électronique embarquée est l'art de faire cohabiter l'électronique analogique et l'électronique numérique. Placé au sein des actuateurs, ou au sein des boucles de régulation pour la sécurité et le confort des passagers, les convertisseurs analogique-numérique (CAN) sont les composants clés de ces systèmes intelligents. De plus, un CAN rapide, précis, et peu chère se révèle être un précieux allié pour les équipementiers. Pour diminuer les coûts, et augmenter la possible réutilisation de ce bloc, la surface de silicium occupée doit être considérablement réduite à moins de 0.5 $\rm mm^2$. Quant à la précision du convertisseur, 12-bits tous les 50 ns sont nécessaire pour la majorité des applications allant de -40\(\degree \)C à 175\(\degree \)C. A cela s'ajoute la volonté de réduire le taux de sur-échantillonnage à 5 coups d'horloge par échantillon.
+
+Ce travail de recherche se focalise sur l'amélioration de l'efficacité énergétique sous les contraintes que l'environnement automobile représente. Notre principale contribution réside dans le développement par une approche top-down d'une nouvelle architecture à 3 étages de topologies différentes. Le premier étage, un $\Sigma\Delta$-Incrémental, est intrinsèquement linéaire. Le second étage est un algorithmique pour augmenter rapidement la résolution du convertisseur. Enfin, un SAR est utilisé pour accroître la résolution pour une faible augmentation de consommation de silicium et en courant.
+
+Suite à l'analyse de 40 année d'état de l'art, la nouvelle architecture proposée fut validée par vérification des non-linéarité statique (DNL, INL) à différent niveaux de modélisation. Commençant par un modèle MATLAB sans les limitations analogique, le niveaux de modélisation se raffine petit à petit jusqu'à atteindre le niveau transistor du convertisseur. De ce faite, un modèle Verilog-A permet de déterminer les spécifications minimum des briques de base analogique: les comparateurs et les amplificateurs à transconductance. La sensibilité de ces derniers à la température fut analysé pour limiter les erreurs d'établissement commise sur les tensions analogiques. Une fois dessiné et les parasites extrait, ces modèles variant avec la température remplacent leur modèle Verilog-A respectif afin d'obtenir les performances finales. Parallèlement, deux architectures reconnus de comparateurs ont été évalué en température au sein d'une première puce de test. Dans laquel, deux méthodes ont été utilisés pour estimer l'offset des comparateurs, et un nouveau circuit asynchrone pour estimer le délai. Une seconde puce de test permet de vérifier la sensibilité du SAR à la température malgré un fonctionnement pseudo-asynchrone.
+
+Pour les comparateurs, le nouveau circuit de mesure différentielle du retard montre une précision de 60 ps dans le pire des cas, pour le la plus petite surface sur puce connue en considérant la technologie utilisée. Comme la variation du retard est dépendant de la température, le choix d'un Strong-ARM ou une Double-Tail dépendra du bruit, de la puissance, de la tension d'alimentation, et spécification de kickback. Pour une tension d'alimentation standard, le comparateur de type Strong-ARM cible les systèmes à faible consommation avec une tolérance élevée pour le kickback différentiel. Au contraire, un comparateur Double-Tail accepte une plage de tension d'alimentation plus faible, et admet un faible kickback différentiel, mais présente un bruit plus important dû à l'intégrateur dans son premier étage. Testé de -40\(\degree \)C à 200\(\degree \)C, le dernier étage du CAN proposé n'a pas besoin d'être calibrée jusqu'à 180\(\degree \)C. Les résultats encourageants sur cette étage permettent la réutilisation de celui-ci pour calibrer les étages précédentes. Et pour le CAN, nous estimons une résolution possible de 11,2 bits en 5 cycles d'horloge par échantillon avec une extension à 13,3 bits en 6 cycles d'horloge. La surface estimée est de 0,12$mm^2$.
+
+La puce de test pour le CAN n'étant pas encore fabriquée, une première étape sera sa caractérisation. Les résultats de cette session de mesure détermineront s'il est possible de pousser l'architecture à des fréquences plus élevés pour ensuite tirer parti du traitement numérique pour conserver les performances.
+\end{multicols}
+\end{small}
+\end{mdframed}
+
+\clearpage
+\begin{mdframed}[linecolor=Prune,linewidth=1]
+\vspace{-.25cm}
 \paragraph*{Title:} A New ADC topology for reliable conversion in the automotive environment
 
 \begin{small}
@@ -210,9 +235,10 @@ L'objectif premier de ces travaux de recherche fut donc d'augmenter la stabilit�
 \paragraph*{Keywords:} 
 
 \vspace{-.5cm}
+\begin{multicols}{2}
 \paragraph*{Abstract:} 
 %-- paragraph de presentation
-In the automotive industry, the trend being to develop smart sensors and actuators, the on-board electronic has been ever more an artful work to combine analog electronics and the digital one. While many monitoring and control systems play a crucial role as well for the safety as for the comfort of passengers, small components, likeADCs, are mandatory as a building block or as an essential functionality integrated into smart actuators. To that extent, a low-cost, fast and accurate analog to digital converter operating in those harsh conditions is a good ally for equipment manufacturers. To decrease the cost, the area is of primary concern. Considering re-use of the ADC as an IP-bloc, the area has been limited to less than half a square millimeter for an low-oversampling ratio of 5 to output a 12-bit code at a sample rate of 20 MSamples/s, over a wide temperature range from -40\(\degree \)C to 175\(\degree \)C.
+In the automotive industry, the trend being to develop smart sensors and actuators, the on-board electronic has been ever more an artful work to combine analog electronics and the digital one. While many monitoring and control systems play a crucial role as well for the safety as for the comfort of passengers, small components, like ADCs, are mandatory as a building block or as an essential functionality integrated into smart actuators. To that extent, a low-cost, fast and accurate analog to digital converter operating in those harsh conditions is a good ally for equipment manufacturers. To decrease the cost, the area is of primary concern. Considering re-use of the ADC as an IP-bloc, the area has been limited to less than half a square millimeter for an low-oversampling ratio of 5 to output a 12-bit code at a sample rate of 20 MSamples/s, over a wide temperature range from -40\(\degree \)C to 175\(\degree \)C.
 
 %-- paragraph sur le but
 This work focuses on the design of high-precision, high-speed and energy efficient ADC under the harsh environment the automotive one represents. Our main contribution relies on the development of an new hybrid topology proposal using 3 stages to cope with such constraints based on a top-down approach: A first counting stage inherently linear, an algorithmic stage allowing to increase rapidly the precision, and a SAR stage, ideal in terms of area and consumption, for a low number of bits.
@@ -221,10 +247,11 @@ This work focuses on the design of high-precision, high-speed and energy efficie
 Based on a 40 years literature review, a new topology proposal has been validated by checking its static metric of non-linearity (DNL, INL) at different level of modelisation. Starting by a MATLAB implementation without analog limitations, we refined step by step the model till we reach a transistor level of the ADC\@. Thence, Verilog-A model allows us to fix the minimum requirements of the key analog building blocks, to wit comparators and OTA\@. The latter has been analysed in order to limit the settling error sensitivity to the temperature. Laid-out, parasitic extracted simulation results of these considering PVT variations, they replace then previous high-level model to give final performances. Meanwhile, two well-known comparator architectures have been assessed as IP blocs inside a first test chip. To perform the offset extraction, both a conventional and a feedback loop have been inspected. To assess, the delay a new asynchronous circuit has been proposed. A second chip tests the sensitivity of the SAR to validate both the pseudo-asynchronous digital scheme, and a Double-Tail comparator in real operating conditions.
 
 %-- paragraph sur les resultats
-For comparators, the new differential measurement circuit of the delay demonstrate an accuracy of 60 ps in the worst case, over a large temperature range for the smallest chip area known with respect to the technology node size. The temperature variation of the delay being temperature dependant, the choice of a Strong-ARM or a Double-Tail hinge on the noise, power, supply voltage, and kickback specification. For standard power supply voltage, the Strong-ARM latch targets low-power systems application with a high tolerance for differential kickback. To the contrary, a Double-Tail latch allows lower power supply voltage range, with low-differential kickback. Otherwise, the Double-Tail exhibit a higher noise due to the integration in its first stage. Tested from -40$\degree$C to 200$\degree$C, the last stage of the proposed ADC topology does not need calibration up to 180$\degree$C. The encouraging results on this stage allows the re-use of the SAR to calibrate the previous stages. And considering the ADC, we estimate a possible resolution of 11.2-bits in 5 clock cycles per sample with an extension to 13.3-bits in 6 clock cycles with an estimated area of 0.067 $\rm mm^2$.
+For comparators, the new differential measurement circuit of the delay demonstrate an accuracy of 60 ps in the worst case, over a large temperature range for the smallest chip area known with respect to the technology node size. The temperature variation of the delay being temperature dependent, the choice of a Strong-ARM or a Double-Tail hinge on the noise, power, supply voltage, and kickback specification. For standard power supply voltage, the Strong-ARM latch targets low-power systems application with a high tolerance for differential kickback. To the contrary, a Double-Tail latch allows lower power supply voltage range, with low-differential kickback. Otherwise, the Double-Tail exhibit a higher noise due to the integration in its first stage. Tested from -40$\degree$C to 200$\degree$C, the last stage of the proposed ADC topology does not need calibration up to 180$\degree$C. The encouraging results on this stage allows the re-use of the SAR to calibrate the previous stages. And considering the ADC, we estimate a possible resolution of 11.2-bits in 5 clock cycles per sample with an extension to 13.3-bits in 6 clock cycles with an estimated area of 0.12 $\rm mm^2$.
 
 %-- paragraph sur les recommendations
 The ADC test chip not being fabricated yet, a first step is the characterization of the ADC\@. From the results of the planned measurement session, the main goal is to push the architecture at higher sampling rates to then leverage the digital processing to enhance the sampling rate without changing the analog.
+\end{multicols}
 \end{small}
 \end{mdframed}
 

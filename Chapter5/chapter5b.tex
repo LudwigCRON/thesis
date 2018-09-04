@@ -265,7 +265,7 @@ Finally, a synchronizer block is in charge of triggering the start of a new samp
 \section{Preliminary ADC Schematic Simulation Results}
 In this section we present preliminary simulation results of the analog core of the ADC\@. The simulations performed are full transistor for the analog core and for the interface between the digital and the analog. Comparators and OTAs are those designed in the chapter~\ref{sec:analog-building-bloc} at the schematic level.
 
-The DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behaviour of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. This corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
+The DOE\_ADC chip is composed of the schematic presented earlier in \figurename~\ref{fig:top-chip} with addition pads from the PDK of the technology. In order to estimate the future behavior of the ADC, we model the wire bonding by an RL-serie circuit with R=0.1 $\Omega$, and L=1 nH. This corresponds to a wire whose diameter is 55 $\mu$m and 1 cm long.
 As depicted by \figurename~\ref{fig:tb_adc-top}, all signals and power supplies are connected by the wire bondings model to the chip. A verilog bloc sends the test configuration to DOE\_ADC\@. For instance, to test only the ADC in 6 clock cycle mode the pattern sent is 1000010010100. While for the ADC with an OSR = 5, we send 1000000010100. In addition to that, a verilog-ams bloc stores in a file the output codes and the voltages $V_{\rm inp}/V_{\rm inm}$. These permit the evaluation of the ADC (DNL, INL, SNR, ENOB, ...).
 
 % detail the test bench
@@ -327,7 +327,7 @@ With the process variation, the OTA undergoes a severe degradation of its gain a
     \label{fig:adc-res-schematic-temp-corners}
 \end{figure}
 
-The results over the corners of the process display a drop of 0.67-bits. This drop is a third of experimentation in the work of Ericson over the same temperature range with a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behaviour in simulation with coming experimental data.
+The results over the corners of the process display a drop of 0.67-bits. This drop is a third of experimentation in the work of Ericson over the same temperature range with a 0.5$\mu$m SOS-CMOS technology~\cite{Ericson2004}. It is planned to validate the behavior in simulation with coming experimental data.
 
 At this stage of the realization, the analogue part of the ADC consumes 9 mW in the worst case. With a Nyquist frequency of 8.33 MHz for a resolution of 13-bits in 6 clock cycle mode, the corresponding Walden Figure of Merit is 131 fJ/conv for an area of 0.12 $\rm mm^2$. Similarly, in 5 clock cycle mode, the Walden FoM is given to be 382 fJ/conv for a target of 390 fJ/conv. The design is in the middle of publications in ISSCC and VLSI as depicted by \figurename~\ref{fig:walden-fom-comparison-designed}.
 
@@ -347,7 +347,7 @@ In order to represent the effort of integration, \figurename~\ref{fig:walden-are
     \label{fig:walden-area-fom-comparison-designed}
 \end{figure}
 
-In this work, a low-OSR 3-stage hybrid ADC is employed to improve the sampling rate, and the resolution without sacrificing the silicon area. This work also proposed a temperature aware design of the building blocks to reduce the performance drop with increasing temperature. After design, the performance acchieved are listed in Table~\ref{tbl:adc-spec-comp}.
+In this work, a low-OSR 3-stage hybrid ADC is employed to improve the sampling rate, and the resolution without sacrificing the silicon area. This work also proposed a temperature aware design of the building blocks to reduce the performance drop with increasing temperature. After design, the performance achieved are listed in Table~\ref{tbl:adc-spec-comp}.
 
 \begin{table}[htp]
 	\centering
