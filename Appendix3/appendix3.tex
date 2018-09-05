@@ -6,7 +6,7 @@
 
 Comparator metastability is ideally a deterministic process for initial $\Delta V_{out}$ of the cross-coupled inverters that is insufficient for regeneration to reach valid logic levels before the end of the available time $T_{AVL}$. In other words we can determine a $\Delta V_{out}$ range for which the time delay exceed the allotted time for the taking a decision.
 % The metastable input voltage range $V_{MET}$ exponentially rises with increasing conversion speeds, i.e. shorter $T_{clk}$.
-  Unfortunately, the distribution of the differential input voltage and the noise~\cite{noise_comp_sepke_2009} influence the distribution of the time delay. In consequence the likelihood of metastability is also affected. In this section we analyse both the differential input voltage distribution and the temperature impact on the metastability probability of comparators.
+  Unfortunately, the distribution of the differential input voltage and the noise~\cite{noise_comp_sepke_2009} influence the distribution of the time delay. In consequence the likelihood of metastability is also affected. In this section we analyze both the differential input voltage distribution and the temperature impact on the metastability probability of comparators.
 
 \section{Input signal distribution dependency}
 The input probability distribution depends on the shape of the input voltage waveform. In this paper, we assume a Laplace distribution over the full scale input range $V_{FS}$. In this case, the probability of comparator metastability is given by (\ref{eqn:prob_time_delay}) for a Gaussian distribution of the delay at a given $\Delta V_{in}$.
@@ -25,7 +25,7 @@ P(t > T_{AVL}, \Delta V_{in}) = \frac{1}{2}\left(1-erf\left(\frac{T_{AVL}-\mu_{t
 
 where $\mu_{t}$ is the average of the delay as a random variable, and $\sigma_{t}$ the standard deviation of the delay assuming the law of large numbers applicable. In both the SA and the DT comparator the pre-amplification phase effectively multiplies the input range by a dynamic gain $A_{P}$~\cite{metastability_figueiredo_2013}, and one must subtract $t_{lin}$ obtained in Section~\ref{sec:comp-delay-design} from the $T_{AVL}$.
 
-Considering that $t_{lin}$  itself is a gaussian distributed random variable~\cite{metastability_figueiredo_2013}, errors on the estimation of the delay and its standard deviation can be translated into an error on the metastability probability. This error on the probability is given by (\ref{eqn:error_prob_met}) based on (\ref{eqn:prob_time_delay}).
+Considering that $t_{lin}$  itself is a Gaussian distributed random variable~\cite{metastability_figueiredo_2013}, errors on the estimation of the delay and its standard deviation can be translated into an error on the metastability probability. This error on the probability is given by (\ref{eqn:error_prob_met}) based on (\ref{eqn:prob_time_delay}).
 
 
 \begin{align}

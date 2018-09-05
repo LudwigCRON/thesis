@@ -17,11 +17,11 @@ In contrast, measurement circuits based on Vernier delay line can achieve fine d
     \label{fig:delay_vernier_interpolation}
 \end{figure}
 
-Practical implementations of the delay line and interpolation is depicted by \figurename~\ref{fig:delay_vernier_interpolation}. J.P. Jansson \textit{et al.} uses the differential implementation represented in this figure. To estimate the delay a synchronous counter performs a coarse estimation of the delay while the recorded state of the delay line divides the clock of the counter into pieces of \(\Delta T\)~\cite{1637593}. The recorded state of the delay line corresponds to the value stored by DFFs of the positive output of these delay cells.
+Practical implementations of the delay line and interpolation are depicted by \figurename~\ref{fig:delay_vernier_interpolation}. J.P. Jansson \textit{et al.} uses the differential implementation represented in this figure. To estimate the delay a synchronous counter performs a coarse estimation of the delay while the recorded state of the delay line divides the clock of the counter into pieces of \(\Delta T\)~\cite{1637593}. The recorded state of the delay line corresponds to the value stored by DFFs of the positive output of these delay cells.
 
 That said, averaging results either in the time domain or by several TDC running in parallel mitigates the non-linearity: the improvements being inversely proportional to the square root of measurements. However, they are sensitive to PVT variations~\cite{6233014, 5256168} such that calibration is mandatory. Finally, this method does not timely occupy a silicon footprint for built-in self-test.
 
-Finally, the ring oscillator can also be employed to estimate the delay as in~\cite{8267856} wherein perused different oscillators related to the device under test can accurately calculate the delay of element under test. In the case of~\cite{8267856} the delay of Through-Silicon Via for 3D IC are measured. This solution fit within a small silicon area with a large measurement range. Unfortunately, as the number of oscillators increase, mismatch of their instance is averaged and the calculus of the delay becomes even more tedious. Furthermore, it is difficult from the design phase to estimate the accuracy of measurement.
+Finally, the ring oscillator can also be employed to estimate the delay as in~\cite{8267856} wherein perused different oscillators related to the device under test can accurately calculate the delay of element under test. In the case of~\cite{8267856} the delay of Through-Silicon Via for 3D IC is measured. This solution fit within a small silicon area with a large measurement range. Unfortunately, as the number of oscillators increase, mismatch of their instance is averaged and the calculus of the delay becomes even more tedious. Furthermore, it is difficult from the design phase to estimate the accuracy of measurement.
 \nomenclature[z]{IC}{Integrated Circuit}
 
 \subsubsection{Delay measurement Principle}
@@ -124,7 +124,7 @@ and by equation (\ref{eqn:stability_dly_only_1}) if DLY\_ONLY=`1'.
 \label{eqn:stability_dly_only_1}
 T_{MUX} + T_{DLY} & + T_{NOR3} + T_{margin} < T_{INV} + 2T_{DLY} + T_{MUX2} + T_{AND2} + T_{DLY2}
 \end{equation}
-And this over the process and temperature variation which limit the measurement delay range of the circuit.
+And this over the process and temperature variation which limits the measurement delay range of the circuit.
 
 \subsubsection{Measures}
 The basic setup for the test in this section is depicted by the \figurename~\ref{fig:doe003_measurebench}. This includes four power supplies, a frequency meter, a multimeter, an optional oscilloscope, and an optional current source.
@@ -160,7 +160,7 @@ And the sum of the delay and the time to reset is given for DLY\_ONLY = `0' by
     \label{fig:delay_vs_meas}
 \end{figure}
 
-\figurename~\ref{fig:delay_vs_meas} represents the post-layout simulation results of the delay against the measurements results of the delay estimation circuit for three different samples. We notice that first, the delay after extraction of parasitics is superior to measured values for some chips. This can be explained by three main reasons. First, the transistor in the process from which samples are coming from can be more doped than the typical case. Second, the voltage which trigger cells in the circuit is not the same level as the logic level used in the Section~\ref{sec:latches_sim}. And third, a 5 kHz inaccuracy while measuring the delay generate a systematic error of 13 ps for an output frequency around 2.5 MHz.
+\figurename~\ref{fig:delay_vs_meas} represents the post-layout simulation results of the delay against the measurements results of the delay estimation circuit for three different samples. We notice that first, the delay after extraction of parasitics is superior to measured values for some chips. This can be explained by three main reasons. First, the transistor in the process from which samples are coming from can be more doped than the typical case. Second, the voltage which trigger cells in the circuit is not the same level as the logic level used in the Section~\ref{sec:latches_sim}. And third, a 5 kHz inaccuracy while measuring the delay generates a systematic error of 13 ps for an output frequency around 2.5 MHz.
 
 From sample to sample, we experiment an error which varies from less than 10 ps to 107 ps in the worst case, at 175\(\degree\)C which correspond to an inaccuracy of 25 kHz. Or in other terms, an error of 1\% on the frequency. Despite that, the circuit provides results with an absolute maximum error of 60 ps without correction.
 

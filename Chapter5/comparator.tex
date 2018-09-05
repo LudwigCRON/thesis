@@ -211,7 +211,7 @@ The analogue part of the conventional test circuit is represented in the \figure
 
 The interleaved repartition into even index for strong arm and odd index for double tail, in \figurename~\ref{fig:comp_offset_layout} a, prevents the performance degradation of one comparator in favor of the other by having the same voltage drops for both topologies.
 
-As represented in \figurename~\ref{fig:comp_offset_layout} b, the outputs of the 16 comparators enter the digital bloc which selects which one is counted. To configure which comparator is selected, 4 bits are transferred through SIN with respect to its clock SCLK\@. Then 16 bits are transferred in order to select which comparators are taking decisions which control the ENCLOCK signals. The last bit is validated by a STRF pulse which reply by sending the output of the internal counter of 1s.
+As represented in \figurename~\ref{fig:comp_offset_layout} b, the outputs of the 16 comparators enter the digital bloc which selects which one is counted. To configure which comparator is selected, 4 bits are transferred through SIN with respect to its clock SCLK\@. Then 16 bits are transferred in order to select which comparators are taking decisions which control the ENCLOCK signals. The last bit is validated by a STRF pulse which replies by sending the output of the internal counter of 1s.
 
 \begin{figure}[htp]
     \centering

@@ -154,7 +154,7 @@ In 2006, Chen and Brodersen added reset switches in both the pre-amplifier and l
 	\label{fig:dbl_tail_comp}
 \end{figure}
 
-To be energy-efficient a comparator can also have a pre-amplifier that is efficient too. Van Elzakker base his comparator on a recent structure introduced by Schinkel~\cite{Schinkel2007, Elzakker2010}. Compared to the previous architecture, the double tail has less stacked transistors in order to operate even at very low voltage. \figurename~\ref{fig:dbl_tail_comp} represents the different variations around the double tail architecture. The main change noticed is the choice of the second stage. The speed can be further increased by the introduction of a positive feedback inside the pre-amplifier as in~\cite{Bult1997,Babayan2014} at the price of an extra kickback. The dynamic pre-amplification proves to be as efficient as in~\cite{Savani2015} with a supply voltage of 1 V and a clock at 1 GHz, the estimated power consumption is around 17 \(\mu \)W.
+To be energy-efficient a comparator can also have a pre-amplifier that is efficient too. Van Elzakker bases his comparator on a recent structure introduced by Schinkel~\cite{Schinkel2007, Elzakker2010}. Compared to the previous architecture, the double tail has less stacked transistors in order to operate even at very low voltage. \figurename~\ref{fig:dbl_tail_comp} represents the different variations around the double tail architecture. The main change noticed is the choice of the second stage. The speed can be further increased by the introduction of a positive feedback inside the pre-amplifier as in~\cite{Bult1997,Babayan2014} at the price of an extra kickback. The dynamic pre-amplification proves to be as efficient as in~\cite{Savani2015} with a supply voltage of 1 V and a clock at 1 GHz, the estimated power consumption is around 17 \(\mu \)W.
 
 An overall comparison of comparators is presented in \tablename~\ref{table:comp_comparison_table}.
 
@@ -188,7 +188,7 @@ An overall comparison of comparators is presented in \tablename~\ref{table:comp_
 \label{sec:amplifier-review}
 Switched capacitor analog is proven first-class candidate for critical analog function implementation in mixed-signal systems. Fully compatible with modern digital cmos they required amplifiers, capacitors, and clocked switches.
 
-Amplifiers' role in the high-accuracy systems is twofold: either in delta charge flow or in charge transfer implementation the amplifier preserves the charge stored on a capacitor and maintain the signal, and in a charge transfer implementation they also are responsible for moving charges from one capacitor into another.
+Amplifiers' role in the high-accuracy systems is twofold: either in delta charge flow or in charge transfer implementation the amplifier preserves the charge stored on a capacitor and maintains the signal, and in a charge transfer implementation they also are responsible for moving charges from one capacitor into another.
 
 \begin{figure}[htp]
     \centering
@@ -387,7 +387,7 @@ The DT offset abide the input/output common mode alteration, and with the mismat
 
     \subsection{Simulation Results}              % section 4.2.2
 \label{sec:latches_sim}
-In order to check specific parameters of the comparators designed, a test bench has been set-up to extract the delay, the offset, the hysteresis, the kickback and the power consumption. The test bench represented in \figurename~\ref{fig:cmp_testbench} consists in the generation of a triangle stepped differential input voltage. The output of the RS-latch is thus a window whose edges corresponds to the offsets and their difference is the hysteresis. The time span between the clock rising edge and an edge of this window coincide with the delay of the comparator and of the RS-latch. 
+In order to check specific parameters of the comparators designed, a test bench has been set-up to extract the delay, the offset, the hysteresis, the kickback and the power consumption. The test bench represented in \figurename~\ref{fig:cmp_testbench} consists in the generation of a triangle stepped differential input voltage. The output of the RS-latch is thus a window whose edges correspond to the offsets and their difference is the hysteresis. The time span between the clock rising edge and an edge of this window coincide with the delay of the comparator and of the RS-latch. 
 
 \begin{figure}[htp]
     \centering
@@ -409,7 +409,7 @@ In order to check specific parameters of the comparators designed, a test bench 
 
 To extract the common mode and the differential kickback, capacitors on the inputs (\(C_{k}\)) are connected to the desired input voltages while the comparator is reset (CLK=0 V). When the clock triggers the comparator, switches are already open. The voltage across \(C_{k}\) is sampled before the reset.
 
-Then, the error between the ideal input voltage and the voltages sampled gives us the kickback of the comparator for a capacitive load \(C_{k}\). As the comparator is used in a fully differential architecture, the common-mode kickback have less importance than the differential kickback has.
+Then, the error between the ideal input voltage and the voltages sampled gives us the kickback of the comparator for a capacitive load \(C_{k}\). As the comparator is used in a fully differential architecture, the common-mode kickback has less importance than the differential kickback has.
 
 A Strong-Arm and a Schinkel-Double-Tail have been designed for the same offset standard deviation. Once laid out as in \figurename~\ref{fig:layout-comp}, and parasitic extracted, a 100 point Monte-Carlo analysis of their characteristic inside the test bench is performed. 
 
@@ -568,7 +568,7 @@ Therefore, the wide-swing cascode biasing depicted by \figurename~\ref{fig:wide-
 For our application, the output swing is known and mainly defined by the voltage overdrive of one transistor for NMOS and one for PMOS\@. The design constraints are now relaxed and cascode transistors can be minimal to reduce parasitics on the output node which enhance both the speed and the PSRR frequency response~\cite{Ribner1984}.
 
 \subsubsection{Gain Boosting}
-To boost the DC gain, if appropriate, either a single-ended or a differential auxiliary amplifier can be envisioned. The single-ended boosting architecture uses four auxiliary op-amps to regulate the transconductance of cascode transistors and enhances the gain. It is first reported by \cite{Bult1990}. However, the single-ended version of the boosters are associated with some undesired effects:
+To boost the DC gain, if appropriate, either a single-ended or a differential auxiliary amplifier can be envisioned. The single-ended boosting architecture uses four auxiliary op-amps to regulate the transconductance of cascode transistors and enhances the gain. It is first reported by \cite{Bult1990}. However, the single-ended version of the boosters is associated with some undesired effects:
 \begin{itemize}
     \itemsep-0.5em
     \item[--] Signal usually travels a longer path inside the booster and sees an extra pole from an internal current mirror. Therefore, the frequency response of the booster suffers, especially when optimizing the pole-zero doublet effect.
@@ -702,7 +702,7 @@ Buffers are not cascoded to allow a wider output swing than the core amplifier w
 This buffer-sc-cmfb combination allows the design of high-gain amplifier in high frequency clocked system. This experiment is then verified over temperature and process variations.
 
 \subsubsection{Layout Consideration}
-The OTA is the core of the ADC analog and the performances of the full ADC heavily relies on the OTA\@. Therefore, the design blend constraints to reach technological limits. In the scope of the thesis, the reliability is of key concern in the design such that physical phenomenon in the manufacturing process are considered.
+The OTA is the core of the ADC analog and the performances of the full ADC heavily rely on the OTA\@. Therefore, the design blend constraints to reach technological limits. In the scope of the thesis, the reliability is of key concern in the design such that physical phenomenon in the manufacturing process are considered.
 
 A folded cascode amplifier is an architecture sensitive to current mismatch at the folding node. \figurename~\ref{fig:folded-node-mismatch} represents the current error on the output node due to the mismatch. As the load is fully capacitive in most applications, the error is integrated. To minimize the error, the PMOS transistors shall be matched in that error to the ideal current value is the same. The layout will thus ensure that mechanical stress, and temperature gradient seen are the same in these PMOS transistors.
 
