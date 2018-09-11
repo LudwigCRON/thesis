@@ -947,7 +947,7 @@ préparée à CentraleSupelec\\
 École doctorale n$^{\circ}$ 575 EOBE: Electrical, Optical, Bio Physics-and-Engineering\\}
 \normalsize Spécialité de doctorat: électronique et optoélectronique, nano- et microtechnologies\\
 \bigskip
-\footnotesize Thèse présentée et soutenue à Gif-sur-Yvette, le XX Novembre 2018, par\\
+\footnotesize Thèse présentée et soutenue à Gif-sur-Yvette, le 16 Novembre 2018, par\\
 \bigskip
 \LARGE \textbf{Ludwig CRON}
 
