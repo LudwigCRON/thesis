@@ -38,7 +38,7 @@
 \DeclareOption{times}{
   \ifsetFont
     \ClassWarning{PhDThesisPSnPDF}{Font selection conflict: A font package was
-      aleady specified. Please check the document class options in case you 
+      aleady specified. Please check the document class options in case you
       have defined two fonts.}
   \else
     \PHD@timestrue
@@ -50,7 +50,7 @@
 \DeclareOption{fourier}{
   \ifsetFont
     \ClassWarning{PhDThesisPSnPDF}{Font selection conflict: A font package was
-      aleady specified. Please check the document class options in case you 
+      aleady specified. Please check the document class options in case you
       have defined two fonts.}
   \else
     \PHD@fouriertrue
@@ -62,7 +62,7 @@
 \DeclareOption{customfont}{
   \ifsetFont
     \ClassWarning{PhDThesisPSnPDF}{Font selection conflict: A font package was
-      aleady specified. Please check the document class options in case you 
+      aleady specified. Please check the document class options in case you
       have defined two fonts.}
   \else
     \setCustomFonttrue
@@ -164,7 +164,7 @@
 \newif\ifPHD@chapter\PHD@chapterfalse % Enable Separate Abstract
 \DeclareOption{chapter}{
   \PHD@chaptertrue
-  \ClassWarning{PhDThesisPSnPDF}{You have chosen an option that generates only 
+  \ClassWarning{PhDThesisPSnPDF}{You have chosen an option that generates only
     selected chapters with references, if this was intentional, ignore this
     warning. If not, please remove the option `chapter' from the document class
     and recompile. Good luck with your writing!}
@@ -207,13 +207,13 @@ footnotes.}
   \setDraftClassictrue
   \ClassWarning{PhDThesisPSnPDF}{Draft is ON. Don't forget to turn it
     off in your final version. This is the classic version of draft.
-    Use `draft' for enhanced mode, which adds watermark with timestamp, 
+    Use `draft' for enhanced mode, which adds watermark with timestamp,
     line numbering, and version number.}}%
 
 \DeclareOption{draft}{\PassOptionsToClass{\CurrentOption}{book}
-  \setDrafttrue 
+  \setDrafttrue
   \ClassWarning{PhDThesisPSnPDF}{Draft is ON. Don't forget to turn it
-    off in your final version. This enhanced `draft' mode adds watermark 
+    off in your final version. This enhanced `draft' mode adds watermark
     with timestamp, line numbering, and version number. Use `draftclassic'
     if you prefer the \cite{} lassic draft mode. To tweak options see
     `preamble.tex'}}%
@@ -360,7 +360,7 @@ supported!}
   \renewenvironment{#1}%
      {\linenomath\csname old#1\endcsname}%
      {\csname oldend#1\endcsname\endlinenomath}%
-}% 
+}%
 
 \newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
   \patchAmsMathEnvironmentForLineno{#1}%
@@ -431,7 +431,7 @@ supported!}
       {\ClassWarning{PDThesisPSnPDF}{Unrecognised draft position
           using default value of top}
         \renewcommand\draftnodeanchor{1in+\voffset-\topmargin}}} %Top
-    
+
     \AddEverypageHook{%
     \begin{textblock*}{\paperwidth}[0.,2.5](0\paperwidth,\draftnodeanchor)
       \DraftContent
@@ -440,10 +440,10 @@ supported!}
 }
 
 % If NOT Draft
-\else 
+\else
 
 \renewcommand\SetDraftText[1]{\ClassWarning{PhDThesisPSnPDF}{Draft is
-    inactive, to use SetDraftText include `draft' in the document 
+    inactive, to use SetDraftText include `draft' in the document
     class options.}}
 % Draft Version
 \renewcommand\SetDraftVersion[1]{\ClassWarning{PhDThesisPSnPDF}{Draft is
@@ -464,7 +464,7 @@ supported!}
 % ******************************* Bibliography *********************************
 \ifPHD@authoryear
   \ifPHD@biblatex
-    \RequirePackage[backend=biber, style=authoryear, citestyle=alphabetic, 
+    \RequirePackage[backend=biber, style=authoryear, citestyle=alphabetic,
       sorting=nty, natbib=true]{biblatex}
     \setBiBLaTeXtrue
   \else
@@ -473,7 +473,7 @@ supported!}
 \else
   \ifPHD@numbered
     \ifPHD@biblatex
-      \RequirePackage[backend=biber, style=numeric-comp, 
+      \RequirePackage[backend=biber, style=numeric-comp,
         citestyle=numeric, sorting=none, natbib=true]{biblatex}
       \setBiBLaTeXtrue
     \else
@@ -485,7 +485,7 @@ supported!}
           \@ifpackageloaded{natbib}{}{
             \@ifpackageloaded{biblatex}{}{
               \ClassWarning{PhDThesisPSnPDF}{%
-                You chose custom bibliography, but no corresponding package 
+                You chose custom bibliography, but no corresponding package
                 (biblatex/natbib) has been loaded. Please load the
                 appropriate bibliography package in the preamble.}
             }
@@ -497,7 +497,7 @@ supported!}
           citestyle=numeric, sorting=none, natbib=true]{biblatex}
         \setBiBLaTeXfalse
       \else
-        \RequirePackage[numbers,compress]{natbib} 
+        \RequirePackage[numbers,compress]{natbib}
       \fi % default
       \setBibfalse
     \fi % custombib
@@ -507,7 +507,7 @@ supported!}
 \ifsetBib
 \else
 \ClassWarning{PhDThesisPSnPDF}{No bibliography style was specified.
-  Default numbered style is used. If you would like to use a 
+  Default numbered style is used. If you would like to use a
   different style, use `authoryear' or `numbered' in the options in
   documentclass or use `custombib` and define the natbib package or
   biblatex package with required style in the Preamble.tex file}
@@ -543,9 +543,9 @@ supported!}
 \ifsetFont
 \else
   \ClassWarning{PhDThesisPSnPDF}{Using default font Latin Modern. If you
-    would like to use other pre-defined fonts use `times' (The Cambridge 
+    would like to use other pre-defined fonts use `times' (The Cambridge
     University PhD thesis guidelines recommend using Times font)  or `fourier'
-    or load a custom font in the preamble.tex file by specifying `customfont' 
+    or load a custom font in the preamble.tex file by specifying `customfont'
     in the class options}
   \RequirePackage{lmodern}
 \fi
@@ -563,12 +563,12 @@ supported!}
     ItalicFont = *-italic,
     BoldItalicFont = *-bolditalic,
   ]{xits}
-  
-  \setmathfont[ 
+
+  \setmathfont[
     Extension = .otf,
     BoldFont = *bold,
   ]{xits-math}
-  
+
 \else
   % default: pdfLaTeX
   \RequirePackage[utf8]{inputenc}
@@ -577,7 +577,7 @@ supported!}
   \definecolor{Prune}{RGB}{99,0,60}
   % If building with PDFLaTeX, use microtype spacing adjustments
   \RequirePackage[final]{microtype}
-  
+
   \input{glyphtounicode}
   \pdfglyphtounicode{f_f}{FB00}
   \pdfglyphtounicode{f_i}{FB01}
@@ -678,7 +678,7 @@ supported!}
   % dvips
   \RequirePackage{breakurl} % to split the url over multiple lines
 \fi
-  
+
 % ******************************************************************************
 % **************************** Pre-defined Settings ****************************
 % ******************************************************************************
@@ -706,7 +706,7 @@ supported!}
 % ******************************** Justification *******************************
 % Left aligned as per University identity guidelines
 \ifPHD@textJustify
-\message{PhDThesisPSnPDF: The University identity guidelines recommend using 
+\message{PhDThesisPSnPDF: The University identity guidelines recommend using
 left aligned text. Please use `flushleft' in the documentclass option, if you
 wish to left align your text}
 \else
@@ -736,9 +736,9 @@ wish to left align your text}
   \renewcommand{\chaptermark}[1]{\markboth{##1}{}}
   \renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1\ }}
   \fancyhf{}
-  \fancyhead[RO]{\nouppercase \rightmark\hspace{0.25em} | 
+  \fancyhead[RO]{\nouppercase \rightmark\hspace{0.25em} |
     \hspace{0.25em} \bfseries{\thepage}}
-  \fancyhead[LE]{ {\bfseries\thepage} \hspace{0.25em} | 
+  \fancyhead[LE]{ {\bfseries\thepage} \hspace{0.25em} |
     \hspace{0.25em} \nouppercase \leftmark}
 }
 
@@ -926,7 +926,7 @@ wish to left align your text}
 % fonte sans empattement pour la page de titre
 \fontfamily{fvs}\fontseries{m}\selectfont
 \color{white}
-\flushleft \hspace{-55mm} \rotatebox{90}{NNT: 2018SACLEZZZ}
+\flushleft \hspace{-55mm} \rotatebox{90}{NNT: 2018SACLC078}
 %*****************************************************
 %******************** TITRE **************************
 %*****************************************************
@@ -961,31 +961,31 @@ préparée à CentraleSupelec\\
 
 \small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-% Patricia Degreys &  \\ 
-% \footnotesize Professeur, LTCI, Telecom ParisTech & Rapporteur \\ 
-Dominique Dallet &  \\ 
-\footnotesize Professeur, Bordeaux INP & Rapporteur \\ 
-Franck Badets &  \\ 
-\footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\ 
-Pieter Rombouts &  \\ 
-\footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Examinateur \\ 
-Souhil Megherbi&  \\ 
-\footnotesize Professeur, C2N, Université Paris-Saclay & Examinateur \\ 
-Philippe Benabes &   \\ 
-\footnotesize Professeur, GeePs, Université Paris-Saclay & Directeur de Thèse  \\ 
-Pietro Maris Ferreira &    \\ 
-\footnotesize Enseignant-Chercheur, GeePs, Université Paris-Saclay & Encadrant \\ 
-Philippe Laugier &  \\  
-\footnotesize Ingénieur, Melexis & Invité \\ 
-Johan Vergauwen &  \\  
-\footnotesize Ingénieur, Melexis & Invité \\ 
-Francois Piette &  \\  
-\footnotesize Ingénieur, Melexis & Invité \\ 
-Filipe Vinci Dos Santos &  \\  
-\footnotesize Docteur & Invité \\ 
+% Patricia Degreys &  \\
+% \footnotesize Professeur, LTCI, Telecom ParisTech & Rapporteur \\
+Dominique Dallet &  \\
+\footnotesize Professeur, Bordeaux INP & Rapporteur \\
+Franck Badets &  \\
+\footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\
+Pieter Rombouts &  \\
+\footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Président du Jury \\
+Souhil Megherbi &  \\
+\footnotesize Professeur, C2N, Université Paris-Saclay & Examinateur \\
+Philippe Benabes &   \\
+\footnotesize Professeur, GeePs, Université Paris-Saclay & Directeur de Thèse  \\
+Pietro Maris Ferreira &    \\
+\footnotesize Enseignant-Chercheur, GeePs, Université Paris-Saclay & Encadrant \\
+Philippe Laugier &  \\
+\footnotesize Ingénieur, Melexis & Invité \\
+Johan Vergauwen &  \\
+\footnotesize Ingénieur, Melexis & Invité \\
+Francois Piette &  \\
+\footnotesize Ingénieur, Melexis & Invité \\
+Filipe Vinci Dos Santos &  \\
+\footnotesize Docteur & Invité \\
 % \usebox{\PHD@supervisor}
 %   \usebox{\PHD@advisor}
-\end{tabular*} 
+\end{tabular*}
 \endgroup
 \restoregeometry
 }
@@ -1178,7 +1178,7 @@ Filipe Vinci Dos Santos &  \\
 \begin{lrbox}{\PHD@author}
   \begin{minipage}[c]{\textwidth}
     \centering \Large \bfseries{\@author}
-      \vspace{0.5em}   
+      \vspace{0.5em}
   \end{minipage}
 \end{lrbox}
 

@@ -13,7 +13,7 @@
     \graphicspath{{Chapter7/Figs/Raster/}{Chapter7/Figs/PDF/}{Chapter4/Figs/}}
 \else
     \graphicspath{{Chapter7/Figs/Vector/}{Chapter7/Figs/}}
-\fi 
+\fi
 
 In this section, we will discuss in detail the key building blocks of most ADC\@. Among them, comparators and amplifiers are the most common source of performance limitation. A review of existing comparators and amplifiers is followed by a comparison of most common architecture over temperature. Then, the design of the best candidates is discussed.
 
@@ -40,7 +40,7 @@ In the design of ADC, comparators and latches are usually designed to output a l
 
 The analog subtraction can be done using two differential pairs as shown in \figurename~\ref{fig:cmp_dbl_diff_sumanen}~\cite{Sumanen2000}. This one-step solution introduces an offset coming from the mismatches between the two input differential pairs. The threshold level is thus fixed by the ratio of differential pair transistors creating a dependence between the offset and the reference voltage applied.
 
-In a charge domain, the subtraction can be implemented as in \figurename~\ref{fig:cmp_sc_diff_sumanen} taken from~\cite{Sumanen2002}. The threshold voltage is now fixed by the capacitor ratio \(C_1/C_2 \) and improves the reference voltage dependence of the offset. Nevertheless, the gain introduced as \(C_1/(C_1+C_2) \) effectively makes the offset and noise of the comparator greater with respect to the input signal. If the comparator offset and noise are limiting constraints, the input signal attenuation caused by the previous architecture may not be tolerable. The circuit to avoid this problem is shown in \figurename~\ref{fig:abo_sc}, and introduced by Abo and Gray in~\cite{Abo1999}. One would rather prefer to change to virtual ground between \(C_2\) capacitors to a proper connection to the ground to enhance reliability.
+In the charge domain, the subtraction can be implemented as depicted in \figurename~\ref{fig:cmp_sc_diff_sumanen} taken from~\cite{Sumanen2002}. The threshold voltage is now fixed by the capacitor ratio \(C_1/C_2 \) and improves the reference voltage dependence of the offset. Nevertheless, the gain introduced as \(C_1/(C_1+C_2) \) effectively makes the offset and noise of the comparator greater with respect to the input signal. If the comparator offset and noise are limiting constraints, the input signal attenuation caused by the previous architecture may not be tolerable. The circuit to avoid this problem is shown in \figurename~\ref{fig:abo_sc}, and introduced by Abo and Gray in~\cite{Abo1999}. One would rather prefer to change to virtual ground between \(C_2\) capacitors to a proper connection to the ground to enhance reliability.
 
 \begin{figure}[htp]
 	\centering
@@ -201,13 +201,13 @@ Depending on the applications many amplifier topologies have emerged. A non-exha
 
 Focused on a high gain and high-speed amplifiers, all amplifiers for RF communications are not suited for the conception of an ADC\@. Indeed, they reach with difficulty 20 dB of DC Gain and are power hungry~\cite{Nauta1992, Chen2014}.
 
-The analog design insight over temperature in Section~\ref{sec:analog-insight} highlight the difficulty to achieve a stable high-gain over temperature and a high-speed amplifier based on a single transistor performance. Therefore, high-gain amplifiers usually use either cascode and multi-stage architectures~\cite{Bult1990}. In a multi-stage amplifier, each stage contributes in its simplest form as an extra pole and an extra zero. In this regard, to ensure the Barkhausen stability criterion, phase compensation schemes are required to obtain a good phase margin. 
+The analog design insight over temperature in Section~\ref{sec:analog-insight} highlight the difficulty to achieve a stable high-gain over temperature and a high-speed amplifier based on a single transistor performance. Therefore, high-gain amplifiers usually use either cascode and multi-stage architectures~\cite{Bult1990}. In a multi-stage amplifier, each stage contributes in its simplest form as an extra pole and an extra zero. In this regard, to ensure the Barkhausen stability criterion, phase compensation schemes are required to obtain a good phase margin.
 To the contrary, high bandwidth amplifiers use a single-stage architecture, high bias current, and short channel devices.
 
 Among single stage amplifiers, inverter-based amplifiers are often used in ADC and well-reputed for their low-power consumption~\cite{Selby2013,Ismail2016}. Nevertheless, limited bandwidth and the biasing of transistors based on the change of the supply voltage are not suited for a high-speed ADC in an automotive environment.
 %According to [10], the Current Mirror Cascode OTA has a high GBW and slew rate with a fast settling time. Nevertheless, those amplifiers have a non-dominant pole at the input of its current-mirror. Due to this additional pole the phase margin is limited and depends of the current mirror ratio.
 %Those amplifiers efficiency can be greatly improved by using current shunt, current reuse, or current shunt with a positive feedback [11]. Those techniques improve the gain, the output resistance, and noise performances. The compromise is the parasitic effect induced by extra transistors penalizing the phase margin already low. Therefore, the current mirror OTA is not recommended in the design of a stable amplifier across process variations.
-To reduce the power consumption of amplifiers and reduce analog design constraint, the one could implement a continuous-time comparator with a push-pull stage as a comparator based ADC\@. This has been discussed in~\cite{Fiorenza2006}, to build an 10-bits pipelined ADC whose power consumption is 2.5 mW at 7.9 MSamples/s in 0.18 \(\mu \)m CMOS technology. Nevertheless, this comes at a cost of an increased complexity in the digital switching more sensitive to jitter. 
+To reduce the power consumption of amplifiers and reduce analog design constraint, the one could implement a continuous-time comparator with a push-pull stage as a comparator based ADC\@. This has been discussed in~\cite{Fiorenza2006}, to build an 10-bits pipelined ADC whose power consumption is 2.5 mW at 7.9 MSamples/s in 0.18 \(\mu \)m CMOS technology. Nevertheless, this comes at a cost of an increased complexity in the digital switching more sensitive to jitter.
 
 \begin{figure}[htp]
     \centering
@@ -224,7 +224,7 @@ Traditionally, folded-cascode OTA has been preferred for high-speed switched cap
 \nomenclature[z]{UGF}{Unity-Gain-Frequency}
 The Telescopic OTA (Tele.) provides better current efficiency, hence consumes less power, but suffers from limited output swing~\cite{Quinn2000}. Such a limitation is circumvented by the use of pseudo-differential architecture as in~\cite{Chiu2004}.
 
-The Table~\ref{table:ota_comparison_table} lists some amplifiers used in ADC between 12-bits and 14-bits of resolution. 
+The Table~\ref{table:ota_comparison_table} lists some amplifiers used in ADC between 12-bits and 14-bits of resolution.
 
 \begin{table}[htp]
 	\caption{OTA Performances}
@@ -258,10 +258,10 @@ Before diving into the design of a complex OTA over temperature, let us start wi
 \label{sec:comp-delay-design}
     \subsection{Use case}                     % section 4.2.1
 The hybrid pipelined architecture contains an I\(\Delta\Sigma \) stage followed by an algorithmic stage and a SAR stage. In principle, all stages share the same common-mode and reference voltage levels. In addition, the proposed hybrid converter should operate from -40\(\degree \)C up to +175\(\degree \)C. Each one of these stages imposes different constraints on the amplifier and the comparators within.
-    
+
 As a trade-off between output swing, linearity, and gain at a given speed to realize the ADC, some constraints can be relaxed by implementing at least a 1.5-bit encoder for the first two stages. From the review done in Section~\ref{sec:latches}, a switched capacitor analog subtraction is preferred in this regard for the reduced temperature variation of the capacitor over the current variation of the double differential pair variation.
 
-The incremental and the algorithmic stages are closed-loop converters. Therefore, the only effect of errors introduced by the comparators is to increase the amplitude of the residue passed on to the following stage. Those two first stages are fault tolerant while the comparator errors do not exceed a rather relaxed level of non-correctable error. 
+The incremental and the algorithmic stages are closed-loop converters. Therefore, the only effect of errors introduced by the comparators is to increase the amplitude of the residue passed on to the following stage. Those two first stages are fault tolerant while the comparator errors do not exceed a rather relaxed level of non-correctable error.
 
 From a design point of view, both the strong arm and the double tail comparator do not keep the result from a clock period to another. Therefore, they are followed by an RS-latch in charge of keeping the decision made for the digital circuits. This RS-latch is thus the load seen by the comparator.
 
@@ -284,10 +284,10 @@ From a design point of view, both the strong arm and the double tail comparator 
     \label{fig:cmp_designed}
 \end{figure}
 
-The Strong ARM (SA) latch depicted by \figurename\ref{fig:sa_designed} has been chosen for its rail-to-rail output and a quite fast response with small power consumption. The Double-Tail architecture is a promising candidate for low-power, reduced voltage, and scaling. 
+The Strong ARM (SA) latch depicted by \figurename\ref{fig:sa_designed} has been chosen for its rail-to-rail output and a quite fast response with small power consumption. The Double-Tail architecture is a promising candidate for low-power, reduced voltage, and scaling.
 \subsubsection{Delay}
 The detailed operation of the SA latch has been studied thoroughly~\cite{Wicht2004, Razavi2015}.
-In a nutshell, the reset state (CLK=0 V) sets the transistors M4-M5 are in a deep sub-threshold region, and the outputs are pulled up to \(V_{DD}\) by M8-M9. No current flows in the differential pair because M1 is also off.
+In a nutshell, the reset state (CLK=0 V) sets the transistors M4-M5 that are in a deep sub-threshold region, and the outputs are pulled up to \(V_{DD}\) by M8-M9. No current flows in the differential pair because M1 is also off.
 Once the clock is active (CLK=\(V_{DD}\)), M1 turns on hard in the linear region, and M2-M3 convert the differential input voltage \(\Delta V_{in}\) into a current that pulls down the voltages at the sources of NMOS devices M4-M5 until they start to conduct.
 Once \(V_{outm}\) or \(V_{outp}\) reach \(V_{DD}-V_{thp}\), M6-M7 turn on and the cross-coupled inverters regenerates the voltage imbalance \(\Delta V_{out}(t_{lin}) = V_{outp}(t_{lin}) - V_{outm}(t_{lin})\). In order to derive \(t_{lin}\), we will assume that the discharge rate is constant as well as \(C_{C}\) and \(C_{L}\): the total capacitance loads at the sources of M4-M5 and the total capacitance load at the output nodes.
 
@@ -303,7 +303,7 @@ The regeneration to fully restored logic values (\(V_{logic}\)) denoted by \(t_{
 t_{reg} = \frac{C_{L}}{g_{m4,m5}+g_{m6,m7}} \ln{\left(\frac{V_{logic}}{\Delta V_{out}(t_{lin})}\right)}
 \end{equation}
 
-To reach the maximum speed, transistors in the differential pair and of the current source are biased in strong inversion according to \figurename~\ref{fig:tradeoffs}. With a quadratic model leading to the approximate \(g_m/I_d \approx 2/V_{ov}(T)\), the variation of the delay with respect to the temperature can be found to be 
+To reach the maximum speed, transistors in the differential pair and of the current source are biased in strong inversion according to \figurename~\ref{fig:tradeoffs}. With a quadratic model leading to the approximate \(g_m/I_d \approx 2/V_{ov}(T)\), the variation of the delay with respect to the temperature can be found to be
 \begin{equation}
 \label{eqn:sa_dt_dT}
 \frac{1}{t_{lin}}\frac{\partial t_{lin}}{\partial T} = (C_L+C_c) \left[ \alpha_{vthp} \left(\frac{g_{m2,m3}}{I_{d2,d3}}(T) - \frac{1}{V_{thp}(T)} \right) + \alpha_\mu \left(\frac{T_0}{T} \right) \right]
@@ -317,7 +317,7 @@ Among methods to prevent the floating drain of the differential pair transistor,
 In comparison, the double tail (DT) comparator~\cite{Schinkel2007}, shown in Figure~\ref{fig:dtl_designed}, is becoming a popular alternative to the SA comparator in the past few years, together with its variations~\cite{Miyahara2008,Babayan2014,Khorami2016}. The key idea is to split the pre-amplification from the latch to decouple the constraints, and to increase the voltage headroom. This section develops an original model for the propagation delay taking into account the current drawn by transistors M6-M7 to improve the accuracy of the previously attempted model~\cite{Babayan2014}.
 
 Briefly, during the reset phase (CLK=0V), the tail transistor M1 is off and transistors M4-M5 are on. The drains of M2-M3 are pulled up to \(V_{DD}\) which discharge to the ground the output nodes of the cross-coupled latch thanks to M6-M7. This is possible because M12 is driven by a complementary clock signal.
-Once the clock toggles to \(V_{DD}\), M4-M5 turn off, M1 turns on and the differential pair M2-M3 discharges the internal nodes \(V_{Dip}\) and \(V_{Dim}\) to the ground, at slightly different rates: \(I_{M2,3}/(2C_{D})\). Transistor M12 turned on and \(V_{Dip}\) and \(V_{Dim}\) translated by M6-M7 into a current imbalance at the output nodes, the output voltages are ramping up at a rate of \((I_{M12}/2-I_{M6,M7})/C_{L}\). This until the drain voltage of M8-M9 has risen \(V_{thn}\) above ground, when one can consider that regeneration takes over and the currents drawn by M6-M7 no longer matter. 
+Once the clock toggles to \(V_{DD}\), M4-M5 turn off, M1 turns on and the differential pair M2-M3 discharges the internal nodes \(V_{Dip}\) and \(V_{Dim}\) to the ground, at slightly different rates: \(I_{M2,3}/(2C_{D})\). Transistor M12 turned on and \(V_{Dip}\) and \(V_{Dim}\) translated by M6-M7 into a current imbalance at the output nodes, the output voltages are ramping up at a rate of \((I_{M12}/2-I_{M6,M7})/C_{L}\). This until the drain voltage of M8-M9 has risen \(V_{thn}\) above ground, when one can consider that regeneration takes over and the currents drawn by M6-M7 no longer matter.
 
 \(t_{lin}\) is deduced by the equation~(\ref{eqn:dtl_tout_lin})
 
@@ -325,7 +325,7 @@ Once the clock toggles to \(V_{DD}\), M4-M5 turn off, M1 turns on and the differ
 \label{eqn:dtl_tout_lin}
 t_{lin} = \frac{C_D}{2C_L} \left(\frac{g_{m6,m7}V_{DD}-I_{M10,M11}}{g_{m6,m7}I_{M2,M3}} + \frac{C_L\sqrt{\xi}}{g_{m6,m7}I_{M2,M3}} \right)
 \end{equation}
-where 
+where
 \begin{equation}
 \xi = {\left(g_{m6,m7}V_{DD}-I_{M10,M11}\right)}^2  + 4V_{thn}\frac{g_{m6,m7}I_{M2,M3}(C_{L})}{C_D}
 \end{equation}
@@ -380,14 +380,14 @@ By the way, the small signal model of the DT latch results in the approximation 
 \label{eqn:offset_dtl}
 -\frac{V_{offset}}{2} \approx & V_{outc}\frac{\left[s \left(C_{L1} - C_{L2}\right) + \left(g_{m1}+g_{m2}\right) -\left(g_{m3}+g_{m4}\right)\right] s \left(C_{g5} + C_{g6}\right)}{2(g_{m11}+g_{m10})}\\
 + & V_c \frac{\left[s \left(C_{g5}-C_{g6}\right) + \left(g_{m5}-g_{m6}\right)\right]}{g_{m11}+g_{m10}}  \nonumber  \\
-+ & V_{inc}\frac{g_{m11}-g_{m10}}{g_{m11}+g_{m10}} \nonumber 
++ & V_{inc}\frac{g_{m11}-g_{m10}}{g_{m11}+g_{m10}} \nonumber
 \end{align}
 
 The DT offset abide the input/output common mode alteration, and with the mismatch of parasitics. Thus, both outputs shall be connected to almost similar cells. An RS-latch fits this purpose as it also keeps the decision made once the comparator is reset.
 
     \subsection{Simulation Results}              % section 4.2.2
 \label{sec:latches_sim}
-In order to check specific parameters of the comparators designed, a test bench has been set-up to extract the delay, the offset, the hysteresis, the kickback and the power consumption. The test bench represented in \figurename~\ref{fig:cmp_testbench} consists in the generation of a triangle stepped differential input voltage. The output of the RS-latch is thus a window whose edges correspond to the offsets and their difference is the hysteresis. The time span between the clock rising edge and an edge of this window coincide with the delay of the comparator and of the RS-latch. 
+In order to check specific parameters of the comparators designed, a test bench has been set-up to extract the delay, the offset, the hysteresis, the kickback and the power consumption. The test bench represented in \figurename~\ref{fig:cmp_testbench} consists in the generation of a triangle stepped differential input voltage. The output of the RS-latch is thus a window whose edges correspond to the offsets and their difference is the hysteresis. The time span between the clock rising edge and an edge of this window coincide with the delay of the comparator and of the RS-latch.
 
 \begin{figure}[htp]
     \centering
@@ -409,9 +409,9 @@ In order to check specific parameters of the comparators designed, a test bench 
 
 To extract the common mode and the differential kickback, capacitors on the inputs (\(C_{k}\)) are connected to the desired input voltages while the comparator is reset (CLK=0 V). When the clock triggers the comparator, switches are already open. The voltage across \(C_{k}\) is sampled before the reset.
 
-Then, the error between the ideal input voltage and the voltages sampled gives us the kickback of the comparator for a capacitive load \(C_{k}\). As the comparator is used in a fully differential architecture, the common-mode kickback has less importance than the differential kickback has.
+Thus, the error between the ideal input voltage and the sampled voltages gives us the kickback of the comparator for a capacitive load \(C_{k}\). As the comparator is used in a fully differential architecture, the common-mode kickback has less importance than the differential kickback has.
 
-A Strong-Arm and a Schinkel-Double-Tail have been designed for the same offset standard deviation. Once laid out as in \figurename~\ref{fig:layout-comp}, and parasitic extracted, a 100 point Monte-Carlo analysis of their characteristic inside the test bench is performed. 
+A Strong-Arm and a Schinkel-Double-Tail have been designed for the same offset standard deviation. Once laid out as in \figurename~\ref{fig:layout-comp}, and parasitic extracted, a 100 point Monte-Carlo analysis of their characteristic inside the test bench is performed.
 
 \begin{figure}[!htp]
     \centering
@@ -431,20 +431,20 @@ A Strong-Arm and a Schinkel-Double-Tail have been designed for the same offset s
 
 \figurename~\ref{fig:sim-comp}b depicts the 3-\(\sigma \) delay variation over temperature of both architectures. For a differential input voltage of 800\(\mu \)V, the maximum delay increase with the temperature. The average response time of the SA latch varies from 2.3 ns to 2.53 ns. This represents a variation of 460 ppm/\(\degree \)C. While the standard deviation shrinks from 0.22 ns at -40\(\degree \)C to 0.15 ns +175\(\degree \)C, the maximum delay is almost constant over temperature. In the same condition, the DT latch exhibits an average time increase of 3333 ppm/\(\degree \)C. The main contributor to this temperature sensitivity is the differential pair transistor of the pre-amplifier as the design for low-offset gives more weight to the first stage. This value matches the results of a low-\(V_{th} \) transition frequency temperature sensitivity for the designed current of 20\(\mu \)A in differential pair transistors. However, the DT latch features a response time process variation increasing with the temperature as  0.15 ns at -40\(\degree \)C to 0.2 ns +175\(\degree \)C, close from the values of the SA latch.
 
-In the \figurename~\ref{fig:sim-comp}c, the differential kickback is computed at the sample time since its effect will be seen when the decision is taken. While the temperature worsens the differential kickback of the Strong ARM, the one of the double tail is more stable. Moreover, the kickback of the double tail is one order of magnitude lower than the kickback of the Strong ARM\@. So, the Double Tail is less prone to error. With a 600 µV of differential kickback for the Double Tail, this comparator introduces an error that is equivalent to 11.7 bit LSB for a differential input voltage of 1 V. In comparison the Strong ARM latch introduce an error equivalent to 9.4-bit LSB\@.
+In the \figurename~\ref{fig:sim-comp}c, the differential kickback is computed at the sample time since its effect will be seen when the decision is taken. While the temperature improves the differential kickback of the Strong ARM, the one of the double tail is more stable and is seven times smaller. Moreover, the kickback of the double tail is one order of magnitude lower than the kickback of the Strong ARM\@. So, the Double Tail is less prone to error. With a 600 µV of differential kickback for the Double Tail, this comparator introduces an error that is equivalent to 11.7 bit LSB for a differential input voltage of 1 V. In comparison the Strong ARM latch introduce an error equivalent to 9.4-bit LSB\@.
 
 \figurename~\ref{fig:sim-comp}d presents the electrical simulation of comparator power consumption from -40\(\degree \)C to 175\(\degree \)C at 100 MHz. In both topologies, the power consumption increases as temperature rises. The Strong ARM average power consumption is 34 \(\mu \)W varying 592 ppm/\(\degree \)C over the temperature range while the Double Tail topology exhibits a 74 \(\mu \)W average power and 535 ppm/\(\degree \)C variation over the temperature range. Considering power consumption, one may conclude that Strong ARM has lower power consumption. However, Double Tail depicts a smaller variation \(\Delta P/P(T_0)\) with respect to the temperature.
 
 \begin{figure}[ht]
     \centering
-    \resizebox {0.9\textwidth} {!} { 
+    \resizebox {0.9\textwidth} {!} {
         \input{Chapter7/Figs/comp.pgf}
     }
     \caption{Delay, Offset, Kickback and Power consumption of designed comparators over temperature after layout parasitic extraction}
     \label{fig:sim-comp}
 \end{figure}
 
-Even if a Monte-Carlo analysis of 6\(\sigma \) process and mismatch parameter variations have been performed over temperature for each comparator, in the Table~\ref{tbl:comp-result-worst}, only the worst value of the post layout simulations is presented.
+Even if a Monte-Carlo analysis of 6\(\sigma \) process and mismatch parameter variations has been performed over temperature for each comparator, in the Table~\ref{tbl:comp-result-worst}, only the worst value of the post layout simulations is presented.
 
 \begin{table}[ht]
     \centering
@@ -471,7 +471,7 @@ The Double Tail is tailored for fast systems with a moderate requirement on the 
 Verified by simulation, in both topologies a large transient current is needed. And the faster the latch should be, the more important the current is. While the Strong ARM latch requires a peak voltage of 300 µA, the Double Tail requires twice this current.
 
 \section{OTA}                              % section 4.3
-Operational Transconductance Amplifiers (OTA's) are used in microelectronics applications to drive small capacitive loads at high frequencies. An OTA is basically an op-amp without any output buffer, preventing it from driving resistive or large capacitive loads. They are preferred over op-amps mainly because of their smaller size and simplicity. The OTA is based on a differential amplifier at the input. The purpose of an OTA is to generate a current proportional to an input voltage difference. This report is concerned with the design of a fully differential OTA, meaning there are two outputs. The difference in the output currents should be proportional to the difference in the input voltages.
+Operational Transconductance Amplifiers (OTA's) are used in microelectronics applications to drive small capacitive loads at high frequencies. An OTA is basically an op-amp without any output buffer, preventing it from driving resistive or large capacitive loads. They are preferred over op-amps mainly because of their smaller size and simplicity. The OTA is based on a differential amplifier at the input. The purpose of an OTA is to generate a current proportional to an input voltage difference till they reach their current of saturation. This report is concerned with the design of a fully differential OTA, meaning there are two outputs. The difference in the output currents should be proportional to the difference in the input voltages.
     \subsection{Challenges}                      % section 4.3.1
 The proposed converter topology is composed of an Incremental-\(\Delta\Sigma \), an Algorithmic, and a SAR\@. The first stage giving the residue of the conversion to the following stage, most of the OTA constraints corresponds to the desired expectation of the Incremental-\(\Delta\Sigma \) integrator.
 
@@ -553,7 +553,7 @@ Considering an output swing from 525 mV to 1.275 V, the transistors of the casco
     +& (V_{GSsource,p}-V_{THsource,p}) + (V_{GScascode,p}-V_{THcascode,p}) \nonumber \\
     =& 0.9 V_{DD} - (1.275 V - 0.525 V) = 0.87 V \nonumber
 \end{eqnarray}
-    
+
 where \(V_{GSsource}-V_{THsource} \) represents the voltage overdrive of the transistor playing the current source of the folded cascode, and \(V_{GScascode}-V_{THcascode}\) the voltage overdrive of the cascoding transistor. Let's suppose the margin split evenly across PMOS and NMOS transistors, the minimum voltage required is 0.335 V at 27\(\degree \)C for \((V_{GSsource,n}-V_{THsource,n}) + (V_{GScascode,n}-V_{THcascode,n})\).
 
 \begin{figure}[htp]
@@ -650,9 +650,9 @@ Nowadays the trend is to scale down the supply voltage, shunted parallel inverte
     \label{fig:shunt_inverter_sensing}
 \end{figure}
 
-By the way, a CMFB can be decomposed into a sensing bloc estimating the current common mode and an amplifier block to apply the correction. Assuming that the gain of the amplifier is defined by the product of an effective transconductance and the output resistance, an output resistance variation also alters the DC Gain of the amplifier, violating the fourth rule. A resistive sensing circuit as in \figurename~\ref{fig:res_sens_cmfb} thus limits the gain of the OTA and draws a current between the two outputs \(V_{outp}\) and \(V_{outm}\) through averaging resistor \(R_A \). 
+By the way, a CMFB can be decomposed into a sensing bloc estimating the current common mode and an amplifier block to apply the correction. Assuming that the gain of the amplifier is defined by the product of an effective transconductance and the output resistance, an output resistance variation also alters the DC Gain of the amplifier, violating the fourth rule. A resistive sensing circuit as in \figurename~\ref{fig:res_sens_cmfb} thus limits the gain of the OTA and draws a current between the two outputs \(V_{outp}\) and \(V_{outm}\) through averaging resistor \(R_A \).
 
-In order not to alter the DC Gain of the amplifier over temperature, the resistance of the common-mode sensing is replaced by two transistors in the differential pair resulting in a DDA-CMFB whose possible implementation is depicted by the \figurename~\ref{fig:dda_cmfb}. The impedance seen is therefore near infinite. As a transistor generates a current proportional to the voltage applied at its gate, DDA-CMFB becomes a relevant solution. As the power supply reduces, the DDA variant suffers from the non-linearity of the current drawn. As the temperature increase, the effect is ever more pronounced. The operating range in which the common mode voltage can be corrected is much more limited to the one of a switched capacitor version. In addition, the CMFB circuit shall be faster than the primary amplifier whose common mode voltage is controlled. Therefore, both the current consumption and the area are tremendously increased for high-speed high gain OTA\@.
+In order not to alter the DC Gain of the amplifier over temperature, the resistance of the common-mode sensing is replaced by two transistors in the differential pair resulting in a DDA-CMFB whose possible implementation is depicted by the \figurename~\ref{fig:dda_cmfb}. The impedance seen is therefore near infinite. As a transistor generates a current proportional to the voltage applied at its gate, DDA-CMFB becomes a relevant solution. As the power supply reduces, the DDA variant suffers from the non-linearity of the current drawn. As the temperature increase, the effect is ever more pronounced. The operating range in which the common mode voltage can be corrected is much more limited compared to the one of a switched capacitor version. In addition, the CMFB circuit shall be faster than the primary amplifier whose common mode voltage is controlled. Therefore, both the current consumption and the area are tremendously increased for high-speed high gain OTA\@.
 
 \begin{figure}[htp]
     \centering
@@ -679,7 +679,7 @@ Considering an SC-CMFB, it is commonly assumed that the clock used is the same f
     \label{fig:sc-cmfb}
 \end{figure}
 
-With respect to the DC Gain of the amplifier, the toggling of capacitor \(C_1 \) emulates a resistance connecting the output and the common mode voltage of reference. This equivalent resistance is evaluated as \(1/(C_1 F_{clk}) \) where \(F_{clk} \) is the clock frequency and \(C_1 \) the capacitor sampling \(V_{cm}-V_{BIASN1}\). 
+With respect to the DC Gain of the amplifier, the toggling of capacitor \(C_1 \) emulates a resistance connecting the output and the common mode voltage of reference. This equivalent resistance is evaluated as \(1/(C_1 F_{clk}) \) where \(F_{clk} \) is the clock frequency and \(C_1 \) the capacitor sampling \(V_{cm}-V_{BIASN1}\).
 
 Assuming that the gain of the amplifier is defined by the product of an effective transconductance and the output resistance, the required transconductance Gm = gm-gmb = gm = 2.2 mS, a 75 dB gain results into an output resistance of 2.24 \(M\Omega \). With \(F_{clk} = 100 MHz \), the capacitance \(C_1 \) should be around 4.4 fF. A standard SC-CMFB is not feasible considering mismatch and the parasitic of switches.
 
@@ -695,7 +695,7 @@ V_{outc}[n] = \frac{C_2}{C_1+C_2} V_{outc}[n-1] + \frac{C_1}{C_1+C_2} \frac{V_{c
 
 For the mismatch, the Pelgrom coefficient of cmm4t is 0.4 \%/\(\mu \)m. With a minimal size of 2 \(\mu \)m x 2 \(\mu \)m the mismatch coefficient of C1 is 0.14 \% and on C2 0.08 \%.
 
-In the proposed CMFB circuit of the \figurename~\ref{fig:ota_cfc_buf}, the output buffer has 10 ns to settle accurately. The accuracy is based on the mismatch in the capacitor in the SC-CMFB circuit and the precision of the output voltage. To reduce the latter, the differential pair transistors of these buffers are sized at \(L = 3 L_{\min} \) to have a small gate capacitance and a large gain at a moderate intrinsic speed. 
+In the proposed CMFB circuit of the \figurename~\ref{fig:ota_cfc_buf}, the output buffer has 10 ns to settle accurately. The accuracy is based on the mismatch in the capacitor in the SC-CMFB circuit and the precision of the output voltage. To reduce the latter, the differential pair transistors of these buffers are sized at \(L = 3 L_{\min} \) to have a small gate capacitance and a large gain at a moderate intrinsic speed.
 
 Buffers are not cascoded to allow a wider output swing than the core amplifier without suffering from a DC gain deficiency as they solely replicate their inputs. Then, the biasing current is 140 \(\mu \)A such that the unity gain frequency is set to be around 700 MHz. This corresponds to 7 times the speed of the clock. Therefore, most of the inaccuracy is due to the mismatch in the gain of the voltage follower set in unity gain configuration.
 
@@ -862,7 +862,7 @@ Then, the differential input voltage is a square wave signal from \(\pm\) 500 mV
 
 The designed OTA exhibits a large-gain stable at \(3\sigma \) over corners while at \(6\sigma \) the FS corner achieves a limited gain at the limit of the specification. This results from a shrinking current in the gain boosting for PMOS excessively slower than NMOS transistors regulating the cascode folding nodes.
 
-Indeed, this correlates with settling error at 8 ns, for which the error at \(6\sigma \) in this corner corresponds 800 \(\mu \)V on a \(\pm \)1 V jump while the others are below 400 \(\mu \)V. Moreover, a discrepancy occurs at a sub-zero temperature in this corner since the output voltages buffering to estimate the common mode is based on PMOS differential pairs.
+Indeed, this correlates with settling error at 8 ns, for which the error at \(6\sigma \) in this corner corresponds to 800 \(\mu \)V on a \(\pm \)1 V jump while the others are below 400 \(\mu \)V. Moreover, a discrepancy occurs at a sub-zero temperature in this corner since the output voltages buffering to estimate the common mode is based on PMOS differential pairs.
 
 \begin{figure}[htp]
     \centering
@@ -930,9 +930,9 @@ The settling error being strictly positive after an absolute value, a gamma dist
     \label{fig:ota_dist_sample}
 \end{figure}
 
-\figurename~\ref{fig:ota_error_dist} represents the distribution of the error with the limit of the first stage to ensure 12-bits accuracy (red) and the second stage limit (green) without calibration. From this cumulative distribution, we estimate the achievable accuracy according to the settling error at 8 ns. The expected working samples are thus 75 \%. 
+\figurename~\ref{fig:ota_error_dist} represents the distribution of the error with the limit of the first stage to ensure 12-bits accuracy (red) and the second stage limit (green) without calibration. From this cumulative distribution, we estimate the achievable accuracy according to the settling error at 8 ns. The expected working samples are thus 75 \%.
 
-Then, a noise analysis is performed at 175\(\degree \)C to estimate the degradation of the signal-noise ratio coming from the OTA with the maximum of thermal noise. From the voltage noise density represented in \figurename~\ref{fig:ota_noise_psd} up to 2 GHz, we extract the RMS value of the noise. This noise RMS value admits a maximum of 198 \(\mu V_{rms} \).
+Then, a noise analysis is performed at 175\(\degree \)C to estimate SNR degradation coming from the OTA. From the voltage noise density represented in \figurename~\ref{fig:ota_noise_psd} up to 2 GHz, we extract the RMS value of the noise. This noise RMS value admits a maximum of 198 \(\mu V_{rms} \).
 
 \begin{figure}[htp]
     \centering
@@ -956,7 +956,7 @@ Then, a noise analysis is performed at 175\(\degree \)C to estimate the degradat
 \clearpage
 
 \section{LVDS receiver design}
-High-resolution ADCs are sensitive to the sampling clock. \figurename~\ref{fig:adc-jitter} represents how the clock jitter affects the voltage sampled by the ADC, and the sample and hold circuit required at its input. With a possibility to reach 13.5-bits of resolution for an input frequency as high as 10 MHz, the maximum jitter is thus $t_{jitter} \leq V_{LSB}/4\pi F_{in} = 1.4 ps$. 
+High-resolution ADCs are sensitive to the sampling clock. \figurename~\ref{fig:adc-jitter} represents how the clock jitter affects the voltage sampled by the ADC, and the sample and hold circuit required at its input. With a possibility to reach 13.5-bits of resolution for an input frequency as high as 10 MHz, the maximum jitter is thus $t_{jitter} \leq V_{LSB}/4\pi F_{in} = 1.4 ps$.
 
 \begin{figure}[htp]
     \centering
@@ -968,7 +968,7 @@ High-resolution ADCs are sensitive to the sampling clock. \figurename~\ref{fig:a
     \begin{subfigure}[b]{0.48\textwidth}
         \begin{align}
             SNR_{rms}  &= 20\log_{10}\left(\frac{1}{2\pi F_{in}t_{jitter}} \right) \\
-            ENOB_{max} &= \frac{SNR-1.76}{6.02} 
+            ENOB_{max} &= \frac{SNR-1.76}{6.02}
         \end{align}
         \vspace{2em}
         \subcaption{SNR limit}
@@ -979,7 +979,7 @@ High-resolution ADCs are sensitive to the sampling clock. \figurename~\ref{fig:a
 
 In recent years low-voltage differential signaling (LVDS) has found broad application in consumer electronics, high-speed computer peripherals, telecom/networking, and wireless base stations. LVDS has distinct advantages in performance, power, noise, EMI reduction, and cost. At a rate of 100MHz to 800MHz the LVDS signal can reach as far as 10m to 15m in a twisted-pair cable link, or > 1m in a PCB trace pair. In addition, the power consumption is relatively frequency independent, while the power dissipated in 100$\Omega$ load at the input is often around 1.2 mW in a commercial chip. Usually used in time-sensitive applications and possibly long PCB trace, the LVDS is well suited for the transmission of the clock of high-speed or medium-speed and high-resolution ADCs. The power budget for the LVDS receiver is then fixed to 1.4 mW to allow a margin for an operation at high temperature.
 
-Based on the IEEE 1596 standard for the LVDS, the input differential voltage is in the range of 100 mV to 350 mV as the current of the H-bridge is supposed to be in the range of 1 mA to 3.5 mA and the termination load is 100$\Omega$. In order to select an accurate 100$\Omega$ resistance which does not vary much over temperature, it has been decided to externalize it outside of the chip. In order to decrease the jitter, the design considers that the minimization of the intrinsic noise is fundamental as the noise is integrated on the capacitive load of the receiver and the duty cycle shall be preserved. 
+Based on the IEEE 1596 standard for the LVDS, the input differential voltage is in the range of 100 mV to 350 mV as the current of the H-bridge is supposed to be in the range of 1 mA to 3.5 mA and the termination load is 100$\Omega$. In order to select an accurate 100$\Omega$ resistance which does not vary much over temperature, it has been decided to externalize it off-chip. In order to decrease jitter, the design considers the minimization of the intrinsic noise as fundamental as the noise is integrated on the capacitive load of the receiver and the duty cycle shall be preserved.
 
 \begin{figure}[htp]
     \centering
@@ -1008,7 +1008,7 @@ According to the section~\ref{sec:analog-insight}, the noise, and the temperatur
     \label{fig:lvds-receiver-res}
 \end{figure}
 
-Simulation results depicted by \figurename~\ref{fig:lvds-receiver-res}, represents the variation due to the temperature and the process variations. The process variations consider the transistor and the resistance alteration while driving a 100 fF capacitive load for a differential input of 100 mV: the minimum detectable voltage of an LVDS signal for a common mode voltage of 400 mV. The period jitter is degraded at low-temperature due to the output common mode voltage of the first stage increasing. As there is a difficulty in the worst-speed corner as the capacitive load is increased to 110 fF, the resistance is increased by 10\%. Nevertheless, this solution is able to drive a large capacitive load over the temperature range if the capacitive load is reduced or if the common mode voltage at the input of the receiver is closer from the ideal range as depicted by \figurename~\ref{fig:lvds-receiver-res1V} for $V_{cm} = 1 V$.
+Simulation results depicted by \figurename~\ref{fig:lvds-receiver-res}, represents the variation due to the temperature and the process variations. The process variations consider the transistor and the resistance alteration while driving a 100 fF capacitive load for a differential input of 100 mV: the minimum detectable voltage of an LVDS signal for a common mode voltage of 400 mV. The period jitter is degraded at low-temperature due to the output common mode voltage of the first stage increasing. In the worst-speed corner, the capacitive load is increased to 110 fF and the resistance is increased by 10\%. Over the manufacturing process variations, ensuring the correct operation over a large common-mode range becomes difficult. Due to this, the capacitive load is reduced to 60 fF to work over a large variation of the common-mode. Otherwise, this solution is able to drive a large capacitive load over the temperature range if the common mode voltage at the input of the receiver is closer from the ideal range as depicted by \figurename~\ref{fig:lvds-receiver-res1V} for $V_{cm} = 1 V$.
 
 \begin{figure}[htp]
     \centering
@@ -1040,7 +1040,7 @@ In favor of a fully integrated LVDS receiver, the fail-safe circuit is also insi
 \end{figure}
 
 
-The in-path fail-safe design is similar to the external-biasing fail-safe approach, except that here R1 and R2 are integrated into LVDS receivers so the offset on VID is now a built-in voltage source. This circuit has been used extensively in some LVDS receivers~\cite{TI-SLLA082B}. 
+The in-path fail-safe design is similar to the external-biasing fail-safe approach, except that here R1 and R2 are integrated into LVDS receivers so the offset on VID is now a built-in voltage source. This circuit has been used extensively in some LVDS receivers~\cite{TI-SLLA082B}.
 
 To overcome major drawbacks of the prior fail-safe circuit, the failure detection can be in parallel with the signal path. As illustrated in \figurename~\ref{fig:parallel-fail-safe}, this circuit is used in commercial LVDS receivers as in MAX9157 from Maxim Integrated. As shown in this figure, The common mode voltage is compared to a reference voltage $V_{ref}$ usually taken as a $V_{DD}-V_{th}$. In case the inputs are opened or floating, the current injected by the resistor $R_1$ rises the common mode voltage. The voltage ramps up at rate defined by $(R_1+R_3)(C_{pad}+C_{parasitic})$.
 
@@ -1067,4 +1067,4 @@ With less than 1 ps of period jitter, the proposed LVDS receiver design allows r
 In this chapter, we discussed the design of analog building blocks of the ADC\@: the comparators, the OTA, and the LVDS receiver. After a temperature-aware analysis of both a Strong-Arm and a Double-Tail comparator, their design tries to reduce their temperature variation of both the speed and the offset. Post-layout simulation results encourage the use of Strong-Arm comparators for low-power application, and Double-Tail comparators for fully differential application sensitive to the differential kickback. The latter is well suited for charge-redistribution SAR ADCs, while the Strong-Arm comparator found application in the two first stages of the ADC\@.
 Concerning the design of the OTA, a gain boosting complementary folded cascode has been selected for its wide-swing, and the slew rate capability of class-AB amplifiers. Its design has been focused on the reduction of the settling error under PVT variations, and the noise reduction afterward. Despite a large DC Gain variation over temperature, the limiting factor to reach small settling errors is mainly the speed of the OTA\@.
 Finally, we designed an LVDS receiver for the specific needs of the ADC\@. A careful attention is paid to the period jitter limiting the maximum ENOB achievable.
-However, this chapter only presents simulation and post-layout simulation results. This is not sufficient to reuse them as validated IP blocks. 
+However, this chapter only presents simulation and post-layout simulation results. This is not sufficient to reuse them as validated IP blocks.

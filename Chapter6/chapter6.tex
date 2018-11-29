@@ -10,14 +10,14 @@
     \graphicspath{{Chapter6/Figs/Raster/}{Chapter6/Figs/PDF/}{Chapter6/Figs/}}
 \else
     \graphicspath{{Chapter6/Figs/Vector/}{Chapter6/Figs/}}
-\fi 
+\fi
 
 \section{Conclusion}           % section 6.1
 The automotive environment is a challenge for the design of resilient and robust electronics. Exposed to high temperatures, abrupt accelerations and large process and voltage variations, many innovations were explored to provide smart sensing for a market driven by the autonomous car. At the interface of the severe environment and the processing power, the trend is to shift the ADC upfront so that more processing can be done in the digital domain to leverage complex algorithms and to conserve energy. The stability is thus the key factor to these interfaces in any circumstance. However, the general lack of progress in applying this technique to high-temperature applications is evident in the state-of-the-art.
 
 To achieve medium speed and high resolution ADCs, \(\Delta \Sigma \) modulation and SAR have many times demonstrated their ability to face a harsh environment under the high temperature constraint. While in standard temperature range pipelined ADCs lead the high resolution and high-speed rank, their sensitivity to analog defects put them in default at high temperature: calibration being the only way to minimize the PVT variation effects.
 
-This research reports works from the architecture to the analog design to reduce the sensitivity of the conversion performances. Following a top-down approach, a new hybrid three stages pipelined architecture has been proposed. The pipelined architecture provides an efficient way to achieve high speed conversions with a low oversampling ratio. And low-resolution first order Incremental-\(\Delta \Sigma \) modulator and SAR ensure the robustness of the solution by decreasing the in-band noise, at a low-power consumption and small area footprint. 
+This research reports works from the architecture to the analog design to reduce the sensitivity of the conversion performances. Following a top-down approach, a new hybrid three stages pipelined architecture has been proposed. The pipelined architecture provides an efficient way to achieve high speed conversions with a low oversampling ratio. And low-resolution first order Incremental-\(\Delta \Sigma \) modulator and SAR ensure the robustness of the solution by decreasing the in-band noise, at a low-power consumption and small area footprint.
 
 After an analysis of the design space sensitivity of the silicon electronic, major guidelines have been dispatched along the conceptual design of each stage of the new topology proposal. From the capacitor ratio of Incremental-\(\Delta \Sigma\) integrator limiting the linearity to the digital interface of the algorithmic stage have been investigated. Even in the case of the differential architecture implemented, charge injections, clock feed-through have been considered as well as the analog requirement of amplifiers early in the design phase to limit the requirement of multi temperature calibration due to temperature dependent phenomena. The SAR building bloc was optimized to cope with imperfections from the Algorithmic, face large comparator offset and relax timing constraints by the employ of a pseudo-synchronous digital scheme.
 
@@ -33,7 +33,7 @@ During the thesis, my published contributions are following:
 \begin{itemize}
 	\item[--] L. Cron, P. Laugier, P. M. Ferreira, F. Vinci dos Santos and P. Benabes,"Évaluation des convertisseurs analogique-numériques pour le secteur automobile", JNRDM, Toulouse, May 2016
 	\item[--] L. Cron, P. Laugier, P. M. Ferreira, F. Vinci dos Santos and P. Benabes, "Delay estimation and measurement circuit for a high-speed CMOS clocked comparator," 2017 European Conference on Circuit Theory and Design (ECCTD), Catania, Set 2017, pp. 1-4. doi: 10.1109/ECCTD.2017.8093261
-	\item[--] Adriano V. Fonseca, Ludwig Cron, Fernando A. P. Barúqui, Carlos F. T. Soares, Philippe Benabes, Pietro Maris Ferreira, "A Temperature-Aware Analysis of SAR ADCs for Smart Vehicle Applications", Journal of Integrated Circuits and Systems, vol.~pp, no.~pp, pp. 1--11, 2018.
+	\item[--] Adriano V. Fonseca, Ludwig Cron, Fernando A. P. Barúqui, Carlos F. T. Soares, Philippe Benabes, Pietro Maris Ferreira, "A Temperature-Aware Analysis of SAR ADCs for Smart Vehicle Applications", Journal of Integrated Circuits and Systems, vol.13, no.1, pp. 1--11, 2018.
 \end{itemize}
 
 \clearpage
@@ -46,6 +46,6 @@ The development of the ADC IP is not complete and the architecture not being sam
 
 In switched-capacitor applications, comparator-based (comparator output driving current source to charge/discharge a capacitive load) and ring amplifiers (cascade of an odd number of inverters with a dead zone) are two low-power (1-2 mW) and high-speed (Fclk from 100 MHz to 500 MHz) amplification techniques for pipelined/algorithmic and Delta-Sigma modulators. Recently a lot of improvement to cope with the process and temperature variations have been published in 2017 and 2018 (ISSCC and ISCAS). Measurement results demonstrate their efficiency for technology from 180 nm to 65 nm. Therefore, these are the possible steps to move the presented architecture closer from a digital design while shrinking the power consumption and the area.
 
-Another investigation could be the re-use of the auto-oscillating delay measurement circuit. With the comparator as a voltage comparator, the circuit concert a differential voltage into a frequency. Tested at high temperature, the circuit could be a fully digital asynchronous design for a possible asynchronous fully differential ADC\@.
+Another investigation could be the re-use of the auto-oscillating delay measurement circuit. With the comparator as a voltage comparator, the circuit converts a differential voltage into a frequency. Tested at high temperature, the circuit could be a fully digital asynchronous design for a possible asynchronous fully differential ADC\@.
 
 From another point of view, the top-down approach can be pushed further with the insight on temperature sensitivity. This can be embedded in ``A SPICE Circuit Optimizer'' (ASCO) to reduce the time to design for 6-$\sigma$ process variations considering voltage and temperature variations to reduce the sensitivity.

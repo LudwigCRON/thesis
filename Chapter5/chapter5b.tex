@@ -10,11 +10,11 @@
     \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
 \else
     \graphicspath{{Chapter5/Figs/Vector/}{Chapter5/Figs/}}
-\fi 
+\fi
 
 Each block has been considered as an IP so far. In this regard, their performances are cross-checked by measurements over the temperature range of operation: from -40$\degree$C to 175$\degree$C.
 
-This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}, and represented in \figurename~\ref{fig:testchips-layout}. The first test chip called DOE\_COMP assesses comparators. There are two versions of it to characterize the fast comparators needed for the two first stages of our ADC, and for the slow version of them used in the last stage of our ADC. The second test chip evaluates the converter last stage (SAR), and the comparator of in its environment. Called DOE\_SAR, its goal is the measurement of the static performances of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
+This chapter presents the four different test chips designed during the thesis. These are listed in the table~\ref{tbl:test-chip-list-and-dates}, and represented in \figurename~\ref{fig:testchips-layout}. The first test chip called DOE\_COMP assesses comparators. There are two versions of it to characterize the fast comparators needed for the two first stages of our ADC, and for the slow version of them used in the last stage of our ADC. The second test chip evaluates the converter last stage (SAR), and the comparator in its environment. Called DOE\_SAR, its goal is the measurement of the static performances of the SAR ADC\@. Then, DOE\_ADC is the final test chip to evaluate both the static and the dynamic performance of the ADC, all stages combined.
 
 % DOE_COMP a  (circuit) (nom pattern) (date de fabrication) (date des tests)
 %   delay
@@ -29,7 +29,7 @@ This chapter presents the four different test chips designed during the thesis. 
     \label{tbl:test-chip-list-and-dates}
     \begin{tabular}{@{}llll@{}}
     \toprule
-    Test chip           & Test Circuit        & Date of manufacture & Date of measurement   \\ \midrule
+    Test chip name      & Test Circuit        & Date of manufacture & Date of measurement   \\ \midrule
     DOE\_COMP slow/fast &                     & 2 February 2017     &                       \\
                         & delay oscillator    & -                   & 02/06/2018-02/09/2018 \\
                         & offset feedback     & -                   & not tested yet        \\
@@ -73,7 +73,7 @@ As presented in section~\ref{sec:bandgap} in the \figurename~\ref{fig:bandgap}, 
     \label{fig:temp_sensor_bipolar}
 \end{figure}
 
-The temperature measurement circuit consists in measuring the voltage across a diode with a constant forward current as depicted in \figurename~\ref{fig:temp_sensor_bipolar}. With a bipolar transistor in diode mode, the voltage across the emitter and the collector follows the Shockley-diode equation and is almost linear with the temperature as in equation~(\ref{eq:diode_temp}). 
+The temperature measurement circuit consists in measuring the voltage across a diode with a constant forward current as depicted in \figurename~\ref{fig:temp_sensor_bipolar}. With a bipolar transistor in diode mode, the voltage across the emitter and the collector follows the Shockley-diode equation and is almost linear with the temperature as in equation~(\ref{eq:diode_temp}).
 \begin{equation}
     \label{eq:diode_temp}
     V(T) = n \frac{k_BT}{q}\ln\left(\frac{I_b}{I_s}+1 \right)
@@ -129,7 +129,7 @@ The evaluation is planned to follow the validation plan discussed in Section~\re
 \subsection{Power Consumption}
 In order to measure the power consumption of each stage, there is a single power supply pad for the analogue and one single power supply pad for the digital for each stage. In total, there are 6 power supplies pads for the ADC\@. Of course, to each power supply a ground is dedicated on the chip leading to the following supply voltages:
 \begin{itemize}
-    \item VDDA1V8<3:1> 
+    \item VDDA1V8<3:1>
     \item GNDA1V8<3:1>
     \item VDD1V8<3:1>
     \item GND1V8<3:1>
@@ -146,7 +146,7 @@ While the ADC validation plan given in Appendix~\ref{sec:validation} has the pur
 According to the validation plan, Sub-ADCs undergo a static and a dynamic evaluation. Unfortunately, the independence does not hold for dynamic evaluation as the error committed between two consecutive stages and the stage under test followed by an external ADC will not exhibit the same transient responses. In consequence, for dynamic characterization the stage under test and the stage following it are always on.
 
     \subsubsection{Input Voltage Selection}
-The evaluation of the Sub-ADC consists in injecting the input voltage to be tested (ramp/sinusoid) at the input of the sub-ADC under test. The input selection is controlled by the configuration link which in turn drives an analog muxer. In the design of the analog muxer, we consider two factors: first the settling error of the RC filtering made of the capacitive load after the MUX and the pass resistance of the MUX, and the extra capacitive load it represents on the amplifier of the previous stage. The latter is a criterion to be able to use this analog part as a degraded ADC IP or has an ADC IP prepared for built-in test possibility. As depicted by \figurename~\ref{fig:adc-with-test}, the analog muxers are in the signal path of the input voltage and of the residue.
+The evaluation of the Sub-ADC consists in injecting the input voltage to be tested (ramp/sinusoid) at the input of the sub-ADC under test. The input selection is controlled by the configuration link which in turn drives an analog multiplexer. In the design of the analog multiplexer, we consider two factors: first the settling error of the RC filtering made of the capacitive load after the MUX and the pass resistance of the MUX, and the extra capacitive load it represents on the amplifier of the previous stage. The latter is a criterion to be able to use this analog part as a degraded ADC IP or has an ADC IP prepared for built-in test possibility. As depicted by \figurename~\ref{fig:adc-with-test}, the analog multiplexers are in the signal path of the input voltage and of the residue.
 
 \begin{figure}[htp]
     \centering
@@ -157,21 +157,21 @@ The evaluation of the Sub-ADC consists in injecting the input voltage to be test
 
 Even if the analog residue is planned to be between 0.65 V and 1.15 V for a differential $\pm V_{ref}/2$, we should not neglect the mismatch engendering offsets. So, the switches are CMOS to allow an extended input voltage range without adding extra errors due to a limited excursion of transistors.
 
-Concerning the settling time, the maximum capacitive load an analog muxer is the capacitive load the SAR DAC represents. With its 950 fF in typical case and 1 pF as an edge case, we expect a settling not exceeding 40\% of the clock period to allow a large duty cycle variation. To reach an accuracy of 14-bits, the time allotted for the settling is assessed to be at minimum 9.5 times the time constant of the approximated first order RC-filter. The allotted settling time being 40\% of the clock period, we deduce a time constant of 421 ps. In turn, the maximum on-resistance of the analog muxer is 607$\Omega$ whatsoever the PVT condition is. To ensure this, the low-vth nmos transistors have a W/L = 4$\mu m$/0.18$\mu m$ and pmos transistors are 3 times bigger.
-    
-In addition to that, the parasitic capacitance of the CMOS switches injects charges on the input capacitance of the sub-ADC under test as well. The minimum input capacitance is the combination of the sampling and feedback capacitors of the algorithmic stage with 200 fF. Based on simulations in the worst corner for the parasitic capacitance of the MOS transistors, the charge injection coming from nmos transistors is estimated to be few nanovolts as there are completely absorbed by the pmos parasitic capacitance. While the charge injection coming from the pmos transistors is estimated to reach 8 mV in the worst case. 
+Concerning the settling time, the maximum capacitive load an analog multiplexer is the capacitive load the SAR DAC represents. With its 950 fF in typical case and 1 pF as an edge case, we expect a settling not exceeding 40\% of the clock period to allow a large duty cycle variation. To reach an accuracy of 14-bits, the time allotted for the settling is assessed to be at minimum 9.5 times the time constant of the approximated first order RC-filter. The allotted settling time being 40\% of the clock period, we deduce a time constant of 421 ps. In turn, the maximum on-resistance of the analog multiplexer is 607$\Omega$ whatsoever the PVT condition is. To ensure this, the low-vth nmos transistors have a W/L = 4$\mu m$/0.18$\mu m$ and pmos transistors are 3 times bigger.
+
+In addition to that, the parasitic capacitance of the CMOS switches injects charges on the input capacitance of the sub-ADC under test as well. The minimum input capacitance is the combination of the sampling and feedback capacitors of the algorithmic stage with 200 fF. Based on simulations in the worst corner for the parasitic capacitance of the MOS transistors, the charge injection coming from nmos transistors is estimated to be few nanovolts as there are completely absorbed by the pmos parasitic capacitance. While the charge injection coming from the pmos transistors is estimated to reach 8 mV in the worst case.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.6\textwidth]{Chapter5/Figs/adc_chip/amux21-parasitic-ws-6s.png}
-    \caption{The parasitic capacitance of the input of the analog muxer the process corner exhibiting the maximum of the parasitic capacitance for several temperatures from -45$\degree$C to 175$\degree$C for an input voltage from 0 to 2 V}
+    \caption{The parasitic capacitance of the input of the analog multiplexer the process corner exhibiting the maximum of the parasitic capacitance for several temperatures from -45$\degree$C to 175$\degree$C for an input voltage from 0 to 2 V}
     \label{fig:adc-with-test}
 \end{figure}
 
-Henceforth, the input capacitor of sub-ADC should have a long sampling time to recover from the charge injection. That is why, as the configuration is received the analog muxer are connected accordingly and the test is at least 50 ns latter.
+Henceforth, the input capacitor of sub-ADC should have a long sampling time to recover from the charge injection. That is why, as the configuration is received the analog multiplexer are connected accordingly and the test is at least 50 ns latter.
 
     \subsubsection{Static Error Estimation}
-The goal of this test is to determine the error committed by the ADC stage under test without considering the limitation of the settling time. The input stimulus applied will be a staircase from -0.5 V to + 0.5 V differentially around 0.9 V for a power supply of 1.8 V. A step represents the accuracy with which the code level transition is extracted. In order to measure the worst case the ADC could encounter, the precision should be of the resolution of the ADC at this stage: less than 1.9 mV.
+The goal of this test is to determine the error committed by the ADC stage under test without considering the limitation of the settling time. The applied input stimulus applied will be a staircase from -0.5 V to + 0.5 V differentially around 0.9 V for a power supply of 1.8 V. A step represents the accuracy with which the code level transition is extracted. In order to measure the worst case the ADC could encounter, the precision should be of the resolution of the ADC at this stage: less than 1.9 mV.
 
 The principle of this test consists in performing a conversion for each step by sending a pulse on the start signal lasting no more than 4 clock cycles, \figurename~\ref{fig:adc-static-test}. For a 100 MHz clock, this corresponds to a pulse width of 40 ns. As a consequence, at the end of the conversion, the voltage of the residue is kept and the analog 3.5 V buffers connected on the residue voltages replicate them on a bigger load that represents the analogue pad, the parasitic on the PCB and the probe for the measurement. Once the measurement done, another pulse on the start signal will perform another conversion.
 
@@ -298,7 +298,7 @@ By default, the input voltage is a linear ramp, changing at a rate of $1/F_s$ by
 Concerning the clock generation, the LVDS signal is made from an ideal pulsed source with a transition time of 3 ns between a low-level of 0.7 V to a high-level of 1.1 V. With a differential amplitude of 400 mV around a common-mode of 0.9 V, the LVDS clock signal is a best-case.
 
 % post-processing
-To extract the information on the resolution, we reconstruct the input signal from the output bit of the ADC by their ideal weight. In this case the weight is the voltage contribution of each bit. For the first stage, each bit has an ideal weight of 1/OSR. For the second stage, the ideal weight is [0.5 0.25 0.125 0.0625]/OSR. And the contribution of the SAR is given by the equation~(\ref{eqn:output_voltage_dac_sar}) scaled by a factor 0.0625/OSR\@. The offset has been estimated by averaging the output code and is removed in the transfer function. 
+To extract the information on the resolution, we reconstruct the input signal from the output bit of the ADC by their ideal weight. In this case the weight is the voltage contribution of each bit. For the first stage, each bit has an ideal weight of 1/OSR. For the second stage, the ideal weight is [0.5 0.25 0.125 0.0625]/OSR. And the contribution of the SAR is given by the equation~(\ref{eqn:output_voltage_dac_sar}) scaled by a factor 0.0625/OSR\@. The offset has been estimated by averaging the output code and is removed in the transfer function.
 
 \figurename~\ref{fig:adc-res-schematic-temp-tt} presents the resolution based on the maximum error between the resolution input voltage and its reconstruction from the output codes. After an offset estimation based on the average output code, the maximum resolution is represented for an oversampling ratio of 5 and 6 in the typical process corner.
 
@@ -375,7 +375,7 @@ In this work, a low-OSR 3-stage hybrid ADC is employed to improve the sampling r
 		Offset Error                     & \textless 4 LSB   & &                                                                                                                                           \\
 		Gain Error                       & \textless 4 LSB   & &                                                                                                                                         \\
 		Adjacent ADC mismatch Error      & \textless 4 LSB   & &                                                                                                                                          \\
-		Energy, $E_s = P/F_s$ [nJ/sample] & 0.75  & 0.45 & 0.54   \\ \bottomrule                                                                                                                                       
+		Energy, $E_s = P/F_s$ [nJ/sample] & 0.75  & 0.45 & 0.54   \\ \bottomrule
 	\end{tabular}
 \end{table}
 

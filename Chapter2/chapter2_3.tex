@@ -28,7 +28,7 @@ The performance of an ADC can be defined by the fidelity of signal representatio
 	\caption{Comparison of ADC topology in the SNDR-$F_{\rm snyq}$ space based on publication in ISSCC and VLSI from 1997 to 2018~\cite{MurmannSurvey}}
 	\label{fig:topology-sndr-fsnyq-comparison}
 \end{figure}
-An analysis of the chart allows the designer to properly decide what kind of a converter topology is desired according to the speed and the signal fidelity required. For instance, Flash ADCs achieve rather low SNDR at very high speed while Incremental ADCs achieve high fidelity signal representation for low signal bandwidth. 
+An analysis of the chart allows the designer to properly decide what kind of a converter topology is desired according to the speed and the signal fidelity required. For instance, Flash ADCs achieve rather low SNDR at very high speed while Incremental ADCs achieve high fidelity signal representation for low signal bandwidth.
 
 It is worth to mention that Folding ADCs are close to the ADC specification in this thesis. Besides that, prior art topologies are often requiring more than 5 clock cycles per conversion to reach the resolution expected. In this scenario, there is no immediate solution to propose a topology that meets the specification requirements. That's why a new topology is proposed in this work. This chapter begins with an analysis of classical ADC architectures. A large emphasis is set on the low-OSR and high-resolution possibility at a medium conversion rate.
 
@@ -37,7 +37,7 @@ Later in this chapter, a brief review of ADC design over extended temperature ra
 \section{Analog-to-Digital Converters}
 \subsection{Flash}                             % section 2.1
 \label{sec:flash-adc}
-Flash ADCs proceed a conversion by comparing the analog input voltage with several reference voltages. While a resistive divider generates references, the comparators provide in the same clock cycle the comparison results of the input voltage with each reference voltage, as represented in \figurename~\ref{fig:flash_kickback}. 
+Flash ADCs proceed a conversion by comparing the analog input voltage with several reference voltages. While a resistive divider generates references, the comparators provide in the same clock cycle the comparison results of the input voltage with each reference voltage, as represented in \figurename~\ref{fig:flash_kickback}.
 
 \begin{figure}[htp]
 	\centering
@@ -46,9 +46,9 @@ Flash ADCs proceed a conversion by comparing the analog input voltage with sever
 	\label{fig:flash_kickback}
 \end{figure}
 
-Thus, an analog input below the \(i^{th} \) reference voltage produces an output of \(i-1 \) ones followed by zeros. A rising input voltage increasing the number of consecutive ones at the output, this architecture is known as thermometer code encoding. For an N-bit converter, a Flash ADC requires \(2^N-1\) comparators, and a decoder usually follows to bring an N-bit binary word. The time-efficiency of this architecture is too expensive for high-resolution ADC, as both the power consumption and the area scales with the desired resolution. In addition to that, the clock skew has an important impact on the output code. The decision of a comparator could disturb the decision of another who starts to decide later. Usually Flash does not exceed 8-bits.
+Thus, an analog input below the \(i^{th} \) reference voltage produces an output of \(i-1 \) ones followed by zeros. A rising input voltage increasing the number of consecutive ones at the output, this architecture is known as thermometer code encoding. For an N-bit converter, a Flash ADC requires \(2^N-1\) comparators, and a decoder usually follows to bring an N-bit binary word. The time-efficiency of this architecture is too expensive for high-resolution ADC, as both the power consumption and the area scales with the desired resolution. In addition to that, the clock skew has an important impact on the output code. The decision of a comparator could disturb the decision of another who starts to decide later. \figurename~\ref{fig:flash_kickback} illustrates the kickback noise generated source of bubble codes (zero(s) trapped in the ones of thermometer codes). Usually Flash does not exceed 8-bits.
 
-A different kind of Flash ADC, able to achieve 8-bits or more, is the Folding ADC. In the Folding ADC, a pre-estimation of the performed by a Flash ADC is done as depicted by \figurename~\ref{fig:folding_principle}. There a folding amplifier generates a sawtooth waveform corresponding to the error of conversion of the "first stage". The folding depends on the conversion results of a first Flash ADC. Thus, it generates the Most-Significant-Bits (MSB) saving area and power consumption.
+A different kind of Flash ADC, able to achieve 8-bits or more, is the Folding ADC. In Folding ADCs, a pre-estimation is performed by a Flash ADC. Then, a folding amplifier folds the signal according to the conversion results of the first Flash ADC. For a ramp input, it generates a sawtooth waveform corresponding to the error of conversion of the "first stage" as depicted by \figurename~\ref{fig:folding_principle}. Thus, it generates the Most-Significant-Bits (MSB).
 
 \begin{figure}[htp]
 	\centering
@@ -57,7 +57,7 @@ A different kind of Flash ADC, able to achieve 8-bits or more, is the Folding AD
 	\label{fig:folding_principle}
 \end{figure}
 
-In the same time, a second Flash ADC performs the conversion of the folded signal. This reduces the total number of components relaxing previous constraints of a first Flash ADC~\cite{VanDePlassche1979, Grift1987, Nauta1995, Vorenkamp1997}. Unfortunately, the Folding topology should have a linearity greater than the fine Flash ADC. Such linearity issues can be corrected either by a digital calibration or by a resistive interpolation~\cite{Vorenkamp1997}. Such topology of ADC allows the cascade of several stages~\cite{Taft2009, Buck2017}, making it a good candidate to achieve medium resolution at high speed~\cite{Vorenkamp1997, Pan2000}. The biggest flaws of Folding Flash ADCs are the area and the power consumption despite works to reduce them~\cite{Costa2013}. The comparison table~\ref{table:folding_comparison_table} reveals the resolution of such architectures of Flash ADC\@. They achieve a very high speed with a small latency. This can be viewed as a trade of time for resolution.
+In the same time, a second Flash ADC performs the conversion of the folded signal. This reduces the total number of components relaxing previous constraints of a first Flash ADC~\cite{VanDePlassche1979, Grift1987, Nauta1995, Vorenkamp1997} to save area and power consumption. Unfortunately, the Folding topology should have a linearity greater than the LSB's Flash ADC. Such linearity issues can be corrected either by a digital calibration or by a resistive interpolation~\cite{Vorenkamp1997}. Such topology of ADC allows the cascade of several stages~\cite{Taft2009, Buck2017}, making it a good candidate to achieve medium resolution at high speed~\cite{Vorenkamp1997, Pan2000}. The biggest flaws of Folding Flash ADCs are the area and the power consumption despite works to reduce them~\cite{Costa2013}. The comparison table~\ref{table:folding_comparison_table} reveals the resolution of such architectures of Flash ADC\@. They achieve a very high speed with a small latency. This can be viewed as a trade-off between time and resolution.
 \begin{table}[htp]
 	\caption{Folding ADC in the literature}
 	\centering
@@ -79,7 +79,7 @@ In the same time, a second Flash ADC performs the conversion of the folded signa
 \subsection{\(\Delta\Sigma \) Converters}      % section 2.3
 \label{sec:sd-isd-adc}
 \subsubsection{\(\Delta\Sigma \) Modulation}
-Delta-Sigma (\(\Delta\Sigma \)) modulation efficiently performs high-resolution data conversion using oversampling. For the sake of clarity, let's us consider first a sine wave converted by an ADC without oversampling. The power spectral density, \figurename~\ref{fig:spectrum-sine-nyquist}, is made of a tone representing the signal power, a floor corresponding to the quantification noise, and other sources of noise. The effective number of bits (ENOB) is related to the gap between the noise floor and the signal level. The bigger the gap is, the higher is the ENOB of the converter.
+Delta-Sigma (\(\Delta\Sigma \)) modulation efficiently performs high-resolution data conversion using oversampling. For the sake of clarity, let's us consider first a sine wave converted by an ADC without oversampling. The power spectral density, \figurename~\ref{fig:spectrum-sine-nyquist}, is made of a tone representing the signal power, a floor corresponding to the quantization noise, and other sources of noise. The effective number of bits (ENOB) is related to the gap between the noise floor and the signal level. The bigger the gap is, the higher is the ENOB of the converter.
 
 \begin{figure}[htp]
 	\centering
@@ -99,7 +99,7 @@ Delta-Sigma (\(\Delta\Sigma \)) modulation efficiently performs high-resolution 
 	\label{}
 \end{figure}
 
-By increasing the sampling frequency $F_s$ by a factor $M$, the noise floor level decreases by $M$; it is now spread over a wider frequency range ($F_s \cdot M$). The integral of the noise over the frequency band of interest remains constant as illustrated from \figurename~\ref{fig:spectrum-sine-nyquist} to \figurename~\ref{fig:spectrum-sine-oversampling}. By filtering the spectrum with a cut off frequency of $F_S/2$, the noise power reduced in the signal bandwidth. To enhance further performance, the distribution of the noise can be shaped to push the noise at higher frequencies than the cut-off of the digital filter.
+By increasing the sampling frequency $F_s$ by a factor $M$, the quantization noise decreases by $M$; it is now spread over a wider frequency range ($F_s \cdot M$). The integral of the noise over the frequency band of interest remains constant as illustrated from \figurename~\ref{fig:spectrum-sine-nyquist} to \figurename~\ref{fig:spectrum-sine-oversampling}. By filtering the spectrum with a cut off frequency of $F_S/2$, the noise power reduced in the signal bandwidth. To enhance further performance, the distribution of the noise can be shaped to push the noise at higher frequencies than the cut-off of the digital filter.
 
 \begin{figure}[htp]
 	\centering
@@ -110,7 +110,7 @@ By increasing the sampling frequency $F_s$ by a factor $M$, the noise floor leve
 
 To convert the input signal, a $\Delta\Sigma$ modulator is similar to a regulation loop in which the integrator controller monitors the process of conversion as illustrated in \figurename~\ref{fig:multi-bit}. The integral term permits the rejection of a step disturbance and ensures that for a stepped input, the static error of the conversion process is nulled. With respect to the input signal, the integrator behaves like a low-pass filter. To the contrary, for the quantification noise coming from the feedback path, the integrator is likewise a high-pass filter. The noise is shaped. In consequence, there is a signal transfer function (STF) and a noise transfer function (NTF). The implementation imperfections, including matching errors and offsets which limit the obtainable resolution of Nyquist rate converters, can thus be surmounted as these are in the feedback path. Furthermore, the oversampling reduces the constraint of the anti-aliasing filter in front of ADC by relaxing the filter order required.\nomenclature[z]{OSR}{Oversampling Ratio}
 
-To increase bandwidth, it is necessary to reduce the oversampling ratio (OSR). To preserve the resolution, the noise-shaping filter order should be higher. The improvement originates from the extra integrator in the forward path. Unfortunately, the feedback structure of the modulator is prone to instability for high-order of noise shaping (>= 3). Besides, high-order modulators suffer from a stability dependency on system parameters such as integrator gains and delays, input amplitude, transients, initial conditions, or even saturation limit cycles~\cite{Hein1993,Baird1994,Steven1996}. For modulator stability, the integrator signal shall be weighted appropriately. Reducing the input amplitude is another way to stabilize the system, as well as reducing the error signal integrated to prevent saturation of the following integrator. In this regard, multi-bit quantization limits the excursion of the integrator. However, the implementation of the multi-level error feedback DACs can significantly reduce the modulator performance if the DAC is not extremely linear~\cite{Medeiro1999}.
+To increase the sampling rate, it is necessary to reduce the oversampling ratio (OSR). To preserve the resolution, the noise-shaping filter order should be increased. The improvement originates from the extra integrator in the forward path. Unfortunately, the feedback structure of the modulator is prone to instability for high-order of noise shaping (>= 3). Besides, high-order modulators suffer from a stability dependency on system parameters such as integrator gains and delays, input amplitude, transients, initial conditions, or even saturation limit cycles~\cite{Hein1993,Baird1994,Steven1996}. For modulator stability, the integrator signal shall be weighted appropriately. Reducing the input amplitude is another way to stabilize the system, as well as reducing the error signal integrated to prevent saturation of the following integrator. In this regard, multi-bit quantization limits the excursion of the integrator. However, the implementation of the multi-level error feedback DACs can significantly reduce the modulator performance if the DAC is not extremely linear~\cite{Medeiro1999}.
 
 
 \subsubsection{Incremental-\(\Delta\Sigma \)}
@@ -133,23 +133,23 @@ An added benefit to \(I\Delta\Sigma \) is the simplicity of the decimation filte
 \label{eqn:isd-decimation}
 \end{equation}
 
-% In~\cite{Caldwell2010} the number of output level for an \(L^{th}\)-order converter with \(N\) quantizer levels and an OSR of \(M\) is 
+% In~\cite{Caldwell2010} the number of output level for an \(L^{th}\)-order converter with \(N\) quantizer levels and an OSR of \(M\) is
 % \begin{equation}
 % 	\alpha(N-1)\frac{(M+L-1)!}{L!(M-1)!}+1
 % \label{eqn:isd-levels}
 % \end{equation}
 
-% The coefficient \(\alpha \) is the maximum converter amplitude that keeps the quantizer input bounded and is usually less than unity. The Signal-to-Noise Ratio (SNR) is thus defined as \(SNR = 6.02N + 1.76dB\). 
-In other terms, the input-referred noise of an Incremental-\(\Delta\Sigma \) comes from a weight association of each sample, and for higher order modulators earlier samples have a higher weighting than later samples because the digital filter has non-uniform weighting coefficients for higher order modulators. The equation~(\ref{eqn:isd_noise}) expresses the total input-referred noise power \(\overline{v_{n}^{2}}\)
+% The coefficient \(\alpha \) is the maximum converter amplitude that keeps the quantizer input bounded and is usually less than unity. The Signal-to-Noise Ratio (SNR) is thus defined as \(SNR = 6.02N + 1.76dB\).
+In other terms, the input-referred noise of an Incremental-\(\Delta\Sigma \) comes from a weight association of each output bits of the quantizer, and for higher order modulators past bits have a higher weighting than future ones because the digital filter has non-uniform weighting coefficients for higher order modulators. The equation~(\ref{eqn:isd_noise}) expresses the total input-referred noise power \(\overline{v_{n}^{2}}\)
 \nomenclature[z]{SNR}{Signal over Noise Ratio}
 \begin{equation}
 	\overline{v_{n}^{2}}=\sum_{i=1}^{M}w_{i}^{2}\overline{v_{s}^{2}}=\overline{v_{s}^{2}}\sum_{i=1}^{M}w_{i}^{2}
 \label{eqn:isd_noise}
 \end{equation}
-where \(\overline{v_{s}^{2}}\) is the input noise power of each sample, \(M\) is the OSR, and \(w_i\) is the weight associated with each sample.
+where \(\overline{v_{s}^{2}}\) is the input noise power of each sample, \(M\) is the OSR, and \(w_i\) is the weight associated with each quantization.
 \nomenclature[C-comp]{$\overline{X}$}{complementary of signal X}
 
-In a first-order modulator, and assuming an accumulator as a decimation filter, the output as an average of the M inputs added to the quantization noise error introduced leads to \(w_i=1/M\). The resulting input-referred noise power is \(\overline{v_{n}^{2}}/M\), as expected for an ADC oversampled by M. Nevertheless, the first clock cycle is dedicated to the reset of the integrator, which limits the resolution in low-OSR architecture.
+A first order Incremental-\(\Delta \Sigma\) of N-bits, which is achieved in M clock cycles per sample, averages M-times the input and the quantization noise error introduced by the quantizer. The weight of each quantization is thus \(w_i=1/M\). The resulting input-referred noise power is \(\overline{v_{n}^{2}}/M\), as expected for an ADC oversampled by M. Nevertheless, the first clock cycle is dedicated to the reset of the integrator, which limits the resolution in low-OSR architecture.
 
 \subsubsection{MASH}
 To the opposite of high-order modulator, first-order modulators are inherently stable without weighting the output of the integrator. A cascade of such modulators results in an increased noise shaping order without the stability issue or sacrificing the input amplitude~\cite{Brooks1997}. Also called Multi-stAge noise-SHaping (MASH), they have the advantage that no individual modulator needs to be designed with a high-order filter; the total filter order can be spread out across many different stages so that each individual \(\Delta\Sigma \) stage will only be of low order. The modulator stability will be a function of the individual lower order modulators rather than the total order of the modulator.
@@ -174,7 +174,7 @@ The table~\ref{table:sigma_delta_comparison_table} compares \(I\Delta\Sigma \) t
 	\label{table:sigma_delta_comparison_table}
 	\begin{tabular}{L{3.5\charwidth} R{16.5\charwidth} R{6\charwidth} C{5\charwidth} R{4\charwidth} S[table-format=2.2, table-column-width=6\charwidth] R{6\charwidth} S[table-format=2.2, table-column-width=6\charwidth] C{3.5\charwidth}}
 	\toprule
-	Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [kHz] & OSR & {\makecell{{Area}\\{[\(mm^2 \)]}}} & Supply [V] & {\makecell{{Power}\\{[mW]}}} & Res. \\ 
+	Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [kHz] & OSR & {\makecell{{Area}\\{[\(mm^2 \)]}}} & Supply [V] & {\makecell{{Power}\\{[mW]}}} & Res. \\
 	\midrule
 	\cite{Quiquempoix2006} & \(3^{rd}\) Order \(I\Delta\Sigma \) & 600 & 30.72 & 512 & 2.08 & 2.5/5 & 0.6 & 22 \\
 	\cite{Chae2009} & \(3^{rd}\) Order \(\Delta\Sigma \) & 180 & 40 & 100 & 0.715 & 0.7 & 0.036 & 14 \\
@@ -185,7 +185,7 @@ The table~\ref{table:sigma_delta_comparison_table} compares \(I\Delta\Sigma \) t
 	\end{tabular}
 \end{table}
 
-\subsection{Pipelined and Algorithmic}               % section 2.4 
+\subsection{Pipelined and Algorithmic}               % section 2.4
 \label{sec:pipe-adc}
 Pipelined and Algorithmic converters are fundamentally similar. They are based on a common build bloc: the analog processor. This bloc is made of an ADC-DAC chain to estimate the input, whose difference with it is then multiplied by an arbitrary factor A. The output of the analog processor is the conversion residue amplified. A is the radix of conversion and it is often set to 2. Represented in \figurename~\ref{fig:pipelined-principle}, pipelined ADCs are a cascade of these extracting N-bits for each clock cycle. The algorithmic depicted in \figurename~\ref{fig:algorithmic-principle}, reuses the analog processor over and over by recycling the residue. After M clock cycle, both architectures extract $N\times M$ bits with the same latency. However, for the same clock frequency and the number of bits extracted, a pipelined of M-stages has a sampling frequency M-times higher than an algorithmic with M-clock cycles. In addition to that, pipelined ADCs occupy a bigger area than algorithmic.
 
@@ -210,7 +210,7 @@ These architectures have garnered much attention recently due to their low-volta
 
 % For a gain \(A=2\), the algorithmic ADC performs a modified binary search algorithm to digitize the input voltage. In this regard, the conversion is similar to SAR ADC with the fact that it provides the error of conversion\@.
 
-Current mode method offers an ease of implementation of basic functions such as summation and scaling, and they are also appropriate for low voltage application. Some current mode algorithmic have been designed recently~\cite{Nairn1990,Wang1991,Khodabndehloo2009,Bhatia2011}. Even if current mode design requires lower voltage swing and increase noise immunity, the accuracy is limited by current mirror matching. This can be improved by increasing transistor sizes and biasing currents. Larger transistor sizes and larger reference current, however, need larger chip area and higher power consumption. This trend establishes a trade-off which may turn the proposed Current Mode ADC in a less attractive solution than other ADCs\cite{Wang1991}. 
+Current mode method offers an ease of implementation of basic functions such as summation and scaling, and they are also appropriate for low voltage application. Some current mode algorithmic have been designed recently~\cite{Nairn1990,Wang1991,Khodabndehloo2009,Bhatia2011}. Even if current mode design requires lower voltage swing and increase noise immunity, the accuracy is limited by current mirror matching. This can be improved by increasing transistor sizes and biasing currents. Larger transistor sizes and larger reference current, however, need larger chip area and higher power consumption. This trend establishes a trade-off which may turn the proposed Current Mode ADC in a less attractive solution than other ADCs\cite{Wang1991}.
 
 \begin{figure}[htp]
 	\centering
@@ -221,14 +221,14 @@ Current mode method offers an ease of implementation of basic functions such as 
 
 A common implementation of the algorithmic converter is by building the stage around a Flip-Around Multiplying DAC (FA-MDAC). This way, the closed-loop gain is defined by a ratio of capacitors whose mismatch is well controlled, as represented in \figurename~\ref{fig:algo_mdac}. A simple differential pair is a valid amplifier to operate under low-supply condition. As the resolution increases (recycling of its inner self-error), the gain of the amplifier shall drastically increase. By stacking transistors the output swing is thus limited, and non-linearity occurs. Therefore, medium to high-resolution algorithmic ADCs require a digital compensation~\cite{Murmann2003} or an adjustment of its residue curve~\cite{Inoue2017,Naderi2017}.\nomenclature[z]{MDAC}{Multiplying Digital-to-Analog Converter}
 
-The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. Few analog circuits exist to emulate them with a reduced power consumption such as the comparator based MDAC and the ring amplifier based MDAC. The table~\ref{table:algo_comparison_table} highlights the main characteristics of the algorithmic converters. \nomenclature[z]{OTA}{Operational Transconductance Amplifier} 
+The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. Few analog circuits exist to emulate them with a reduced power consumption such as the comparator based MDAC and the ring amplifier based MDAC. The table~\ref{table:algo_comparison_table} highlights the main characteristics of the algorithmic converters. \nomenclature[z]{OTA}{Operational Transconductance Amplifier}
 \begin{table}[htp]
 	\caption{Algorithmic-Pipelined ADC in the literature}
 	\centering
 	\label{table:algo_comparison_table}
 	\begin{tabular}{L{3.5\charwidth} L{10\charwidth} R{7\charwidth} R{4.5\charwidth} R{4\charwidth} S[table-format=1.3,table-column-width=6\charwidth] R{6\charwidth} S[table-format=3.1,table-column-width=6\charwidth] C{3.5\charwidth}}
 		\toprule
-		Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & OSR & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\ 
+		Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & OSR & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\
 		\midrule
 		\cite{YLim2015FD}  & pipe.-SAR &  65 &  50 & & 0.054 &  1.2 &   1   & 13 \\
 		\cite{Murmann2003} & pipe.     & 350 &  75 & & 7.9   &  3   & 290   & 12 \\
@@ -286,8 +286,8 @@ The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. F
 
 %These disadvantages are those of a single ended structure which include the lack of inherent common mode and supply rejection, and the susceptibility to even orders of harmonics. The use of pseudo-differential structures and pseudo-differential common mode feedback (CMFB) can somewhat alleviate these problems~\cite{Hershberg2012,YLim2015}. Y. Lim and M. P. Flynn have even published a fully differential version of the ring amplifier in~\cite{YLim2015FD}.
 %\nomenclature[z]{CMFB}{Common Mode Feedback}
- 
-%  The table~\ref{table:algo_comparison_table} highlights the main characteristics of the algorithmic converters. 
+
+%  The table~\ref{table:algo_comparison_table} highlights the main characteristics of the algorithmic converters.
 
 %  \begin{table}[htp]
 % 	\caption{Algorithmic-Pipelined ADC in the literature}
@@ -295,7 +295,7 @@ The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. F
 % 	\label{table:algo_comparison_table}
 % 	\begin{tabular}{L{3.5\charwidth} L{10\charwidth} R{7\charwidth} R{4.5\charwidth} R{4\charwidth} S[table-format=1.3,table-column-width=6\charwidth] R{6\charwidth} S[table-format=3.1,table-column-width=6\charwidth] C{3.5\charwidth}}
 % 	\toprule
-% 	Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & OSR & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\ 
+% 	Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & OSR & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\
 % 	\midrule
 % 	\cite{YLim2015FD}  & pipe.-SAR &  65 &  50 & & 0.054 &  1.2 &   1   & 13 \\
 % 	\cite{Murmann2003} & pipe.     & 350 &  75 & & 7.9   &  3   & 290   & 12 \\
@@ -330,7 +330,7 @@ The first appearance of SAR ARC was back in early 70s~\cite{McCreary1975}. Using
 The architecture also benefits from using only one comparator to reduce the occupied area. With recent progress, the SAR converter outperforms power consumption and. Besides, its area occupancy has been tremendously shrunk; the speed has been improved. Power dissipation sources are the digital control circuit, the comparator, and capacitive reference DAC network. The advancement in technology also favors the speed of the digital logic while the power consumption of the comparator and the capacitive DAC is limited by mismatch and noise~\cite{Yue2013,Mueller2013,Collins2017}. To address both the area occupancy and further reduce the energy consumption, the DAC architecture can be optimized by decreasing the capacitance and still preserving the binary scale.
 \nomenclature[z]{DAC}{Digital-to-Analog Converter}
 
-\subsubsection{DAC Enhancement}	
+\subsubsection{DAC Enhancement}
 Having high-resolution SAR ADC is quite challenging. Using a binary weighted capacitive reference in the DAC network leads to an increasing number of capacitors. Stereotypical capacitive DAC forms a binary scale split into a bunch of unit capacitors so that the n-th capacitor in the scale is a group of \(2^N\) of them. To increase the resolution from N to N+1, we double the number of unit capacitors. Thus, the occupied area grows exponentially as the resolution increases. And considering a differential structure, the phenomenon is even more pronounced causing lateral effects such as an excessive reference voltage loading.
 
 Conventional techniques to shrink the area and to relax constraints on voltage buffers, designers usually play with serial-parallel configurations of unit components. This results in well-known techniques called split-junction and split-capacitor. The split-capacitor as represented in \figurename~\ref{fig:split_capacitor} inserts a capacitor which scales down a segment of the DAC\@. Thus, the biggest capacitors can be sized down to preserve the scale. The diminution of load provides substantial power saving. The implementation obstacle is introduced by the attenuation capacitor not being multiple integers of the unit capacitor. Moreover, an extra switch per segmented DAC is introduced for the sampling of the input signal. Thus, the thermal noise is increased by both the scale down of capacitance and by the extra noise sources switches represent.
@@ -377,7 +377,7 @@ Moreover, the switching loss is voltage dependent. The reduction of the voltage 
 
 The switching being optimized, a further improvement could come from an assumption on the signal converted. As sensors outputs react slowly and their voltage is usually filtered in front, the input signal of the ADC is of low mean activity over a time window. The conversion can start from an initial guess which is the output of the previous sample~\cite{Yaul2014}. Bit-cycling only last bits, the LSB first conversion performed is power efficient. When the error between the final code and the initial guess overtake few LSBs, a complete conversion shall be performed. Therefore, the power saving is inherent to the nature of the input signal. Without such an assumption, the power consumption is higher than previous methods and limits the speed of the conversion.
 
-Compared to the traditional charge-redistribution scheme, these switching methods engender a large common-mode variation. This puts an extra design constraint on the comparator making a decision. For instance, the monotonic scheme allows only PMOS differential pairs which limit the maximum speed of comparison. 
+Compared to the traditional charge-redistribution scheme, these switching methods engender a large common-mode variation. This puts an extra design constraint on the comparator making a decision. For instance, the monotonic scheme allows only PMOS differential pairs which limit the maximum speed of comparison.
 
 \subsubsection{Synchronous and Asynchronous Digital Implementation}
 To optimize the digital circuitry, the clock rate is deeply linked to the power consumption. However, it conflicts with the specification for a manufacturable design. Indeed, the internal clock limits the settling time of DAC and the decision time of the comparator. For a robust design, one might base the sampling frequency on the peak delay in the worst corner. By using an asynchronous logic, such constraints could be relaxed on the comparator design. The conversion time \(T_{conv}  \) shall respect at least the following inequality
@@ -481,7 +481,7 @@ The Berkeley Short-Channel IGFET Model (BSIM), one of the most widely used simul
 \begin{equation}
 \label{eqn:matthiessen}
 \frac{1}{\mu_{eff}(T, \xi_{eff})} = \frac{1}{\mu_{ph}(T, \xi_{eff})} +
-\frac{1}{\mu_{sr}(T, \xi_{eff})} + \frac{1}{\mu_{cb}(T, \xi_{eff})} + 
+\frac{1}{\mu_{sr}(T, \xi_{eff})} + \frac{1}{\mu_{cb}(T, \xi_{eff})} +
 \frac{1}{\mu_{int}(T, \xi_{eff})}
 \end{equation}
 
@@ -506,7 +506,7 @@ In the BSIM model of transistors, the mobility change over temperature is modele
 \subsubsection{Velocity Saturation}    % section 2.4
 As presented in the Section~\ref{sec:mobility}, the mobility and the velocity of carriers are linked to each other as \(\nu \approx \mu \xi \); where \(\nu \) is the velocity, \(\mu \) the mobility, and \(\xi \) the electric field.
 
-One assumption is that the mean free time of carriers between collisions is constant, which holds for low values of \(\xi \). But for high electric fields, the additional velocity component will result in a shorter average time between lattice scatterings, thus the mobility is no longer constant. An increase in energy no longer causes carrier velocity to increase; instead, the additional energy is lost to phonon generation through lattice interactions. The mobility will finally saturate for high electric fields, and it may be approximated by the following empirical expression: 
+One assumption is that the mean free time of carriers between collisions is constant, which holds for low values of \(\xi \). But for high electric fields, the additional velocity component will result in a shorter average time between lattice scatterings, thus the mobility is no longer constant. An increase in energy no longer causes carrier velocity to increase; instead, the additional energy is lost to phonon generation through lattice interactions. The mobility will finally saturate for high electric fields, and it may be approximated by the following empirical expression:
 \begin{equation}
 \label{eqn:vsat}
 \nu = \frac{\nu_s}{1 + \left(\frac{\xi}{\xi_{sat}}\right)}
@@ -522,12 +522,12 @@ where \(\nu_{sat}(T_0)\) is the saturation velocity at nominal temperature (\(T_
 
 \subsubsection{Current Density}        % section 2.5
 \label{sec:current_density}
-The current densities relation related to the temperature it complex and based on two components given by the equation~(\ref{eqn:current_density}): the drift and the diffusion. 
+The current densities relation related to the temperature it complex and based on two components given by the equation~(\ref{eqn:current_density}): the drift and the diffusion.
 
 \begin{align}
 \label{eqn:current_density}
 J_N &= \textcolor{blue}{q\mu_n n \xi} + \textcolor{red}{qD_n\nabla n} \\
-J_P &= \textcolor{blue}{q\mu_p p \xi} - \textcolor{red}{qD_p\nabla p} 
+J_P &= \textcolor{blue}{q\mu_p p \xi} - \textcolor{red}{qD_p\nabla p}
 \end{align}
 
 The \textcolor{red}{diffusion} component corresponds to the displacement of carriers to even their concentration. The gradients of electrons and holes \(\nabla n \) and \(\nabla p \) are not dependent from the temperature. But the diffusion rates \(D_n \) and \(D_p \) are. Increasing the temperature increases particle kinetic energy, in turn, increasing the diffusion component of the total current.
@@ -564,7 +564,7 @@ The MOSFET threshold voltage is given in the equation~(\ref{eqn:thresold_fb_ferm
 V_{th} = V_{FB} + 2 \Phi_F + \gamma \sqrt{2 \Phi_F}
 \end{equation}
 \nomenclature[A-vth]{$V_{th}$}{transistor threshold voltage}
-Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_fermi_dT})~\cite{Filanovsky2001}. 
+Its variation over temperature is found to be defined by~(\ref{eqn:thresold_fb_fermi_dT})~\cite{Filanovsky2001}.
 \begin{equation}
 \label{eqn:thresold_fb_fermi_dT}
 \frac{\partial V_{th}}{\partial T} = \frac{\partial V_{FB}}{\partial T} + \left( 2  + \frac{\gamma}{\sqrt{2 \Phi_F}} \right) \frac{\partial \Phi_F}{\partial T}
@@ -586,20 +586,20 @@ For practical design, the variation over the temperature of the threshold voltag
 \begin{equation}
 V_{th}(T) = V_{th0} + \alpha (T - T_0)
 \end{equation}
-where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average. 
+where \(\alpha = \frac{KT1}{T_0}+\frac{KT1.L}{L_{eff} T_0}+\frac{KT2 V_{bseff}}{T_0}\) represents the linearized variation coefficient with respect of the temperature, depicted by \figurename~\ref{fig:vth_nel}. \figurename~\ref{fig:vth_nel}a represents both the threshold voltage decreasing with the temperature (solid line) and the thermal behavior for a lot under a 3\(\sigma \) process variation delimited by the shaded area around the average.
 
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{vth_nel}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/vth_nel.pgf}
 		}
 		\subcaption{Average and \(\pm 3\sigma \) process variation range}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{vth_nel_T}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/vth_nel_T.pgf}
 		}
 		\subcaption{Channel length effect}
@@ -676,14 +676,14 @@ In a usual common-source configuration, a MOSFET has its transition frequency \(
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{ft_nel_L}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/ft_nel_L.pgf}
 		}
 		\subcaption{The L dependence at 27 \(\degree \)C}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{ft_nel_T}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/ft_nel_T.pgf}
 		}
 		\subcaption{Temperature sensitivity}
@@ -713,14 +713,14 @@ The design for instrumentation, or the design of a high-resolution ADC, requires
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{Av_nel_id}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/Av_nel_id.pgf}
 		}
 		\subcaption{Gain for L = 180 nm}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{Av_nel_id_720}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/Av_nel_id_720.pgf}
 		}
 		\subcaption{Gain for L = 720 nm}
@@ -735,7 +735,7 @@ The sensitivity of the intrinsic gain to temperature is depicted by \figurename~
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{sAv_nel_T_2e-07}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/sAv_nel_T_2e-07.pgf}
 		}
 		\subcaption{temperature sensitivity for \(I_{DS} = 200 nA \)}
@@ -743,7 +743,7 @@ The sensitivity of the intrinsic gain to temperature is depicted by \figurename~
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{sAv_nel_T_1e-05}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/sAv_nel_T_1e-05.pgf}
 		}
 		\subcaption{temperature sensitivity for \(I_{DS} = 10 \mu A \)}
@@ -761,12 +761,12 @@ As the opposite of speed, the design for low-power reduces the current consumpti
 \subsubsection{Low-Signal-Distortion over temperature}
 A single MOSFET transistor is a transconductance amplifier by itself. The linearity can be considered as the input gate voltage range for which the current changes are minimal. Defined that way, the sensitivity of the current with respect to the input gate voltage is related to the \(g_m/I_D \) ratio~\cite{Ou2018a,Ou2017a}.
 
-\figurename~\ref{fig:gm_id} represents the variation of current dependence on the gate voltage, the temperature, and the channel length. For the sake of clarity, this is plotted for only \(V_{ds} = 0.45 V\). Disregarding \(V_{ds}\), increasing \(V_{gs}\) is beneficial for linearity. This implies to work in strong inversion where the intrinsic gain is minimum, and the speed is maximum. 
+\figurename~\ref{fig:gm_id} represents the variation of current dependence on the gate voltage, the temperature, and the channel length. For the sake of clarity, this is plotted for only \(V_{ds} = 0.45 V\). Disregarding \(V_{ds}\), increasing \(V_{gs}\) is beneficial for linearity. This implies to work in strong inversion where the intrinsic gain is minimum, and the speed is maximum.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{gm_nel_T}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/gm_nel_T.pgf}
 		}
 		\subcaption{Temperature effect for \(L = L_{\min}\)}
@@ -774,7 +774,7 @@ A single MOSFET transistor is a transconductance amplifier by itself. The linear
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		%\includegraphics[width=\textwidth]{gm_nel_L}
-		\resizebox {\textwidth} {!} { 
+		\resizebox {\textwidth} {!} {
 			\input{Chapter2/Figs/Vector/gm_nel_L.pgf}
 		}
 		\subcaption{Channel length effect}
@@ -787,7 +787,7 @@ A single MOSFET transistor is a transconductance amplifier by itself. The linear
 In \figurename~\ref{fig:gm_nel_T}, the temperature lowers the \(g_m/I_D\) ratio and keeps it small over an extended \(V_{gs}\) for \(L = L_{\min}\). In other terms, the temperature is beneficial and improves the linearity range. As represented in \figurename~\ref{fig:gm_nel_L}, the channel length has a reduced impact compared to the temperature. Moreover, the temperature has almost the same impact whatever the channel length is for small \(V_{ds}\).
 
 \subsubsection{Tradeoffs for a temperature-driven design}
-Nowadays ADC target ever more high speed and higher resolution. Pushing design constraints in a precise corner in the possible design set. As discussed in Section~\ref{sec:des_speed}, the speed of a single common-source transistor is severely reduced by the temperature. 
+Nowadays ADC target ever more high speed and higher resolution. Pushing design constraints in a precise corner in the possible design set. As discussed in Section~\ref{sec:des_speed}, the speed of a single common-source transistor is severely reduced by the temperature.
 
 Temperature variation in semiconductor physics is widely studied in the literature. Since 1995, C. Park \textit{et al.} have described the trade-off between mobility (\(\mu \)) and threshold voltage (\(V_{th} \)) under temperature variation~\cite{Park1995}. The reduction in mobility at high temperatures affects most the speed of the circuit and the reliability. To counterbalance, MOSFETs can be biased near the zero temperature coefficient (ZTC) point that opposes threshold and mobility variations with temperature within MOSFETs~\cite{Shoucair1986,Filanovsky2001}. In a stringent area constraint, the ZTC biasing restrict the maximum achievable speed. Another means is to implement a temperature compensation circuit that either adapt the gate voltage~\cite{Chen2011, Gomez2010}, or pre-distort the inputs~\cite{Sira2013}, or generate a constant current.
 
@@ -827,14 +827,14 @@ Keeping aside these architectures, a pipelined based on Flip-Around MDAC has bee
 \subsection{Mixed Architecture}
 In the implementation of a CMOS temperature sensor in the -40\(\degree \)C to 125\(\degree \)C range, Souri~\textit{et al.} present a second-order Zoom-ADC~\cite{Souri2014}. A capacitive SAR ADC performs a coarse conversion to determine a rough estimate followed by a fine conversion by a second order Incremental-\(\Delta\Sigma \) converter. The SAR first proposal allows one to remove the sample and hold introducing large error as the temperature increase. Using well-known robust sub-ADCs, only single temperature point calibration effectively trims inaccuracy over the wide temperature range. This ADC achieves a resolution of 16-bits, and a power consumption drastically low of 8.6 $\mu$W.
 
-The table~\ref{table:algo_comparison_table} compares performance of converters in prior art. 
+The table~\ref{table:algo_comparison_table} compares performance of converters in prior art.
 \begin{table}[htp]
 	\caption{High-Temperature ADC in the literature}
 	\centering
 	\label{table:high_temp_comparison_table}
 	\begin{tabular}{L{3.5\charwidth} R{7.5\charwidth} R{4\charwidth} R{9.5\charwidth} R{5\charwidth} R{11.5\charwidth} R{6\charwidth} R{8\charwidth} C{4\charwidth}}
 		\toprule
-		Ref. & Archi. & \multicolumn{2}{c}{Technology [nm]}  & \(F_{snyq} \) [kHz] & Temperature Range & Supply [V] & Power [mW] & Res. [bits] \\ 
+		Ref. & Archi. & \multicolumn{2}{c}{Technology [nm]}  & \(F_{snyq} \) [kHz] & Temperature Range & Supply [V] & Power [mW] & Res. [bits] \\
 		\midrule
 		\cite{Fonseca2018}  & SAR                  & 180  &SOI CMOS   & 5000 & -40\(\degree \)C--175\(\degree \)C &  1.8 &  0.35& 9.8 \\
 		\cite{Rahman2017}  & SAR                   & 1200 & SiC       &   64 & 25\(\degree \)C--300\(\degree \)C   &  5   &   1.4 &  8 \\

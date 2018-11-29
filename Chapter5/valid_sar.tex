@@ -1,10 +1,10 @@
 The SAR is the stage providing most of the complete ADC resolution. As the SAR is only the last stage from the ADC, none of its metric reflects the ADC performance. With a digital scheme being pseudo-synchronous, and the two first bits given by the previous stage, the test of this stage over the large temperature range from -40\(\degree \)C to +175\(\degree \)C poses an interesting challenge.
 
-In addition to that, while the generation of an accurate and linear differential input to test a 6-bit ADC is not difficult to achieve, the timely generation of the two first bits given to the SAR is a struggling point. Yet, static metric contains meaningful information on the thermal dependence of the stage, which can be related the ADC temperature sensitivity. Despite the gain and offset errors are a good estimator and their dependence to the temperature is a key factor, a more accurate understanding of the temperature dependence come from the analysis of the calibration coefficients' variation over temperature. Their variations allow one to detect which group of capacitors and switches generate the possible failure. That said, the non linearity will indicates error either in the settling or in the comparator decision if no failure is detected.
+In addition to that, while the generation of an accurate and linear differential input to test a 6-bit ADC is not difficult to achieve, the timely generation of the two first bits given to the SAR is a struggling point. Yet, static metric contains meaningful information on the thermal dependence of the stage, which can be related the ADC temperature sensitivity. Despite gain and offsets errors are good estimators, their dependence to the temperature is a key factor, a more accurate understanding of the temperature dependence come from the analysis of the calibration coefficients' variation over temperature. Their variations allow one to detect which group of capacitors and switches generate the possible failure. That said, the non-linearity will indicate error either in the settling or in the comparator decision if no failure is detected.
 
 In order to calculate the metric, the transfer function of the ADC shall be collected at different temperature. The servo loop methodology, finding the input voltage at the transitions between two output codes, has not been selected since no transition exists for extreme input voltage values. The latter making difficult the estimation of small gain error.
 
-To extract the total transfer function of the SAR, a ramp is generated for each quadrant defined by the two bits given as depicted by \figurename~\ref{fig:sar-test-input}. 
+To extract the total transfer function of the SAR, a ramp is generated for each quadrant defined by the two bits given as depicted by \figurename~\ref{fig:sar-test-input}.
 
 \begin{figure}[htp]
     \centering
@@ -14,7 +14,7 @@ To extract the total transfer function of the SAR, a ramp is generated for each 
 \end{figure}
 
 \subsection{Measures}
-The basic setup for the test is depicted by the \figurename~\ref{fig:sar-test-connections}. This includes five power supplies, a multimeter, an oscilloscope with DSO, and an optional current source. Among power supplies, two are for the power distribution. One a 1.8 V for the core, and one at 3.3 V for the level shifting needs of the digital signals connected to NI-USB boxes. The remaining three are dedicated to reference voltages.
+The basic setup for the test is depicted in \figurename~\ref{fig:sar-test-connections}. This includes five power supplies, a multimeter, an oscilloscope with DSO, and an optional current source. Among power supplies, two are for the power distribution. One a 1.8 V for the core, and one at 3.3 V for the level shifting needs of the digital signals connected to NI-USB boxes. The remaining three are dedicated to reference voltages.
 
 \begin{figure}[htp]
     \centering
@@ -52,7 +52,7 @@ Once the measure under the thermal stream performed, we extracted the transfer f
     \label{fig:sar-vin-to-dnl-proc}
 \end{figure}
 
-Knowing the input voltage given, the results of fitting the output code to input signal gives the calibration coefficients to minimize the error committed. The error between these coefficients and the ones given by the equation~(\ref{eqn:output_voltage_dac_sar}) in section~\ref{sec:capacitive-dac-sar-design} is then divided by the weight given by this equation for the LSB\@.
+Knowing the input voltage given, the results of fitting the output code to input signal gives the calibration coefficients to minimize the committed error. The error between these coefficients and the ones given by the equation~(\ref{eqn:output_voltage_dac_sar}) in section~\ref{sec:capacitive-dac-sar-design} is then divided by the weight given by this equation for the LSB\@.
 Repeated for each temperature, this ratio thus represents by how much the calibration coefficients shall change to get the lowest non-linearity. Represented in \figurename~\ref{fig:sar-test-coef_doe05_11} for a typical sample, the error on these coefficients does not exceed $\pm$35 \%. In other terms, the ideal bit weights can be kept to achieve the lowest non-linearity.
 \begin{figure}[htp]
     \centering
