@@ -193,7 +193,6 @@ Pipelined and Algorithmic converters are fundamentally similar. They are based o
 	\centering
     \begin{subfigure}[b]{\textwidth}
         \includegraphics[width=\textwidth]{Chapter2/Figs/Vector/pipelined.ps}
-        \vspace{2em}
         \subcaption{Pipelined}
         \label{fig:pipelined-principle}
 	\end{subfigure}
@@ -226,15 +225,15 @@ The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. F
 	\caption{Algorithmic-Pipelined ADC in the literature}
 	\centering
 	\label{table:algo_comparison_table}
-	\begin{tabular}{L{3.5\charwidth} L{10\charwidth} R{7\charwidth} R{4.5\charwidth} R{4\charwidth} S[table-format=1.3,table-column-width=6\charwidth] R{6\charwidth} S[table-format=3.1,table-column-width=6\charwidth] C{3.5\charwidth}}
+	\begin{tabular}{L{3.5\charwidth} L{14\charwidth} R{7\charwidth} R{6\charwidth} S[table-format=1.3,table-column-width=6\charwidth] R{6\charwidth} S[table-format=3.1,table-column-width=6\charwidth] C{4\charwidth}}
 		\toprule
-		Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & OSR & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\
+		Ref. & Architecture & Techno. [nm] & \(F_{snyq}\) [MHz] & {\makecell{{Area} \\ {[\(mm^2\)]}}} & Supply [V] & {\makecell{{Power} \\ {[mW]}}} & Res. \\
 		\midrule
-		\cite{YLim2015FD}  & pipe.-SAR &  65 &  50 & & 0.054 &  1.2 &   1   & 13 \\
-		\cite{Murmann2003} & pipe.     & 350 &  75 & & 7.9   &  3   & 290   & 12 \\
-		\cite{Lee2012}     & pipe.     &  65 &  50 & & 0.36  &  1   &   4   & 12 \\
-		\cite{Lagos2017}   & pipe.     &  28 & 600 & & 0.62  &  0.9 &  14.2 & 12 \\
-		\cite{Anderson2005} & pipe.    & 180 &  80 & & 1.9   &  1.8 &  94   & 10 \\
+		\cite{YLim2015FD}  & pipe.-SAR &  65 &  50 & 0.054 &  1.2 &   1   & 13 \\
+		\cite{Murmann2003} & pipe.     & 350 &  75 & 7.9   &  3   & 290   & 12 \\
+		\cite{Lee2012}     & pipe.     &  65 &  50 & 0.36  &  1   &   4   & 12 \\
+		\cite{Lagos2017}   & pipe.     &  28 & 600 & 0.62  &  0.9 &  14.2 & 12 \\
+		\cite{Anderson2005} & pipe.    & 180 &  80 & 1.9   &  1.8 &  94   & 10 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -305,7 +304,7 @@ The amplifier or Operational Transconductance Amplifier (OTA) is power hungry. F
 % 	\bottomrule
 % 	\end{tabular}
 % \end{table}
-
+\newpage
 \subsection{Successive Approximation Register} % section 2.5
 \label{sec:sar-adc}
 \nomenclature[z]{SAR}{Successive Approximation Register}
