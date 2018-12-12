@@ -968,9 +968,9 @@ Dominique Dallet &  \\
 Franck Badets &  \\
 \footnotesize Ingénieur de Recherche, LETI, CEA & Rapporteur \\
 Pieter Rombouts &  \\
-\footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Président du Jury \\
+\footnotesize Enseignant-Chercheur, ELIS, Université de Ghent & Examinateur \\
 Souhil Megherbi &  \\
-\footnotesize Professeur, C2N, Université Paris-Saclay & Examinateur \\
+\footnotesize Professeur, C2N, Université Paris-Saclay & Président du Jury \\
 Philippe Benabes &   \\
 \footnotesize Professeur, GeePs, Université Paris-Saclay & Directeur de Thèse  \\
 Pietro Maris Ferreira &    \\
