@@ -699,18 +699,18 @@ During the first clock cycle, the behavior is almost identical with the FA-MDAC 
 \begin{align}
  \Delta Q_{\Phi_{1 \rightarrow 2}} &= C_{S1} \left[\left(V_{\rm ref}[2]-V[2]^- \right) - \left(V_{\rm inp}-V[1]^- \right) \right] + C_{F} \left[\left(V_{\rm op}[2]-V[2]^- \right) - \left(V_{\rm inp}-V[1]^- \right) \right] \\
  &+ C_{S2} \left[V_{\rm op}[2]-V_{\rm op}[1] \right] \nonumber \\
- V_{\rm op}[2] &= \frac{C_F + C_{S1}}{C_{S2}+C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} \left(V_{\rm inp}-V_{\rm cm} \right) - \frac{C_{S1}}{C_{S2}+C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} V_{\rm ref}[2] + \frac{C_{S2}}{C_{S2}+C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} V_{\rm cm}
+ V_{\rm op}[2] &= \frac{C_F + C_{S1}}{C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} \left(V_{\rm inp}-V_{\rm cm} \right) - \frac{C_{S1}}{C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} V_{\rm ref}[2] + \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)} V_{\rm cm}
  \label{eqn:algo_res_p2}
 \end{align}
 
-This implementation follows the same equation as the conventional FA-MDAC\@. A global factor scales down the residue by two in comparison. As the residue is scaled down, large steps occur less often such that OTA constraints on the gain are relieved.
+This implementation follows the same equation as the conventional FA-MDAC\@.
 
 Then, the sampling capacitors are swapped without breaking the feedback loop made by \(C_F\) as in \figurename~\ref{fig:algo-p3}. Again, the 3-levels quantizer estimates the feedback voltage to constraint the residue within the desired output range. In the next clock cycle, sampling capacitors are swapped and a new feedback voltage estimation is performed by the 3-levels quantizer. This process repeats over and over, \figurename~\ref{fig:algo-seq-proposed}, until the last clock cycle, in which the 3-levels quantizer outputs the two first bits of the following stage.
 \rm
 \begin{align}
 	\Delta Q_{\Phi_{2 \rightarrow 3}} &= C_{S1} \left[\left(V_{\rm op}[3] \right) - \left(V_{\rm ref}[2]-V[2]^- \right) \right] + C_{F} \left[\left(V_{\rm op}[3]-V[3]^- \right) - \left(V_{\rm op}[2]-V[2]^- \right) \right] \\
 	&+ C_{S2} \left[\left(V_{\rm ref}[3] - V[3]^- \right) - V_{\rm op}[2] \right] \nonumber \\
-	V_{\rm op}[3] &= \frac{C_{S2}+C_F\left(1+\frac{C_F+C_{S1}}{AC_F} \right)}{C_{S1}+C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} \left(V_{\rm inp}-V_{\rm cm} \right) - \frac{C_{S2}}{C_{S1}+C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm ref}[3] + \frac{C_{S2}}{C_{S1}+C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm cm}
+	V_{\rm op}[3] &= \frac{C_F\left(1+\frac{1}{A}\right) + C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm op}[2] - \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm ref}[3] + \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm cm}
 	\label{eqn:algo_res_p3}
    \end{align}
 
@@ -1110,7 +1110,7 @@ Those parameters are sufficient for an 11.8-bits accuracy over the full input ra
 
 \figurename~\ref{fig:algorithmic-feedback-impact} represents the transfer function and the residue of each stage: from the left to the right, the stages are respectively the I\(\Delta\Sigma\), the Algorithmic, and the SAR\@. The SAR does not give any residue and therefore, in-place, the error between the ideal transfer function and the current transfer function is represented. The error is compared to the closed binary resolution LSB in solid red lines. For the results of a conversion performed in 5 clock cycles, the limits are $\pm$ LSB/2 of an 11-bits ADC\@. In a nutshell, the error committed by a feedback factor f=1.2 is greater than the error for a feedback factor f=1 by 20 $\mu$V at 300 K. The performance is equivalent to respectively 11.06-bits and 11.03-bits ADC while we are expecting 11.3-bits.
 
-Using the real OTA designed in Section~\ref{sec:ota-sim-result} at 475 K, the feedback has a deeper impact. The OTA modeling has an input capacitance, the second pole with a phase margin altered by the temperature, a gain and a speed variation over the temperature range. \figurename~\ref{fig:algorithmic-feedback-impact-real-475K} exposes the error in the conversion process at high temperature. To the contrary of expected results, a greater feedback factor has an increased temperature sensitivity. Greater spikes at $\pm$ 0.8 V are displayed in part due to a greater voltage dependence of feedback capacitors having more weight and extra parasitics of switches needed. This results in a loss of 122 steps corresponding to a 11.15-bits rather than the 11.07-bits at high temperature.
+Using the real OTA designed in Section~\ref{sec:ota-sim-result} at 475 K, the feedback has a deeper impact. The OTA modeling has an input capacitance, the second pole with a phase margin altered by the temperature, a gain and a speed variation over the temperature range. \figurename~\ref{fig:algorithmic-feedback-impact-real-475K} exposes the error in the conversion process at high temperature. To the contrary of expected results, a greater feedback factor has an increased temperature sensitivity. Greater spikes at $\pm$ 0.8 V are displayed in part due to a greater voltage dependence of feedback capacitors having more weight and extra parasitics of switches needed. This results in a loss of 122 steps corresponding to a 11.07-bits rather than the 11.15-bits at high temperature.
 
 \begin{figure}[htp]
 	\centering
@@ -1193,7 +1193,7 @@ Let's first consider the sensitivity of the ADC with an oversampling ratio of 5 
 	\label{fig:adc-osr5-sensitivity}
 \end{figure}
 
-The DC Gain sensitivity of the ADC is depicted by the \figurename~\ref{fig:adc-osr5-gain} for a Unity Gain Frequency of 800 MHz. The resolution admits a limit of 11.2-bits at the transistor level for OTA DC Gain greater than 76 dB. This can be explained by the fact the minimal DC Gain of the OTA shall be 62 dB which is not sufficient due to the UGF limitation. Then, the DC Gain error is decreasing to let the UGF limitation the dominating factor. Finally, the error is dominated the UGF and increasing the DC Gain is no more relevant.
+The DC Gain sensitivity of the ADC is depicted by the \figurename~\ref{fig:adc-osr5-gain} for a Unity Gain Frequency of 800 MHz. The resolution admits a limit of 11.2-bits at the transistor level for OTA DC Gain greater than 76 dB. This can be explained by the fact the minimal DC Gain of the OTA shall be 62 dB which is not sufficient due to the UGF limitation. Then, the DC Gain error is decreasing to let the UGF limitation the dominating factor. Finally, the error is dominated by the limitation of the UGF, and increasing the DC Gain is no more relevant.
 That said, \figurename~\ref{fig:adc-osr5-ugf} highlights that for a DC Gain of 80 dB the minimum UGF is 600 MHz.
 
 In the same manner, we replicate the analysis for the ADC with an OSR = 6. The result in \figurename~\ref{fig:adc-osr6-sensitivity} demonstrates for a UGF 8 times the clock frequency that the gain to reach 13.8-bits is at minimum 100 dB. For a more reasonable improvement compared to its 5-clock cycle counterpart, with a gain of 80 dB and a 600 MHz of Unity Gain Frequency, the reachable resolution is 13.45-bits.
