@@ -710,7 +710,7 @@ Then, the sampling capacitors are swapped without breaking the feedback loop mad
 \begin{align}
 	\Delta Q_{\Phi_{2 \rightarrow 3}} &= C_{S1} \left[\left(V_{\rm op}[3] \right) - \left(V_{\rm ref}[2]-V[2]^- \right) \right] + C_{F} \left[\left(V_{\rm op}[3]-V[3]^- \right) - \left(V_{\rm op}[2]-V[2]^- \right) \right] \\
 	&+ C_{S2} \left[\left(V_{\rm ref}[3] - V[3]^- \right) - V_{\rm op}[2] \right] \nonumber \\
-	V_{\rm op}[3] &= \frac{C_F\left(1+\frac{1}{A}\right) + C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm op}[2] - \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm ref}[3] + \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm cm}
+	V_{\rm op}[3] &= \frac{C_F\left(1+\frac{1}{A}\right) + C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm op}[2] - \frac{C_{S2}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm ref}[3] + \frac{C_{S1}}{C_F\left(1+\frac{C_F+C_{S2}}{AC_F} \right)} V_{\rm cm}
 	\label{eqn:algo_res_p3}
    \end{align}
 
